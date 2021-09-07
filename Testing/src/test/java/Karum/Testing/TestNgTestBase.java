@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Capabilities;
 
 import org.testng.annotations.AfterSuite;
@@ -22,7 +23,11 @@ public class TestNgTestBase {
   protected static Capabilities capabilities;
 
   protected WebDriver driver;
-
+@BeforeSuite
+public void Android() throws IOException{
+	DesiredCapabilities cap = new DesiredCapabilities();
+	ca
+}
   @BeforeSuite
   public void initTestSuite() throws IOException {
     SuiteConfiguration config = new SuiteConfiguration();
