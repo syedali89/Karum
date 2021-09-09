@@ -1,8 +1,8 @@
 package test.java.pages;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,55 +11,79 @@ import org.testng.Assert;
 
 
 public class BasePage {
-    public AndroidDriver<AndroidElement> driver;
+    public AppiumDriver _driver;
     public WebDriverWait wait;
+    public Actions act;
+    protected String driverType;
 
     //Constructor
-    public BasePage (AndroidDriver<AndroidElement> driver){
-        this.driver = driver;
+    public BasePage (AppiumDriver driver, String driverType) {
+        _driver = driver;
+        this.driverType = driverType;
         wait = new WebDriverWait(driver, 20);
+        act = new Actions(driver);
     }
 
     //Wait Element is Visible
-    public void waitVisibility(By locator) {
+    protected void waitVisibility(By locator) {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
     //Wait Element is Visible
-    public void waitVisibility(WebElement element) {
-        Actions act = new Actions(driver);
+    protected void waitVisibility(WebElement element) {
         act.moveToElement(element).perform();
 
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     //Wait Element not is Visible
-    public void waitNotVisibility(By locator) {
+    protected void waitNotVisibility(By locator) {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     //Click
-    public void clickElement(By locator) {
+    protected void clickElement(By locator) {
         waitVisibility(locator);
-        driver.findElement(locator).click();
+        _driver.findElement(locator).click();
     }
 
-    public void clickElement(WebElement element) {
+    protected void clickElement(WebElement element) {
        waitVisibility(element);
-        Actions act = new Actions(driver);
-        act.moveToElement(element).click();
+       act.moveToElement(element).click();
     }
 
     //SendKey
-    public void sendTextElement(By locator, String text) {
+    protected void sendTextElement(By locator, String text) {
         waitVisibility(locator);
-        driver.findElement(locator).sendKeys(text);
+        _driver.findElement(locator).sendKeys(text);
+    }
+
+    //Assert elements
+    protected boolean validateElementVisible(By locator) {
+        boolean elementVisible = true;
+
+        try
+        {
+            waitVisibility(locator);
+        }
+        catch (Exception e)
+        {
+            elementVisible = false;
+        }
+
+        return elementVisible;
+    }
+
+    protected boolean validateElementEnable(By locator) {
+        waitVisibility(locator);
+
+        return _driver.findElement(locator).isEnabled();
     }
 
     //SendKey
-    public void assertElementText(By locator, String text) {
+    protected void assertElementText(By locator, String text) {
         waitVisibility(locator);
-        String textElement = driver.findElement(locator).getText();
-        Assert.assertTrue(textElement.equals(text), "Error en el texto recuperado, se esperaba '" + text + "', pero se recupero '" + textElement + "'.");
-    }    
+        String textElement = _driver.findElement(locator).getText();
+        Assert.assertTrue(textElement.equals(text), "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
+    }
 }

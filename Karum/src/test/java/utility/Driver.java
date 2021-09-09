@@ -1,12 +1,14 @@
 package test.java.utility;
 
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -14,27 +16,55 @@ import java.util.concurrent.TimeUnit;
 public class Driver
 {
     public Driver() throws MalformedURLException {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
-        capabilities.setCapability(MobileCapabilityType.UDID, "YOUR_DEVICE_UDID");
-        capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
-        capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, APP_PACKAGE_NAME);
-        capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, APP_ACTIVITY_NAME);
-        // Initialize driver
-        AndroidDriver driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
-        // Discard state
-        driver.resetApp();
 
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        String path = new File("Karum_Fase_2_v1.9.11.apk").getAbsolutePath();
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME_NAME);
+        capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
+        capabilities.setCapability("app", path);
+
+        if(TEST_DEVISE.equals(ANDROID))
+        {
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
+            capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, APP_PACKAGE_NAME);
+            capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, APP_ACTIVITY_NAME);
+            capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
+            _driverType = ANDROID;
+
+            _driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+        }
+        else if(TEST_DEVISE.equals(IOS))
+        {
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.IOS);
+            _driverType = IOS;
+
+            _driver = new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+        }
+        // Discard state
+        _driver.resetApp();
+
+        _driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    private AndroidDriver<AndroidElement> driver;
-    private final static String APP_PACKAGE_NAME = "io.testproject.demo";
-    private final static String APP_ACTIVITY_NAME = ".MainActivity";
+    private AppiumDriver _driver;
+    private String _driverType;
+    private final static String APP_PACKAGE_NAME = "com.karum.credits";
+    private final static String APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
+    private final static String DEVICE_NAME_NAME = "ZY323V65L2";
+    private final static String TEST_DEVISE = "ANDROID";
+    private final static String ANDROID = "ANDROID";
+    private final static String IOS = "IOS";
 
-    public AndroidDriver<AndroidElement> GetIntance()
+
+    public AppiumDriver GetIntance()
     {
-        return driver;
+        return _driver;
+    }
+
+    public String GetDriverType()
+    {
+        return _driverType;
     }
 /*
     public void SwitchApp(String activity, String packeage)
