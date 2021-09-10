@@ -118,4 +118,18 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.tapACEPTOFields();
         moneyLaunderingPage.assertContinueBtnEnable();
     }
+
+    @Test
+    public void TC003_AMLQuestionnaire_ValidateText() {
+        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
+        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
+        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
+
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.assertPMLText();
+    }
 }
