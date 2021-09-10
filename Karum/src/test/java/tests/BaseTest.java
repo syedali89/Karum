@@ -13,11 +13,6 @@ import java.net.MalformedURLException;
 public class BaseTest implements ITestListener {
     protected Driver _driver;
 
-    @BeforeSuite
-    public void beforeSuite() {
-
-    }
-
     @BeforeMethod
     public void beforeTest() throws MalformedURLException {
         _driver = new Driver();
