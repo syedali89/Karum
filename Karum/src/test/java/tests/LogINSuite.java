@@ -28,7 +28,16 @@ public class LogINSuite extends BaseTest {
         LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
 
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.enterUserCredentials("user@email.com", "");
+        logIN.enterUserCredentials("", "A");
+        logIN.validateLoginPageSOYCLIENTE(false);
+    }
+
+    @Test
+    public void TC002_ValidateUsernamefieldIsEmailFormat() {
+        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
+
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        logIN.enterUserCredentials("username", "A");
         logIN.validateLoginPageSOYCLIENTE(false);
     }
 
@@ -37,7 +46,7 @@ public class LogINSuite extends BaseTest {
         LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
 
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.enterUserCredentials("", "A");
+        logIN.enterUserCredentials("user@email.com", "");
         logIN.validateLoginPageSOYCLIENTE(false);
     }
 
