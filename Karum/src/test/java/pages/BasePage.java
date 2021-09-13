@@ -8,6 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import test.java.utility.TouchActions;
 
 
 public class BasePage {
@@ -85,5 +86,13 @@ public class BasePage {
         waitVisibility(locator);
         String textElement = _driver.findElement(locator).getText();
         Assert.assertTrue(textElement.equals(text), "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
+    }
+
+    //SendKey
+    protected void assertElementWhitTextExist(String text) {
+        By locator = By.xpath("//*[@text='"+ text + "']");
+        Assert.assertTrue(TouchActions.swipeDownUntilElementExist(_driver, locator), "Error, there are not element with the text : '" + text + "'.");
+        Assert.assertTrue(_driver.findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");
+
     }
 }

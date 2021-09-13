@@ -44,7 +44,7 @@ public class Driver
         // Discard state
         _driver.resetApp();
 
-        _driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //_driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     private AppiumDriver _driver;
