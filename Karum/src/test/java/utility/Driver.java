@@ -6,6 +6,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -17,7 +18,7 @@ public class Driver
 {
     public Driver() throws MalformedURLException {
 
-        String path = new File("Karum_Fase_2_v1.9.11.apk").getAbsolutePath();
+        String path = new File("Karum_Fase_2_v1.9.12.apk").getAbsolutePath();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME_NAME);
@@ -44,11 +45,19 @@ public class Driver
         // Discard state
         _driver.resetApp();
 
-        //_driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        loc_Altitude = _driver.location().getAltitude();
+        loc_Latitude = _driver.location().getLatitude();
+        loc_Longitude = _driver.location().getLongitude();
+
+        Location location = new Location(19.423870, -99.260252, 2240);
+        //_driver.setLocation(location);
     }
 
     private AppiumDriver _driver;
     private String _driverType;
+    private double loc_Altitude;
+    private double loc_Latitude;
+    private double loc_Longitude;
     private final static String APP_PACKAGE_NAME = "com.karum.credits";
     private final static String APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
     private final static String DEVICE_NAME_NAME = "ZY323V65L2";
@@ -65,6 +74,11 @@ public class Driver
     public String GetDriverType()
     {
         return _driverType;
+    }
+
+    public void defaultLocation() {
+        Location location = new Location(loc_Latitude, loc_Longitude, loc_Altitude);
+        _driver.setLocation(location);
     }
 /*
     public void SwitchApp(String activity, String packeage)
