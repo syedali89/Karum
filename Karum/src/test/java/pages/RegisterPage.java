@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import test.java.constants;
+import test.java.utility.Driver;
 import test.java.utility.TouchActions;
 
 public class RegisterPage extends BasePage {
@@ -16,7 +17,7 @@ public class RegisterPage extends BasePage {
     public By avisoPrivacidadClose = By.id("com.karum.credits:id/iv_close_privacy_notice");
 
     //Contructor
-    public RegisterPage(AppiumDriver driver, String type) {
+    public RegisterPage(Driver driver, String type) {
         super(driver, type);
     }
 
@@ -25,18 +26,19 @@ public class RegisterPage extends BasePage {
     }
 
     public void goAvisoPrivacidad() {
-        TouchActions.swipeDownUntilElementExist(_driver, avisoPrivacidadLink);
+        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadLink);
         clickElement(avisoPrivacidadLink);
     }
 
     public void acceptAvisoPrivacidad() {
-        TouchActions.swipeDownUntilElementExist(_driver, avisoPrivacidadCheckbox);
+        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadCheckbox);
         clickElement(avisoPrivacidadCheckbox);
     }
 
-    public void tapRegistrarme() {
-        TouchActions.swipeDownUntilElementExist(_driver, registratemebtn);
+    public PMLPage tapRegistrarme() {
+        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn);
         clickElement(registratemebtn);
+        return new PMLPage(_driver, driverType);
     }
 
     public void assertRegistrarmeBtnEnabled() {
@@ -60,6 +62,6 @@ public class RegisterPage extends BasePage {
         assertElementWhitTextExist("Identificación oficial");
         assertElementWhitTextExist("Comprobante de domicilio");
         assertElementWhitTextExist("Registro facial");
-        Assert.assertTrue(TouchActions.swipeDownUntilElementExist(_driver, registratemebtn), "Error, REGISTRARME button is not visible.");
+        Assert.assertTrue(TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn), "Error, REGISTRARME button is not visible.");
     }
 }

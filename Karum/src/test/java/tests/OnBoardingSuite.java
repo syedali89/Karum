@@ -2,6 +2,7 @@ package test.java.tests;
 
 import org.testng.annotations.Test;
 import test.java.constants;
+import test.java.pages.INEPhotoPage;
 import test.java.pages.LogIN;
 import test.java.pages.PMLPage;
 import test.java.pages.RegisterPage;
@@ -9,10 +10,7 @@ import test.java.pages.RegisterPage;
 public class OnBoardingSuite extends BaseTest {
 
     @Test
-    public void TC001_NewClient() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-
+    public void TC002_InitialScreen() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.assertInitialRegistrationPage();
@@ -20,9 +18,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC002_InitialScreen_AvisoPrivacidadDocument() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.goAvisoPrivacidad();
@@ -31,9 +26,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC002_InitialScreen_AcceptAvisoPrivacidadRegistrarmeEnable() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -42,10 +34,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC003_AMLQuestionnaire_NothingSelected_DisableContinue() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -56,10 +44,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC003_AMLQuestionnaire_OneYesRestUnSelected_DisableContinue() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -72,10 +56,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC003_AMLQuestionnaire_AllNoSelected_DisableContinue() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -88,10 +68,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC003_AMLQuestionnaire_OneNORestYesSelected_DisableContinue() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -105,10 +81,6 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC003_AMLQuestionnaire_AllYesSelected_EnableContinue() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -121,15 +93,94 @@ public class OnBoardingSuite extends BaseTest {
 
     @Test
     public void TC003_AMLQuestionnaire_ValidateText() {
-        LogIN logIN = new LogIN(_driver.GetIntance(), _driver.GetDriverType());
-        RegisterPage reg = new RegisterPage(_driver.GetIntance(), _driver.GetDriverType());
-        PMLPage moneyLaunderingPage = new PMLPage(_driver.GetIntance(), _driver.GetDriverType());
-
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
         moneyLaunderingPage.assertPMLText();
+    }
+
+    @Test
+    public void TC004_INEIFEEvaluation_IdentificacionVigenteCheckBoxRequired() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        moneyLaunderingPage.tapACEPTOFields();
+        moneyLaunderingPage.tapContinue();
+
+        inePhotoPage.tapCheckboxs(false,true);
+        inePhotoPage.verifycapturarINEIFEbtnState(false);
+    }
+
+    @Test
+    public void TC004_INEIFEEvaluation_ValidadoElementosSeguridadCheckboxCheckBoxRequired() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        moneyLaunderingPage.tapACEPTOFields();
+        moneyLaunderingPage.tapContinue();
+
+        inePhotoPage.tapCheckboxs(true,false);
+        inePhotoPage.verifycapturarINEIFEbtnState(false);
+    }
+
+    @Test
+    public void TC004_INEIFEEvaluation_AllCheckboxCheckBoxRequiredSelect() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        moneyLaunderingPage.tapACEPTOFields();
+        moneyLaunderingPage.tapContinue();
+
+        inePhotoPage.tapCheckboxs(true,true);
+        inePhotoPage.verifycapturarINEIFEbtnState(true);
+    }
+
+    @Test
+    public void TC004_INEIFEEvaluation_ConfirmIFEPhotos() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        moneyLaunderingPage.tapACEPTOFields();
+        moneyLaunderingPage.tapContinue();
+
+        inePhotoPage.tapCheckboxs(true,true);
+        inePhotoPage.tapCapturarINE();
+        inePhotoPage.takeFrontPhoto();
+        inePhotoPage.takeBackPhoto();
+
+        inePhotoPage.verifyCapturePhotoOK();
+        inePhotoPage.verifyContinuarnextPage();
+    }
+
+    @Test
+    public void TC005_AdressDocumentation_() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        moneyLaunderingPage.tapACEPTOFields();
+        moneyLaunderingPage.tapContinue();
+
+        inePhotoPage.tapCheckboxs(true,true);
+        inePhotoPage.tapCapturarINE();
+        inePhotoPage.takeFrontPhoto();
+        inePhotoPage.takeBackPhoto();
+        inePhotoPage.confirmPhotos();
     }
 }

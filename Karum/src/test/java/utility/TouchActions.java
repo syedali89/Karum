@@ -25,7 +25,8 @@ public class TouchActions {
         {
             intents++;
             new TouchAction(driver).longPress(PointOption.point(Startx, Starty))
-                    .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+                    //.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
                     .moveTo(PointOption.point(Endx, Endy))
                     .release().perform();
         }
