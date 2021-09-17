@@ -2,10 +2,7 @@ package test.java.tests;
 
 import org.testng.annotations.Test;
 import test.java.constants;
-import test.java.pages.INEPhotoPage;
-import test.java.pages.LogIN;
-import test.java.pages.PMLPage;
-import test.java.pages.RegisterPage;
+import test.java.pages.*;
 
 public class OnBoardingSuite extends BaseTest {
 
@@ -167,7 +164,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test
-    public void TC005_AdressDocumentation_() {
+    public void TC005_AdressDocumentation_BeforePhotoAlert() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -177,10 +174,24 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.tapACEPTOFields();
         moneyLaunderingPage.tapContinue();
 
-        inePhotoPage.tapCheckboxs(true,true);
-        inePhotoPage.tapCapturarINE();
-        inePhotoPage.takeFrontPhoto();
-        inePhotoPage.takeBackPhoto();
-        inePhotoPage.confirmPhotos();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        addressPage.verifyAlertBeforePhotos();
+    }
+
+    @Test
+    public void TC005_AdressDocumentation_PhotoTakeOK() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        moneyLaunderingPage.tapACEPTOFields();
+        moneyLaunderingPage.tapContinue();
+
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        addressPage.tapCapturarDocumento();
+        addressPage.takeDocumentPhoto();
+        addressPage.verifyPhotoTakedPage();
     }
 }

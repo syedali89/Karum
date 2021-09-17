@@ -1,11 +1,9 @@
 package test.java.pages;
 
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import test.java.constants;
 import test.java.utility.Driver;
-import test.java.utility.TouchActions;
+import test.java.utility.SwipeAction;
 
 public class RegisterPage extends BasePage {
     //By elements
@@ -17,8 +15,8 @@ public class RegisterPage extends BasePage {
     public By avisoPrivacidadClose = By.id("com.karum.credits:id/iv_close_privacy_notice");
 
     //Contructor
-    public RegisterPage(Driver driver, String type) {
-        super(driver, type);
+    public RegisterPage(Driver driver) {
+        super(driver);
     }
 
     public void goRegistrationPage() {
@@ -26,19 +24,19 @@ public class RegisterPage extends BasePage {
     }
 
     public void goAvisoPrivacidad() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadLink);
+        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadLink);
         clickElement(avisoPrivacidadLink);
     }
 
     public void acceptAvisoPrivacidad() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadCheckbox);
+        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadCheckbox);
         clickElement(avisoPrivacidadCheckbox);
     }
 
     public PMLPage tapRegistrarme() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn);
+        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn);
         clickElement(registratemebtn);
-        return new PMLPage(_driver, driverType);
+        return new PMLPage(_driver);
     }
 
     public void assertRegistrarmeBtnEnabled() {
@@ -62,6 +60,6 @@ public class RegisterPage extends BasePage {
         assertElementWhitTextExist("Identificación oficial");
         assertElementWhitTextExist("Comprobante de domicilio");
         assertElementWhitTextExist("Registro facial");
-        Assert.assertTrue(TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn), "Error, REGISTRARME button is not visible.");
+        Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn), "Error, REGISTRARME button is not visible.");
     }
 }
