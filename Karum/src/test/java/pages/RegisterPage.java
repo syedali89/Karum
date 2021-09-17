@@ -24,17 +24,17 @@ public class RegisterPage extends BasePage {
     }
 
     public void goAvisoPrivacidad() {
-        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadLink);
+        SwipeAction.swipeDownUntilElementExist(_driver, avisoPrivacidadLink);
         clickElement(avisoPrivacidadLink);
     }
 
     public void acceptAvisoPrivacidad() {
-        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), avisoPrivacidadCheckbox);
+        SwipeAction.swipeDownUntilElementExist(_driver, avisoPrivacidadCheckbox);
         clickElement(avisoPrivacidadCheckbox);
     }
 
     public PMLPage tapRegistrarme() {
-        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, registratemebtn);
         clickElement(registratemebtn);
         return new PMLPage(_driver);
     }
@@ -60,6 +60,6 @@ public class RegisterPage extends BasePage {
         assertElementWhitTextExist("Identificación oficial");
         assertElementWhitTextExist("Comprobante de domicilio");
         assertElementWhitTextExist("Registro facial");
-        Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), registratemebtn), "Error, REGISTRARME button is not visible.");
+        Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver, registratemebtn), "Error, REGISTRARME button is not visible.");
     }
 }

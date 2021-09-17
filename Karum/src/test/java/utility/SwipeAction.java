@@ -16,30 +16,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SwipeAction {
-    public static boolean swipeDownUntilElementExist(AppiumDriver driver, By locator)
+    public static boolean swipeDownUntilElementExist(Driver driver, By locator)
     {
-        Dimension size = driver.manage().window().getSize();
+        Dimension size = driver.GetIntance().manage().window().getSize();
         int Starty = (int) (size.height * 0.80);
         int Endy = (int) (size.height * 0.20);
         int Startx = size.width / 2;
         int Endx = Startx;
 
-        if(driver.getOrientation().equals(ScreenOrientation.LANDSCAPE)) {
-            Starty = size.height / 2;
-            Endy = Starty;
-            Startx = size.width / 2;
-            Endx = size.width;
-            /*String mySelector = "new UiSelector().text(\"" + Text + "\").instance(0)";
-            String command = "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(" + mySelector + ");";
-            ((AndroidDriver<?>) driver).findElementByAndroidUIAutomator(command);*/
-        }
-
         int intents = 0;
 
-        while(driver.findElements(locator).size() == 0 && intents < 1000)
+        while(driver.GetIntance().findElements(locator).size() == 0 && intents < 1000)
         {
             intents++;
-            new TouchAction(driver)
+            new TouchAction(driver.GetIntance())
                     .longPress(PointOption.point(Startx, Starty))
                     .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
                     .moveTo(PointOption.point(Endx, Endy))
@@ -61,6 +51,13 @@ public class SwipeAction {
                 String mySelector = "new UiSelector().text(\"" + text + "\").instance(0)";
                 String command = "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(" + mySelector + ");";
                 driver.GetAndroidDriver().findElementByAndroidUIAutomator(command);
+            } catch (Exception ex) {
+                return false;
+            }
+        }
+        else if(driver.GetDriverType().equals(constants.IOS)) {
+            try {
+                //TODO IOS
             } catch (Exception ex) {
                 return false;
             }

@@ -57,17 +57,17 @@ public class PMLPage extends BasePage {
     }
 
     public void tapContinue() {
-        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         clickElement(continueBtn);
     }
 
     public void assertContinueBtnDisable() {
-        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         Assert.assertTrue(!validateElementEnable(continueBtn), "Error, CONTINUE button is enabled and all 'SI ACEPTO' aren't selected.");
     }
 
     public void assertContinueBtnEnable() {
-        SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         Assert.assertTrue(validateElementEnable(continueBtn), "Error, CONTINUE button is disable and all 'SI ACEPTO' are selected.");
     }
 
@@ -87,7 +87,7 @@ public class PMLPage extends BasePage {
         assertElementWhitTextExist(
                 "Declaro que los recursos que utilizaré para el pago de este producto provienen de una fuente licita.");
 
-        Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn), "Error, CONTINUE button doesn't exist");
+        Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver, continueBtn), "Error, CONTINUE button doesn't exist");
     }
 
     public void tapRadiobuttonSINOAcepto(aceptoField aceptoFieldradiobutton, int radPosition) {
@@ -96,11 +96,11 @@ public class PMLPage extends BasePage {
 
             if (aceptoFieldradiobutton == aceptoField.SIACEPTO) {
                 tapField = By.id("com.karum.credits:id/rb_yes_" + radPosition);
-                SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), tapField);
+                SwipeAction.swipeDownUntilElementExist(_driver, tapField);
                 clickElement(tapField);
             } else if (aceptoFieldradiobutton == aceptoField.NOACEPTO) {
                 tapField = By.id("com.karum.credits:id/rb_no_" + radPosition);
-                SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), tapField);
+                SwipeAction.swipeDownUntilElementExist(_driver, tapField);
                 clickElement(tapField);
             }
         }

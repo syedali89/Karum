@@ -52,7 +52,6 @@ public class INEPhotoPage extends BasePage {
         this.takeFrontPhoto();
         this.takeBackPhoto();
         //
-        //SwipeAction.swipeDownUntilElementExist(_driver.GetIntance(), SIGUIENTEbtn);
         SwipeAction.swipeDownUntilElementText(_driver, "SIGUIENTE");
         clickElement(SIGUIENTEbtn);
         clickElement(CONFIRMARbtn);
