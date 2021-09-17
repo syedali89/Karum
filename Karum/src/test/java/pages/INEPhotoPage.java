@@ -37,12 +37,12 @@ public class INEPhotoPage extends BasePage {
     }
 
     public void takeFrontPhoto() {
-        //TODO PhotoActions.Pushphoto("frontINE");
+        //TODO Camera.Pushphoto("frontINE");
         clickElement(CONFIRMARbtn);
     }
 
     public void takeBackPhoto() {
-        //TODO PhotoActions.Pushphoto("backINE");
+        //TODO Camera.Pushphoto("backINE");
         clickElement(CONFIRMARbtn);
     }
 

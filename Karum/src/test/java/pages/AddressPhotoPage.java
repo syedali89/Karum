@@ -31,10 +31,14 @@ public class AddressPhotoPage extends BasePage{
         CameraActions.TakePhoto(_driver);
     }
 
+    public void tapVolverCapturar() {
+        clickElement(capturePhotoAgainBtn);
+    }
+
     public FacialRegistrationPage allProcessAddressPage() {
         this.tapCapturarDocumento();
         this.takeDocumentPhoto();
-        this.clickElement(continuarNextPageBtn);
+        clickElement(continuarNextPageBtn);
         return new FacialRegistrationPage(_driver);
     }
 

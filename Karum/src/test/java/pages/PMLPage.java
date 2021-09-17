@@ -61,6 +61,13 @@ public class PMLPage extends BasePage {
         clickElement(continueBtn);
     }
 
+    public INEPhotoPage allProcessPNLProcess() {
+        this.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+        this.tapACEPTOFields();
+        this.tapContinue();
+        return new INEPhotoPage(_driver);
+    }
+
     public void assertContinueBtnDisable() {
         SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         Assert.assertTrue(!validateElementEnable(continueBtn), "Error, CONTINUE button is enabled and all 'SI ACEPTO' aren't selected.");
