@@ -63,6 +63,7 @@ public class INEPhotoPage extends BasePage {
         assertElementText(messageTitle,"Verifica la información, si es necesario edita los datos.");
         Assert.assertTrue(_driver.GetIntance().findElements(takedPhotos).size() == 2,
                 "Error,There have to be two photos on screen, one for front INE and other for the back");
+        //Later remplace HardCode with Client Data
         assertElementWhitTextExist("LOPEZ");
         assertElementWhitTextExist("RODEA");
         assertElementWhitTextExist("ANTONIO SERVANDO");

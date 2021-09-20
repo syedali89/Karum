@@ -48,6 +48,13 @@ public class FacialRegistrationPage extends BasePage{
             //TODO Camera.Pushphoto("WrongCLOSE")
     }
 
+    public BasicHolderInfoPage allProcessFacePage() {
+        this.tapCapturarRostro();
+        this.captureFace(true);
+
+        return new BasicHolderInfoPage(_driver);
+    }
+
     public void verifyWrongphoto() {
         assertElementWhitTextExist("Intentemos de nuevo");
         assertElementWhitTextExist("Pero primero, veamos tu foto y validemos un ambiente correcto.");
@@ -88,5 +95,4 @@ public class FacialRegistrationPage extends BasePage{
                 "Una vez que se detecte el rostro del cliente, indícale que realice los movimientos señalados en la pantalla. Evita contraluces, lugares oscuros y asegúrate de enfocar el rostro correctamente. Toma la fotografía con rostro descubierto sin gorra ni lentes.");
         Assert.assertTrue(validateElementVisible(capturarRostroBtn), "Error, 'CAPTURAR ROSTRO' button is not visible");
     }
-
 }

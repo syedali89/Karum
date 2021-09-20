@@ -5,7 +5,6 @@ import test.java.constants;
 import test.java.pages.*;
 
 public class OnBoardingSuite extends BaseTest {
-
     @Test
     public void TC002_InitialScreen() {
         logIN.logINClienteAsesor(constants.CLIENTE);
@@ -232,7 +231,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test
-    public void C006_SelfieBiometricCheck_CaptureGoWrong() {
+    public void TC006_SelfieBiometricCheck_CaptureGoWrong() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.acceptAvisoPrivacidad();
@@ -277,5 +276,35 @@ public class OnBoardingSuite extends BaseTest {
         facePage.tapCapturarRostro();
         facePage.captureFace(true);
         facePage.verifyPhotoMatch();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ValidateTextAddressInfo() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderInfoPage basicInfoPage = facePage.allProcessFacePage();
+
+        basicInfoPage.verifyTextAddressInfo(clientData);
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ValidateAddressMandatoryInfo() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderInfoPage basicInfoPage = facePage.allProcessFacePage();
+
+        basicInfoPage.verifyTextAddressInfo(clientData);
     }
 }
