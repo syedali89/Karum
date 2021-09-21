@@ -13,8 +13,8 @@ public class HomePage extends BasePage{
     public By pagarTiendaBtn = By.id("pagarTiendaBtn");
 
     //Contructor
-    public HomePage(Driver driver, String type) {
-        super(driver, type);
+    public HomePage(Driver driver) {
+        super(driver);
     }
 
     public void verifyGoodLogIn()

@@ -1,6 +1,5 @@
 package test.java.pages;
 
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,20 +7,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import test.java.utility.Driver;
-import test.java.utility.TouchActions;
+import test.java.utility.SwipeAction;
 
 
 public class BasePage {
     public Driver _driver;
     public WebDriverWait wait;
     public Actions act;
-    protected String driverType;
 
     //Constructor
-    public BasePage (Driver driver, String driverType) {
+    public BasePage (Driver driver) {
         _driver = driver;
-        this.driverType = driverType;
-        wait = new WebDriverWait(driver.GetIntance(), 20);
+        wait = new WebDriverWait(driver.GetIntance(), 1200);
         act = new Actions(driver.GetIntance());
     }
 
@@ -86,8 +83,7 @@ public class BasePage {
     //SendKey
     protected void assertElementWhitTextExist(String text) {
         By locator = By.xpath("//*[@text='"+ text + "']");
-        Assert.assertTrue(TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), locator), "Error, there are not element with the text : '" + text + "'.");
+        Assert.assertTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
         Assert.assertTrue( _driver.GetIntance().findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");
-
     }
 }

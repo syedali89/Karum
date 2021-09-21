@@ -25,22 +25,28 @@ public class Driver
         capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
         capabilities.setCapability("app", path);
 
-        if(TEST_DEVISE.equals(ANDROID))
-        {
+        if(TEST_DEVISE.equals(ANDROID)) {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, APP_PACKAGE_NAME);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, APP_ACTIVITY_NAME);
             capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
+
+            //
+            capabilities.setCapability(AndroidMobileCapabilityType.GPS_ENABLED, false);
+            //
             _driverType = ANDROID;
 
-            _driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+
+            _driverandroid = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            _driver = _driverandroid;
         }
         else if(TEST_DEVISE.equals(IOS))
         {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.IOS);
             _driverType = IOS;
 
-            _driver = new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            _driverios = new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            _driver = _driverios;
         }
         // Discard state
         _driver.resetApp();
@@ -49,11 +55,13 @@ public class Driver
         loc_Latitude = _driver.location().getLatitude();
         loc_Longitude = _driver.location().getLongitude();
 
-        Location location = new Location(19.423870, -99.260252, 2240);
+        //Location location = new Location(19.423870, -99.260252, 2240);
         //_driver.setLocation(location);
     }
 
     private AppiumDriver _driver;
+    private AndroidDriver _driverandroid;
+    private IOSDriver _driverios;
     private String _driverType;
     private double loc_Altitude;
     private double loc_Latitude;
@@ -71,14 +79,19 @@ public class Driver
         return _driver;
     }
 
+    public AndroidDriver GetAndroidDriver()
+    {
+        return _driverandroid;
+    }
+
+    public IOSDriver GetIOSDriver()
+    {
+        return _driverios;
+    }
+
     public String GetDriverType()
     {
         return _driverType;
-    }
-
-    public void defaultLocation() {
-        Location location = new Location(loc_Latitude, loc_Longitude, loc_Altitude);
-        _driver.setLocation(location);
     }
 /*
     public void SwitchApp(String activity, String packeage)

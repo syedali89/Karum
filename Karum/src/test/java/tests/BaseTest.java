@@ -23,11 +23,11 @@ public class BaseTest implements ITestListener {
     @BeforeMethod
     public void beforeTest() throws MalformedURLException {
         _driver = new Driver();
-        logIN = new LogIN(_driver, _driver.GetDriverType());
-        homePage = new HomePage(_driver, _driver.GetDriverType());
-        reg = new RegisterPage(_driver, _driver.GetDriverType());
-        moneyLaunderingPage = new PMLPage(_driver, _driver.GetDriverType());
-        inePhotoPage = new INEPhotoPage(_driver, _driver.GetDriverType());
+        logIN = new LogIN(_driver);
+        homePage = new HomePage(_driver);
+        reg = new RegisterPage(_driver);
+        moneyLaunderingPage = new PMLPage(_driver);
+        inePhotoPage = new INEPhotoPage(_driver);
     }
 
     @AfterMethod

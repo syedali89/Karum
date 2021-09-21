@@ -1,10 +1,9 @@
 package test.java.pages;
 
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import test.java.utility.Driver;
-import test.java.utility.TouchActions;
+import test.java.utility.SwipeAction;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +31,8 @@ public class PMLPage extends BasePage {
                     aceptoField.UNINFORMED});
 
     //Contructor
-    public PMLPage(Driver driver, String type) {
-        super(driver, type);
+    public PMLPage(Driver driver) {
+        super(driver);
     }
 
     public void SetSINOACEPTOradioButton(aceptoField siNoAcepto, int position) {
@@ -58,17 +57,17 @@ public class PMLPage extends BasePage {
     }
 
     public void tapContinue() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         clickElement(continueBtn);
     }
 
     public void assertContinueBtnDisable() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         Assert.assertTrue(!validateElementEnable(continueBtn), "Error, CONTINUE button is enabled and all 'SI ACEPTO' aren't selected.");
     }
 
     public void assertContinueBtnEnable() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn);
+        SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
         Assert.assertTrue(validateElementEnable(continueBtn), "Error, CONTINUE button is disable and all 'SI ACEPTO' are selected.");
     }
 
@@ -88,7 +87,7 @@ public class PMLPage extends BasePage {
         assertElementWhitTextExist(
                 "Declaro que los recursos que utilizaré para el pago de este producto provienen de una fuente licita.");
 
-        Assert.assertTrue(TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), continueBtn), "Error, CONTINUE button doesn't exist");
+        Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver, continueBtn), "Error, CONTINUE button doesn't exist");
     }
 
     public void tapRadiobuttonSINOAcepto(aceptoField aceptoFieldradiobutton, int radPosition) {
@@ -97,11 +96,11 @@ public class PMLPage extends BasePage {
 
             if (aceptoFieldradiobutton == aceptoField.SIACEPTO) {
                 tapField = By.id("com.karum.credits:id/rb_yes_" + radPosition);
-                TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), tapField);
+                SwipeAction.swipeDownUntilElementExist(_driver, tapField);
                 clickElement(tapField);
             } else if (aceptoFieldradiobutton == aceptoField.NOACEPTO) {
                 tapField = By.id("com.karum.credits:id/rb_no_" + radPosition);
-                TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), tapField);
+                SwipeAction.swipeDownUntilElementExist(_driver, tapField);
                 clickElement(tapField);
             }
         }

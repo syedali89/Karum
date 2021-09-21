@@ -3,11 +3,9 @@ package test.java.pages;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import test.java.utility.Driver;
-import test.java.utility.TouchActions;
+import test.java.utility.SwipeAction;
 
-public class INEPhotoPage extends BasePage{
-    private String user;
-
+public class INEPhotoPage extends BasePage {
     //By checkbox
     public By identificacionVigenteCheckbox = By.id("com.karum.credits:id/checkbox_1");
     public By validadoElementosSeguridadCheckbox = By.id("com.karum.credits:id/checkbox_2");
@@ -21,17 +19,15 @@ public class INEPhotoPage extends BasePage{
     public By alertbeforeGoToNextPage = By.id("//androidx.recyclerview.widget.RecyclerView[@resource-id='com.karum.credits:id/rv_pictures_documents']/android.view.ViewGroup/android.widget.ImageView");
 
     //Contructor
-    public INEPhotoPage(Driver driver, String type) {
-        super(driver, type);
+    public INEPhotoPage(Driver driver) {
+        super(driver);
     }
 
     public void tapCheckboxs(boolean identificacionVigente, boolean validadoElementosSeguridad) {
-        if(identificacionVigente)
-        {
+        if(identificacionVigente) {
             clickElement(identificacionVigenteCheckbox);
         }
-        if(validadoElementosSeguridad)
-        {
+        if(validadoElementosSeguridad) {
             clickElement(validadoElementosSeguridadCheckbox);
         }
     }
@@ -50,10 +46,17 @@ public class INEPhotoPage extends BasePage{
         clickElement(CONFIRMARbtn);
     }
 
-    public void confirmPhotos() {
-        TouchActions.swipeDownUntilElementExist(_driver.GetIntance(), SIGUIENTEbtn);
+    public AddressPhotoPage allProcessIFEPhotos() {
+        this.tapCheckboxs(true,true);
+        this.tapCapturarINE();
+        this.takeFrontPhoto();
+        this.takeBackPhoto();
+        //
+        SwipeAction.swipeDownUntilElementText(_driver, "SIGUIENTE");
         clickElement(SIGUIENTEbtn);
         clickElement(CONFIRMARbtn);
+
+        return new AddressPhotoPage(_driver);
     }
 
     public void verifyCapturePhotoOK() {
@@ -73,8 +76,7 @@ public class INEPhotoPage extends BasePage{
         Assert.assertTrue(validateElementVisible(SIGUIENTEbtn), "Error, SIGUIENTE button is not visible");
     }
 
-    public void verifycapturarINEIFEbtnState(boolean isEnabled)
-    {
+    public void verifycapturarINEIFEbtnState(boolean isEnabled) {
         String state = "Disabled";
         if(isEnabled) {
             state = "Enabled";
@@ -84,8 +86,7 @@ public class INEPhotoPage extends BasePage{
                 "Error, checkbox 'Identificacion Vigente' and 'elementos de seguridad validados' are mandatory and 'Capturar INE/IFE' has to be "+ state + ".");
     }
 
-    public void verifyContinuarnextPage()
-    {
+    public void verifyContinuarnextPage() {
         Assert.assertTrue(validateElementVisible(CONFIRMARbtn), "Error, CONFIRMAR button is not visible");
         assertElementText(alertbeforeGoToNextPage, "Asegúrate que la información sea correcta");
     }

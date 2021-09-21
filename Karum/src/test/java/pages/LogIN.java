@@ -24,8 +24,8 @@ public class LogIN extends BasePage{
     public By alertMessageBadCode = By.id("com.karum.credits:id/tv_error_login");
 
     //Contructor
-    public LogIN(Driver driver, String type) {
-        super(driver, type);
+    public LogIN(Driver driver) {
+        super(driver);
     }
 
     public void logINClienteAsesor(String type)
