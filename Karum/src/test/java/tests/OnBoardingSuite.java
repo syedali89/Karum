@@ -5,7 +5,6 @@ import test.java.constants;
 import test.java.pages.*;
 
 public class OnBoardingSuite extends BaseTest {
-
     @Test
     public void TC002_InitialScreen() {
         logIN.logINClienteAsesor(constants.CLIENTE);
@@ -105,9 +104,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
-        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
-        moneyLaunderingPage.tapACEPTOFields();
-        moneyLaunderingPage.tapContinue();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
 
         inePhotoPage.tapCheckboxs(false,true);
         inePhotoPage.verifycapturarINEIFEbtnState(false);
@@ -120,9 +117,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
-        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
-        moneyLaunderingPage.tapACEPTOFields();
-        moneyLaunderingPage.tapContinue();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
 
         inePhotoPage.tapCheckboxs(true,false);
         inePhotoPage.verifycapturarINEIFEbtnState(false);
@@ -135,9 +130,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
-        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
-        moneyLaunderingPage.tapACEPTOFields();
-        moneyLaunderingPage.tapContinue();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
 
         inePhotoPage.tapCheckboxs(true,true);
         inePhotoPage.verifycapturarINEIFEbtnState(true);
@@ -150,9 +143,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
-        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
-        moneyLaunderingPage.tapACEPTOFields();
-        moneyLaunderingPage.tapContinue();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
 
         inePhotoPage.tapCheckboxs(true,true);
         inePhotoPage.tapCapturarINE();
@@ -170,9 +161,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
-        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
-        moneyLaunderingPage.tapACEPTOFields();
-        moneyLaunderingPage.tapContinue();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
 
         AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
         addressPage.verifyAlertBeforePhotos();
@@ -185,13 +174,137 @@ public class OnBoardingSuite extends BaseTest {
         reg.acceptAvisoPrivacidad();
         reg.tapRegistrarme();
 
-        moneyLaunderingPage.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
-        moneyLaunderingPage.tapACEPTOFields();
-        moneyLaunderingPage.tapContinue();
-
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
         AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+
         addressPage.tapCapturarDocumento();
         addressPage.takeDocumentPhoto();
         addressPage.verifyPhotoTakedPage();
+    }
+
+    @Test
+    public void TC005_AdressDocumentation_TakePhotoAgain() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+
+        addressPage.tapCapturarDocumento();
+        addressPage.takeDocumentPhoto();
+        addressPage.tapVolverCapturar();
+        addressPage.takeDocumentPhoto();
+        addressPage.verifyPhotoTakedPage();
+    }
+
+    @Test
+    public void TC006_SelfieBiometricCheck_VerifyIntructions() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+
+        facePage.verifyInstructions();
+    }
+
+    @Test
+    public void TC006_SelfieBiometricCheck_VerifyFaceActionT() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+
+        facePage.tapCapturarRostro();
+        facePage.verifyButtoContinuarCaptureFace();
+        facePage.captureFace(true);
+        facePage.verifyCaptureFace();
+    }
+
+    @Test
+    public void TC006_SelfieBiometricCheck_CaptureGoWrong() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+
+        facePage.tapCapturarRostro();
+        facePage.captureWrong();
+        facePage.verifyWrongphoto();
+    }
+
+    @Test
+    public void TC006_SelfieBiometricCheck_FaceFailMatchingINE() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+
+        facePage.tapCapturarRostro();
+        facePage.captureFace(false);
+        facePage.verifyPhotoDontMatch();
+    }
+
+    @Test
+    public void TC006_SelfieBiometricCheck_FaceMatchINE() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+
+        facePage.tapCapturarRostro();
+        facePage.captureFace(true);
+        facePage.verifyPhotoMatch();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ValidateTextAddressInfo() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderInfoPage basicInfoPage = facePage.allProcessFacePage();
+
+        basicInfoPage.verifyTextAddressInfo(clientData);
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ValidateAddressMandatoryInfo() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        reg.goRegistrationPage();
+        reg.acceptAvisoPrivacidad();
+        reg.tapRegistrarme();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderInfoPage basicInfoPage = facePage.allProcessFacePage();
+
+        basicInfoPage.verifyTextAddressInfo(clientData);
     }
 }

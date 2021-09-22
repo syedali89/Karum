@@ -5,6 +5,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.*;
+import test.java.data.Client;
 import test.java.pages.*;
 import test.java.utility.Driver;
 import test.java.utility.GetScreenshot;
@@ -19,6 +20,12 @@ public class BaseTest implements ITestListener {
     protected RegisterPage reg;
     protected PMLPage moneyLaunderingPage;
     protected INEPhotoPage inePhotoPage ;
+    protected Client clientData;
+
+    @BeforeClass
+    public void beforeClass() {
+        clientData = new Client();
+    }
 
     @BeforeMethod
     public void beforeTest() throws MalformedURLException {
