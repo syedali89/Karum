@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import test.java.data.Client;
@@ -86,5 +87,10 @@ public class BasePage {
         By locator = By.xpath("//*[@text='"+ text + "']");
         Assert.assertTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
         Assert.assertTrue( _driver.GetIntance().findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");
+    }
+
+    //DropDown
+    protected void DropDownListSelectFirstElement(By locator) {
+        waitVisibility(locator);
     }
 }

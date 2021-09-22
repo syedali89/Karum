@@ -305,6 +305,8 @@ public class OnBoardingSuite extends BaseTest {
         FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
         BasicHolderInfoPage basicInfoPage = facePage.allProcessFacePage();
 
-        basicInfoPage.verifyTextAddressInfo(clientData);
+        basicInfoPage.informAddress(clientData);
+        basicInfoPage.informRetireCardDefauld();
+        basicInfoPage.verifyTextAddressInfo(true);
     }
 }

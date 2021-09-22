@@ -7,11 +7,13 @@ import org.testng.Reporter;
 import org.testng.annotations.*;
 import test.java.data.Client;
 import test.java.pages.*;
+import test.java.utility.DataRecover;
 import test.java.utility.Driver;
 import test.java.utility.GetScreenshot;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Random;
 
 public class BaseTest implements ITestListener {
     protected Driver _driver;
@@ -24,7 +26,7 @@ public class BaseTest implements ITestListener {
 
     @BeforeClass
     public void beforeClass() {
-        clientData = new Client();
+         clientData = DataRecover.RecoverClientData();
     }
 
     @BeforeMethod
@@ -43,7 +45,7 @@ public class BaseTest implements ITestListener {
             System.out.println("ERROR FATAL");
             try
             {
-                String path = GetScreenshot.capture(_driver.GetIntance(), result.getName());
+                String path = GetScreenshot.capture(_driver.GetIntance(), result.getName() + "_" + new Random().nextInt(99999999));
                 Reporter.log("<br><img src='" + path + "'/></b>", true);
             }
             catch (IOException e)

@@ -8,6 +8,12 @@ public class Client {
     public String birthDate = "";
     public String gender = "";
     public String CURP = "";
+    public String AddressStreet = "";
+    public String AddressExtNum = "";
+    public String AddressIntNum = "";
+    public String AddressZipCode = "";
+    public String Email = "";
+    public String PhoneNumber = "";
 
     public String getFirstName() {
         if(firstNameTwo.isEmpty()) {

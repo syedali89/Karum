@@ -19,6 +19,7 @@ public class BasicHolderInfoPage extends BasePage {
     public By inputClientStreet = By.id("com.karum.credits:id/et_street_client");
     public By inputClientExtNum = By.id("com.karum.credits:id/et_ext_num");
     public By inputClientIntNum = By.id("com.karum.credits:id/et_int_num");
+    public By inputClientZipCode = By.id("com.karum.credits:id/et_zip_code");
     public By inputClientCity = By.id("com.karum.credits:id/et_city");
     public By inputClientSubUrb = By.id("com.karum.credits:id/et_suburb");
     public By inputClientEmail = By.id("com.karum.credits:id/et_email");
@@ -38,9 +39,39 @@ public class BasicHolderInfoPage extends BasePage {
     public By inputRetireCardSucursal = By.id("com.karum.credits:id/et_branch_data");
     public By CONTINUARbtn = By.id("com.karum.credits:id/btn_continue");
 
+    private final String STATEDEFAULDLIST  = "CENTRO - BAJIO";
+    private final String LOCALYDEFAULDLIST  = "MORELIA";
+    private final String SUCURSALDEFAULDLIST  = "FAMSA MATRIZ MORELIA";
+
     //Contructor
     public BasicHolderInfoPage(Driver driver) {
         super(driver);
+    }
+
+    public void informAddress(Client clientData) {
+        sendTextElement(inputClientStreet, clientData.AddressStreet);
+        sendTextElement(inputClientExtNum, clientData.AddressExtNum);
+        sendTextElement(inputClientIntNum, clientData.AddressIntNum);
+        sendTextElement(inputClientZipCode, clientData.AddressZipCode);
+        sendTextElement(inputClientEmail, clientData.Email);
+        sendTextElement(inputClientNumber, clientData.PhoneNumber);
+        sendTextElement(inputClientNumberConfirm, clientData.PhoneNumber);
+    }
+
+    public void informRetireCardDefauld() {
+        sendTextElement(inputRetireCardState, STATEDEFAULDLIST);
+        sendTextElement(inputRetireCardLocaly, LOCALYDEFAULDLIST);
+        sendTextElement(inputRetireCardSucursal, SUCURSALDEFAULDLIST);
+    }
+
+    public void verifyTextAddressInfo(boolean isEnable) {
+        String enabledDisabledMessage = "disabled";
+        if(isEnable) {
+            enabledDisabledMessage = "enabled";
+        }
+
+        Assert.assertEquals(validateElementEnable(CONTINUARbtn), isEnable,
+                "Error, CONTINUAR btn input should be " + enabledDisabledMessage);
     }
 
     public void verifyTextAddressInfo(Client client) {
@@ -68,6 +99,10 @@ public class BasicHolderInfoPage extends BasePage {
         assertElementWhitTextExist("Ciudad *");
         Assert.assertTrue(validateElementEnable(inputClientCity),
                 "Error, 'Ciudad' input is not enabled");
+
+        assertElementWhitTextExist("Código postal *");
+        Assert.assertTrue(validateElementEnable(inputClientZipCode),
+                "Error, 'Código postal *' input is not enabled");
 
         assertElementWhitTextExist("No. interior");
         Assert.assertTrue(validateElementEnable(inputClientIntNum),
@@ -114,8 +149,7 @@ public class BasicHolderInfoPage extends BasePage {
         Assert.assertTrue(validateElementEnable(inputRetireCardSucursal),
                 "Error, 'Selecciona la sucursal' input is not enabled");
 
-        Assert.assertTrue(validateElementEnable(CONTINUARbtn),
-                "Error, CONTINUAR btn input is not enabled");
-
+        Assert.assertTrue(validateElementVisible(CONTINUARbtn),
+                "Error, CONTINUAR btn input is not Visible");
     }
 }
