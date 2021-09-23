@@ -29,22 +29,10 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
-    //Wait Element is Visible
-    protected void waitVisibility(WebElement element) {
-        act.moveToElement(element).perform();
-
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
     //Click
     protected void clickElement(By locator) {
         waitVisibility(locator);
         _driver.GetIntance().findElement(locator).click();
-    }
-
-    protected void clickElement(WebElement element) {
-       waitVisibility(element);
-       act.moveToElement(element).click();
     }
 
     //SendKey
@@ -70,16 +58,19 @@ public class BasePage {
     }
 
     protected boolean validateElementEnable(By locator) {
-        waitVisibility(locator);
-
-        return  _driver.GetIntance().findElement(locator).isEnabled();
+        if(SwipeAction.swipeDownUntilElementExist(_driver, locator)) {
+            return _driver.GetIntance().findElement(locator).isEnabled();
+        }
+        else {
+            return false;
+        }
     }
 
     //SendKey
     protected void assertElementText(By locator, String text) {
         waitVisibility(locator);
         String textElement =  _driver.GetIntance().findElement(locator).getText();
-        Assert.assertTrue(textElement.equals(text), "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
+        Assert.assertEquals(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
     }
 
     //SendKey
@@ -87,10 +78,5 @@ public class BasePage {
         By locator = By.xpath("//*[@text='"+ text + "']");
         Assert.assertTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
         Assert.assertTrue( _driver.GetIntance().findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");
-    }
-
-    //DropDown
-    protected void DropDownListSelectFirstElement(By locator) {
-        waitVisibility(locator);
     }
 }

@@ -6,7 +6,7 @@ import test.java.data.Client;
 import test.java.utility.Driver;
 import test.java.utility.SwipeAction;
 
-public class BasicHolderInfoPage extends BasePage {
+public class BasicHolderAddressPage extends BasePage {
     //By elements
     //DATA from INE
     public By textClientName = By.id("com.karum.credits:id/tv_client_name");
@@ -35,36 +35,96 @@ public class BasicHolderInfoPage extends BasePage {
     public By inputClientNumberConfirm = By.id("com.karum.credits:id/et_phone_confirm");
 
     public By inputRetireCardState = By.id("com.karum.credits:id/et_state_branch_data");
-    public By inputRetireCardLocaly = By.id("com.karum.credits:id/et_locality_branch_data");
+    public By inputRetireCardLocally = By.id("com.karum.credits:id/et_locality_branch_data");
     public By inputRetireCardSucursal = By.id("com.karum.credits:id/et_branch_data");
     public By CONTINUARbtn = By.id("com.karum.credits:id/btn_continue");
 
+    public By errorMessagePhonesDoestMatch = By.id("com.karum.credits:id/tv_error_no_match");
+
+    //Confirm Address By
+    public By clientStreetAddress = By.id("com.karum.credits:id/tv_street");
+    public By clientNoExtAddress = By.id("com.karum.credits:id/tv_ext_num");
+    public By clientNoIntAddress = By.id("com.karum.credits:id/tv_int_num");
+    public By clientZipCodeAddress = By.id("com.karum.credits:id/tv_zip_code");
+    public By clientCityAddress = By.id("com.karum.credits:id/tv_city");
+    public By clientSubUrbAddress = By.id("com.karum.credits:id/tv_suburb");
+    public By MODIFICARBtn = By.id("com.karum.credits:id/tv_modify");
+    public By confirmAddressCheckbox = By.id("com.karum.credits:id/cb_address_confirm");
+
+
+
+    //Private constants
     private final String STATEDEFAULDLIST  = "CENTRO - BAJIO";
     private final String LOCALYDEFAULDLIST  = "MORELIA";
     private final String SUCURSALDEFAULDLIST  = "FAMSA MATRIZ MORELIA";
 
     //Contructor
-    public BasicHolderInfoPage(Driver driver) {
+    public BasicHolderAddressPage(Driver driver) {
         super(driver);
     }
 
-    public void informAddress(Client clientData) {
+    public void informAddress(Client clientData, boolean equalsPhoneNumber) {
         sendTextElement(inputClientStreet, clientData.AddressStreet);
         sendTextElement(inputClientExtNum, clientData.AddressExtNum);
         sendTextElement(inputClientIntNum, clientData.AddressIntNum);
         sendTextElement(inputClientZipCode, clientData.AddressZipCode);
+
+        SwipeAction.swipeDownUntilElementExist(_driver, inputClientEmail);
         sendTextElement(inputClientEmail, clientData.Email);
+
+        SwipeAction.swipeDownUntilElementExist(_driver, inputClientEmail);
         sendTextElement(inputClientNumber, clientData.PhoneNumber);
-        sendTextElement(inputClientNumberConfirm, clientData.PhoneNumber);
+        if(equalsPhoneNumber) {
+            sendTextElement(inputClientNumberConfirm, clientData.PhoneNumber);
+        }
+        else {
+            sendTextElement(inputClientNumberConfirm, "0000000000");
+        }
     }
 
-    public void informRetireCardDefauld() {
+    public void informRetireCardDefault() {
+        SwipeAction.swipeDownUntilElementExist(_driver, inputRetireCardState);
         sendTextElement(inputRetireCardState, STATEDEFAULDLIST);
-        sendTextElement(inputRetireCardLocaly, LOCALYDEFAULDLIST);
+
+        SwipeAction.swipeDownUntilElementExist(_driver, inputRetireCardLocally);
+        sendTextElement(inputRetireCardLocally, LOCALYDEFAULDLIST);
+
+        SwipeAction.swipeDownUntilElementExist(_driver, inputRetireCardSucursal);
         sendTextElement(inputRetireCardSucursal, SUCURSALDEFAULDLIST);
     }
 
-    public void verifyTextAddressInfo(boolean isEnable) {
+    public void tapCONTINUARbtn() {
+        clickElement(CONTINUARbtn);
+    }
+
+    public void tapModificarBtn() {
+        clickElement(MODIFICARBtn);
+    }
+
+    public void checkConfirmAddressCheckbox() {
+        clickElement(confirmAddressCheckbox);
+    }
+
+    public BasicHolderJobPage allProcessBasicAddressPage(Client clientData) {
+        this.informAddress(clientData, true);
+        this.informRetireCardDefault();
+        this.tapCONTINUARbtn();
+        this.checkConfirmAddressCheckbox();
+        this.tapCONTINUARbtn();
+        return new BasicHolderJobPage(_driver);
+    }
+
+    public void verifyModificarBtnWork() {
+        assertElementWhitTextExist("Completa tu información");
+    }
+
+
+    public void verifyAlertPhonesDoestMatch() {
+        Assert.assertTrue(validateElementVisible(errorMessagePhonesDoestMatch), "Error, the alert message for input different phone numbers is not visible on screen");
+        assertElementText(errorMessagePhonesDoestMatch, "Los números celulares deben ser iguales");
+    }
+
+    public void verifyCONTINUARbtnState(boolean isEnable) {
         String enabledDisabledMessage = "disabled";
         if(isEnable) {
             enabledDisabledMessage = "enabled";
@@ -72,6 +132,29 @@ public class BasicHolderInfoPage extends BasePage {
 
         Assert.assertEquals(validateElementEnable(CONTINUARbtn), isEnable,
                 "Error, CONTINUAR btn input should be " + enabledDisabledMessage);
+    }
+
+    public void verifyConfirmAddressText(Client client) {
+        assertElementText(textClientName, client.getFirstName());
+        assertElementWhitTextExist("¿Tu domicilio es correcto?");
+
+        assertElementWhitTextExist("Calle *");
+        assertElementWhitTextExist("No. exterior *");
+        assertElementWhitTextExist("No. interior");
+        assertElementWhitTextExist("Código postal *");
+        assertElementWhitTextExist("Ciudad *");
+        assertElementWhitTextExist("Colonia *");
+        assertElementWhitTextExist("Mi domicilio es correcto");
+        assertElementText(clientStreetAddress, client.AddressStreet);
+        assertElementText(clientNoExtAddress, client.AddressExtNum);
+        assertElementText(clientNoIntAddress, client.AddressIntNum);
+        assertElementText(clientZipCodeAddress, client.AddressZipCode);
+        assertElementText(clientCityAddress, client.AddressCity);
+        assertElementText(clientSubUrbAddress, client.AddressSubUrb);
+
+        Assert.assertTrue(validateElementVisible(confirmAddressCheckbox), "Error, 'Mi domicilio es correcto' checkbox is not visible");
+        Assert.assertTrue(validateElementVisible(CONTINUARbtn), "Error, CONTINUAR button is not visible");
+        Assert.assertTrue(validateElementVisible(MODIFICARBtn), "Error, Modificar button is not visible");
     }
 
     public void verifyTextAddressInfo(Client client) {
@@ -142,7 +225,7 @@ public class BasicHolderInfoPage extends BasePage {
                 "Error, 'Selecciona el estado' confirm input is not enabled");
 
         assertElementWhitTextExist("Selecciona la localidad");
-        Assert.assertTrue(validateElementEnable(inputRetireCardLocaly),
+        Assert.assertTrue(validateElementEnable(inputRetireCardLocally),
                 "Error, 'Selecciona la localidad' confirm input is not enabled");
 
         assertElementWhitTextExist("Selecciona la sucursal");

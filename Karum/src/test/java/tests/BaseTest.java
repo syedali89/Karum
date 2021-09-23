@@ -1,6 +1,5 @@
 package test.java.tests;
 
-import org.openqa.selenium.html5.Location;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -20,8 +19,6 @@ public class BaseTest implements ITestListener {
     protected LogIN logIN;
     protected HomePage homePage;
     protected RegisterPage reg;
-    protected PMLPage moneyLaunderingPage;
-    protected INEPhotoPage inePhotoPage ;
     protected Client clientData;
 
     @BeforeClass
@@ -35,8 +32,6 @@ public class BaseTest implements ITestListener {
         logIN = new LogIN(_driver);
         homePage = new HomePage(_driver);
         reg = new RegisterPage(_driver);
-        moneyLaunderingPage = new PMLPage(_driver);
-        inePhotoPage = new INEPhotoPage(_driver);
     }
 
     @AfterMethod

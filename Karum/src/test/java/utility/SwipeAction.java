@@ -31,17 +31,12 @@ public class SwipeAction {
             intents++;
             new TouchAction(driver.GetIntance())
                     .longPress(PointOption.point(Startx, Starty))
-                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
                     .moveTo(PointOption.point(Endx, Endy))
                     .release().perform();
         }
 
-        if(intents >= 15)
-        {
-            return false;
-        }
-
-        return true;
+        return intents < 15;
     }
 
     public static boolean swipeDownUntilElementText(Driver driver, String text) {

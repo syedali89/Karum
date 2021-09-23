@@ -20,6 +20,5 @@ public class HomePage extends BasePage{
     public void verifyGoodLogIn()
     {
         Assert.assertTrue(validateElementVisible(pagarTiendaBtn), "Error, element 'Pagar en Tineda' is not visible");
-        Assert.assertTrue(validateElementEnable(pagarTiendaBtn), "Error, element 'Pagar en Tineda' is not enabled");
     }
 }

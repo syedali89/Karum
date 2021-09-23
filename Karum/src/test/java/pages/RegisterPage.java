@@ -33,9 +33,15 @@ public class RegisterPage extends BasePage {
         clickElement(avisoPrivacidadCheckbox);
     }
 
-    public PMLPage tapRegistrarme() {
+    public void tapRegistrarme() {
         SwipeAction.swipeDownUntilElementExist(_driver, registratemebtn);
         clickElement(registratemebtn);
+    }
+
+    public PMLPage AllProcessClientReg() {
+        this.goRegistrationPage();
+        this.acceptAvisoPrivacidad();
+        this.tapRegistrarme();
         return new PMLPage(_driver);
     }
 

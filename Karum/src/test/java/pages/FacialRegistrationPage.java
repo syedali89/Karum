@@ -2,7 +2,6 @@ package test.java.pages;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import test.java.utility.CameraActions;
 import test.java.utility.Driver;
 
 public class FacialRegistrationPage extends BasePage{
@@ -48,11 +47,11 @@ public class FacialRegistrationPage extends BasePage{
             //TODO Camera.Pushphoto("WrongCLOSE")
     }
 
-    public BasicHolderInfoPage allProcessFacePage() {
+    public BasicHolderAddressPage allProcessFacePage() {
         this.tapCapturarRostro();
         this.captureFace(true);
 
-        return new BasicHolderInfoPage(_driver);
+        return new BasicHolderAddressPage(_driver);
     }
 
     public void verifyWrongphoto() {

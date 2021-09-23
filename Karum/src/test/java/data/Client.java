@@ -8,10 +8,14 @@ public class Client {
     public String birthDate = "";
     public String gender = "";
     public String CURP = "";
+
     public String AddressStreet = "";
     public String AddressExtNum = "";
     public String AddressIntNum = "";
     public String AddressZipCode = "";
+    public String AddressCity = "";
+    public String AddressSubUrb = "";
+
     public String Email = "";
     public String PhoneNumber = "";
 

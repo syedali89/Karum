@@ -9,6 +9,8 @@ public class DataRecover {
         client.AddressStreet = "Some Street";
         client.AddressExtNum = "1234";
         client.AddressIntNum = "1234";
+        client.AddressCity = "Ciudad de México";
+        client.AddressSubUrb = "Piedad Narvarte";
         client.AddressZipCode = "03000";
         client.Email = "some@email.com";
         client.PhoneNumber = "5551234567";
