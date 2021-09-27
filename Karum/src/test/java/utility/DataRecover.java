@@ -21,6 +21,7 @@ public class DataRecover {
         client.birthDate = "22/03/1974";
         client.gender = "Masculino";
         client.CURP = "LORA740322HDFPDN00";
+        client.jobCompany = "Karum";
 
         return client;
     }

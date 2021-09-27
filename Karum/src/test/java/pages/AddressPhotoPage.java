@@ -10,13 +10,11 @@ public class AddressPhotoPage extends BasePage{
     public By takePhotoAdressdoctitle = By.id("com.karum.credits:id/text_title");
     public By takePhotoAdressdocIndications = By.id("com.karum.credits:id/text_inst");
     public By CAPTURARDOCUMENTObtn = By.id("com.karum.credits:id/button_capture_doc");
-
     //By Confirm Photo
     public By addresDocumentPhotoTitle = By.id("com.karum.credits:id/text_title");
     public By takedPhoto = By.id("com.karum.credits:id/imageView");
     public By continuarNextPageBtn = By.id("com.karum.credits:id/button_capture_success");
     public By capturePhotoAgainBtn = By.id("com.karum.credits:id/button_capture_again");
-
 
     //Contructor
     public AddressPhotoPage(Driver driver) {

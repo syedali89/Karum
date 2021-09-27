@@ -355,7 +355,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test
-    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_HaveYouJobStep() {
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_DoYouHaveJobStep() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
         INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
@@ -364,5 +364,141 @@ public class OnBoardingSuite extends BaseTest {
         BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
         BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
 
+        basicHolderJobPage.verifyDoYouHaveJobText();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_DoYouHaveJob_GoBackButton() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapGoBack();
+        basicInfoPage.verifyConfirmAddressText(clientData);
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_SIButton() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(true);
+        basicHolderJobPage.verifyJobDescription();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_CompanyNameMandatory() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(true);
+        basicHolderJobPage.informCompanyName(clientData);
+        basicHolderJobPage.verifyCONTINUARState(true);
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_WorkIndependentlyCheckbox() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(true);
+        basicHolderJobPage.tapWorkIndependently(clientData);
+        basicHolderJobPage.verifyCONTINUARState(true);
+        basicHolderJobPage.verifyJobCompany(clientData);
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_CompleteCompanyNameThemContinue() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(true);
+        basicHolderJobPage.tapWorkIndependently(clientData);
+        basicHolderJobPage.tapCONTINUAR();
+        basicHolderJobPage.verifyMonthlyIncome();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_NOButton() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(false);
+        basicHolderJobPage.verifyMonthlyIncome();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_MountlyIncomeMandatory() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(false);
+        basicHolderJobPage.verifyCONTINUARState(false);
+        basicHolderJobPage.setIncomeFromBar();
+        basicHolderJobPage.verifyCONTINUARState(true);
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_MonthlyIncomeAmount() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+
+        basicHolderJobPage.tapSINOhaveJob(false);
+        basicHolderJobPage.setIncomeFromBar();
+        basicHolderJobPage.verifyAmountIsCorrect();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_TextValidation() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+
+        applyCreditPage.verifyTextApplyForCreditFirstPage();
     }
 }

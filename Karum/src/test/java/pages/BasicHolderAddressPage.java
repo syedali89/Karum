@@ -118,7 +118,6 @@ public class BasicHolderAddressPage extends BasePage {
         assertElementWhitTextExist("Completa tu información");
     }
 
-
     public void verifyAlertPhonesDoestMatch() {
         Assert.assertTrue(validateElementVisible(errorMessagePhonesDoestMatch), "Error, the alert message for input different phone numbers is not visible on screen");
         assertElementText(errorMessagePhonesDoestMatch, "Los números celulares deben ser iguales");

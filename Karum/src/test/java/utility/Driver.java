@@ -83,8 +83,7 @@ public class Driver
         return _driverios;
     }
 
-    public String GetDriverType()
-    {
+    public String GetDriverType() {
         return _driverType;
     }
 /*

@@ -19,6 +19,8 @@ public class Client {
     public String Email = "";
     public String PhoneNumber = "";
 
+    public String jobCompany = "";
+
     public String getFirstName() {
         if(firstNameTwo.isEmpty()) {
             return firstNameOne;
