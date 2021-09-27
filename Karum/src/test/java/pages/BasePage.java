@@ -74,7 +74,7 @@ public class BasePage {
     }
 
     //SendKey
-    protected void assertElementWhitTextExist(String text) {
+    protected void assertElementWithTextExist(String text) {
         By locator = By.xpath("//*[@text='"+ text + "']");
         Assert.assertTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
         Assert.assertTrue( _driver.GetIntance().findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");

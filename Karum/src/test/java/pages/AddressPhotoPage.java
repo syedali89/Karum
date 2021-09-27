@@ -41,7 +41,7 @@ public class AddressPhotoPage extends BasePage{
     }
 
     public void verifyAlertBeforePhotos() {
-        assertElementWhitTextExist("Comprobante de domicilio");
+        assertElementWithTextExist("Comprobante de domicilio");
         assertElementText(takePhotoAdressdoctitle,
                 "Toma una fotografía del comprobante de domicilio");
         assertElementText(takePhotoAdressdocIndications,

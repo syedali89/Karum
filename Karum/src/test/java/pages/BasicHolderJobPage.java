@@ -94,9 +94,9 @@ public class BasicHolderJobPage extends BasePage {
     }
 
     public void verifyDoYouHaveJobText() {
-        assertElementWhitTextExist("Perfil");
-        assertElementWhitTextExist("1 / 3");
-        assertElementWhitTextExist("¿Laboras actualmente?");
+        assertElementWithTextExist("Perfil");
+        assertElementWithTextExist("1 / 3");
+        assertElementWithTextExist("¿Laboras actualmente?");
 
         Assert.assertTrue(validateElementVisible(SIhaveJobBtn),
                 "Error, 'Si' button is not visible");
@@ -105,9 +105,9 @@ public class BasicHolderJobPage extends BasePage {
     }
 
     public void verifyJobDescription() {
-        assertElementWhitTextExist("Perfil");
-        assertElementWhitTextExist("2 / 3");
-        assertElementWhitTextExist("Nombre de la empresa donde laboras");
+        assertElementWithTextExist("Perfil");
+        assertElementWithTextExist("2 / 3");
+        assertElementWithTextExist("Nombre de la empresa donde laboras");
 
         Assert.assertTrue(validateElementVisible(companyNameInput),
                 "Error, input for company name is not visible");
@@ -117,11 +117,11 @@ public class BasicHolderJobPage extends BasePage {
     }
 
     public void verifyMonthlyIncome() {
-        assertElementWhitTextExist("Perfil");
-        assertElementWhitTextExist("3 / 3");
-        assertElementWhitTextExist("¿Cuál es tu ingreso mensual?");
-        assertElementWhitTextExist("$3,000.00");
-        assertElementWhitTextExist("+ $50,000.00");
+        assertElementWithTextExist("Perfil");
+        assertElementWithTextExist("3 / 3");
+        assertElementWithTextExist("¿Cuál es tu ingreso mensual?");
+        assertElementWithTextExist("$3,000.00");
+        assertElementWithTextExist("+ $50,000.00");
 
         Assert.assertTrue(validateElementVisible(visualMonthlyIncome),
                 "Error, 'Monto del ingreso mensual' is not visible on screen");

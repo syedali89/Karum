@@ -55,14 +55,14 @@ public class FacialRegistrationPage extends BasePage{
     }
 
     public void verifyWrongphoto() {
-        assertElementWhitTextExist("Intentemos de nuevo");
-        assertElementWhitTextExist("Pero primero, veamos tu foto y validemos un ambiente correcto.");
-        assertElementWhitTextExist("Expresión normal, no sonreir");
-        assertElementWhitTextExist("Sin brillo luz externa");
+        assertElementWithTextExist("Intentemos de nuevo");
+        assertElementWithTextExist("Pero primero, veamos tu foto y validemos un ambiente correcto.");
+        assertElementWithTextExist("Expresión normal, no sonreir");
+        assertElementWithTextExist("Sin brillo luz externa");
     }
 
     public void verifyPhotoDontMatch() {
-        assertElementWhitTextExist("El rostro no coincide con la identificación");
+        assertElementWithTextExist("El rostro no coincide con la identificación");
         Assert.assertTrue(validateElementVisible(CerrarBtnFaceCaptureFail),
                 "Error, CERRAR btn is not visible");
         Assert.assertTrue(validateElementEnable(CerrarBtnFaceCaptureFail),
@@ -83,14 +83,14 @@ public class FacialRegistrationPage extends BasePage{
     }
 
     public void verifyPhotoMatch() {
-        assertElementWhitTextExist("Completa tu información");
+        assertElementWithTextExist("Completa tu información");
     }
 
     public void verifyInstructions() {
         assertElementText(instructionTitle, "Registro facial del cliente");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Toma una fotografía al cliente.");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Una vez que se detecte el rostro del cliente, indícale que realice los movimientos señalados en la pantalla. Evita contraluces, lugares oscuros y asegúrate de enfocar el rostro correctamente. Toma la fotografía con rostro descubierto sin gorra ni lentes.");
         Assert.assertTrue(validateElementVisible(capturarRostroBtn), "Error, 'CAPTURAR ROSTRO' button is not visible");
     }

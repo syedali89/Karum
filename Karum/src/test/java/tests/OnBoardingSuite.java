@@ -489,7 +489,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test
-    public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_TextValidation() {
+    public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_AuthorizeTextValidation() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
         INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
@@ -500,5 +500,42 @@ public class OnBoardingSuite extends BaseTest {
         ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
 
         applyCreditPage.verifyTextApplyForCreditFirstPage();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_DocumentsTextValidation() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+
+        applyCreditPage.tapTerminosCondiciones();
+        applyCreditPage.verifyTerminosCondicionesDocument();
+        applyCreditPage.tapCloseDocument();
+        applyCreditPage.tapUsoMediosTecnologicos();
+        applyCreditPage.verifyUsoMediosTecnologicosDocument();
+        applyCreditPage.tapCloseDocument();
+        applyCreditPage.tapConsultaBuroCredito();
+        applyCreditPage.verifyConsultaBuroCreditoDocument();
+    }
+
+    @Test
+    public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_AllCheckboxMandatory() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+
+        applyCreditPage.verifyContinuarEnabled(false);
+        applyCreditPage.tapAllAuthorizeCheckbox();
+        applyCreditPage.verifyContinuarEnabled(true);
     }
 }

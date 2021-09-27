@@ -115,7 +115,7 @@ public class BasicHolderAddressPage extends BasePage {
     }
 
     public void verifyModificarBtnWork() {
-        assertElementWhitTextExist("Completa tu información");
+        assertElementWithTextExist("Completa tu información");
     }
 
     public void verifyAlertPhonesDoestMatch() {
@@ -135,15 +135,15 @@ public class BasicHolderAddressPage extends BasePage {
 
     public void verifyConfirmAddressText(Client client) {
         assertElementText(textClientName, client.getFirstName());
-        assertElementWhitTextExist("¿Tu domicilio es correcto?");
+        assertElementWithTextExist("¿Tu domicilio es correcto?");
 
-        assertElementWhitTextExist("Calle *");
-        assertElementWhitTextExist("No. exterior *");
-        assertElementWhitTextExist("No. interior");
-        assertElementWhitTextExist("Código postal *");
-        assertElementWhitTextExist("Ciudad *");
-        assertElementWhitTextExist("Colonia *");
-        assertElementWhitTextExist("Mi domicilio es correcto");
+        assertElementWithTextExist("Calle *");
+        assertElementWithTextExist("No. exterior *");
+        assertElementWithTextExist("No. interior");
+        assertElementWithTextExist("Código postal *");
+        assertElementWithTextExist("Ciudad *");
+        assertElementWithTextExist("Colonia *");
+        assertElementWithTextExist("Mi domicilio es correcto");
         assertElementText(clientStreetAddress, client.AddressStreet);
         assertElementText(clientNoExtAddress, client.AddressExtNum);
         assertElementText(clientNoIntAddress, client.AddressIntNum);
@@ -158,47 +158,47 @@ public class BasicHolderAddressPage extends BasePage {
 
     public void verifyTextAddressInfo(Client client) {
         //Data recover From INE
-        assertElementWhitTextExist("Completa tu información");
+        assertElementWithTextExist("Completa tu información");
         assertElementText(textClientName, client.getFirstName());
-        assertElementWhitTextExist("Nombre");
+        assertElementWithTextExist("Nombre");
         assertElementText(textClientFullName, client.getFullName());
-        assertElementWhitTextExist("Fecha de nacimiento");
+        assertElementWithTextExist("Fecha de nacimiento");
         assertElementText(textClientBirthDay, client.birthDate);
-        assertElementWhitTextExist("Género");
+        assertElementWithTextExist("Género");
         assertElementText(textClientGender, client.gender);
-        assertElementWhitTextExist("CURP");
+        assertElementWithTextExist("CURP");
         assertElementText(textClientCURP, client.CURP);
 
         //Address/Contact Input data
-        assertElementWhitTextExist("Calle *");
+        assertElementWithTextExist("Calle *");
         Assert.assertTrue(validateElementEnable(inputClientStreet),
                 "Error, 'CALLE' input is not enabled");
 
-        assertElementWhitTextExist("No. exterior *");
+        assertElementWithTextExist("No. exterior *");
         Assert.assertTrue(validateElementEnable(inputClientExtNum),
                 "Error, 'No. exterior' input is not enabled");
 
-        assertElementWhitTextExist("Ciudad *");
+        assertElementWithTextExist("Ciudad *");
         Assert.assertTrue(validateElementEnable(inputClientCity),
                 "Error, 'Ciudad' input is not enabled");
 
-        assertElementWhitTextExist("Código postal *");
+        assertElementWithTextExist("Código postal *");
         Assert.assertTrue(validateElementEnable(inputClientZipCode),
                 "Error, 'Código postal *' input is not enabled");
 
-        assertElementWhitTextExist("No. interior");
+        assertElementWithTextExist("No. interior");
         Assert.assertTrue(validateElementEnable(inputClientIntNum),
                 "Error, 'No. interior' input is not enabled");
 
-        assertElementWhitTextExist("Colonia *");
+        assertElementWithTextExist("Colonia *");
         Assert.assertTrue(validateElementEnable(inputClientSubUrb),
                 "Error, 'Colonia' input is not enabled");
 
-        assertElementWhitTextExist("Correo electrónico *");
+        assertElementWithTextExist("Correo electrónico *");
         Assert.assertTrue(validateElementEnable(inputClientEmail),
                 "Error, 'Correo Electrónico' input is not enabled");
 
-        assertElementWhitTextExist("Pais *");
+        assertElementWithTextExist("Pais *");
         Assert.assertTrue(validateElementEnable(inputClientEmail),
                 "Error, 'Correo Electrónico' input is not enabled");
 
@@ -218,16 +218,16 @@ public class BasicHolderAddressPage extends BasePage {
         Assert.assertTrue(validateElementEnable(inputClientNumberConfirm),
                 "Error, 'Celular 10 dígitos *' confirm input is not enabled");
 
-        assertElementWhitTextExist("* Campos obligatorios");
-        assertElementWhitTextExist("Selecciona el estado");
+        assertElementWithTextExist("* Campos obligatorios");
+        assertElementWithTextExist("Selecciona el estado");
         Assert.assertTrue(validateElementEnable(inputRetireCardState),
                 "Error, 'Selecciona el estado' confirm input is not enabled");
 
-        assertElementWhitTextExist("Selecciona la localidad");
+        assertElementWithTextExist("Selecciona la localidad");
         Assert.assertTrue(validateElementEnable(inputRetireCardLocally),
                 "Error, 'Selecciona la localidad' confirm input is not enabled");
 
-        assertElementWhitTextExist("Selecciona la sucursal");
+        assertElementWithTextExist("Selecciona la sucursal");
         Assert.assertTrue(validateElementEnable(inputRetireCardSucursal),
                 "Error, 'Selecciona la sucursal' input is not enabled");
 
