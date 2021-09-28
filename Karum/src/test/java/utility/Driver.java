@@ -51,10 +51,6 @@ public class Driver
         // Discard state
         _driver.resetApp();
 
-        loc_Altitude = _driver.location().getAltitude();
-        loc_Latitude = _driver.location().getLatitude();
-        loc_Longitude = _driver.location().getLongitude();
-
         //Location location = new Location(19.423870, -99.260252, 2240);
         //_driver.setLocation(location);
     }
@@ -63,13 +59,11 @@ public class Driver
     private AndroidDriver _driverandroid;
     private IOSDriver _driverios;
     private String _driverType;
-    private double loc_Altitude;
-    private double loc_Latitude;
-    private double loc_Longitude;
     private final static String APP_PACKAGE_NAME = "com.karum.credits";
     private final static String APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
     private final static String DEVICE_NAME_NAME = "ZY323V65L2";
-    private final static String TEST_DEVISE = "ANDROID";
+    //private final static String DEVICE_NAME_NAME = "emulator-5554";
+    private String TEST_DEVISE = "ANDROID";
     private final static String ANDROID = "ANDROID";
     private final static String IOS = "IOS";
 
@@ -89,8 +83,7 @@ public class Driver
         return _driverios;
     }
 
-    public String GetDriverType()
-    {
+    public String GetDriverType() {
         return _driverType;
     }
 /*

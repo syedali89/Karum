@@ -64,16 +64,16 @@ public class INEPhotoPage extends BasePage {
         Assert.assertTrue(_driver.GetIntance().findElements(takedPhotos).size() == 2,
                 "Error,There have to be two photos on screen, one for front INE and other for the back");
         //Later remplace HardCode with Client Data
-        assertElementWhitTextExist("LOPEZ");
-        assertElementWhitTextExist("RODEA");
-        assertElementWhitTextExist("ANTONIO SERVANDO");
+        assertElementWithTextExist("LOPEZ");
+        assertElementWithTextExist("RODEA");
+        assertElementWithTextExist("ANTONIO SERVANDO");
         //assertElementWhitTextExist("LORA740322HDFPDN00");
-        assertElementWhitTextExist("1992");
-        assertElementWhitTextExist("2020");
-        assertElementWhitTextExist("04");
+        assertElementWithTextExist("1992");
+        assertElementWithTextExist("2020");
+        assertElementWithTextExist("04");
         //assertElementWhitTextExist("RLPRDAN74032209460");
-        assertElementWhitTextExist("3233057048259");
-        assertElementWhitTextExist("2086617703");
+        assertElementWithTextExist("3233057048259");
+        assertElementWithTextExist("2086617703");
         Assert.assertTrue(validateElementVisible(SIGUIENTEbtn), "Error, SIGUIENTE button is not visible");
     }
 

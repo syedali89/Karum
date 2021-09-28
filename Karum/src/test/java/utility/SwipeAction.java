@@ -8,6 +8,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.ScreenOrientation;
 import test.java.constants;
 
@@ -20,8 +21,9 @@ public class SwipeAction {
     {
         Dimension size = driver.GetIntance().manage().window().getSize();
         int Starty = (int) (size.height * 0.80);
-        int Endy = (int) (size.height * 0.20);
         int Startx = size.width / 2;
+
+        int Endy = (int) (size.height * 0.20);
         int Endx = Startx;
 
         int intents = 0;
@@ -31,17 +33,12 @@ public class SwipeAction {
             intents++;
             new TouchAction(driver.GetIntance())
                     .longPress(PointOption.point(Startx, Starty))
-                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
                     .moveTo(PointOption.point(Endx, Endy))
                     .release().perform();
         }
 
-        if(intents >= 15)
-        {
-            return false;
-        }
-
-        return true;
+        return intents < 15;
     }
 
     public static boolean swipeDownUntilElementText(Driver driver, String text) {
@@ -63,5 +60,20 @@ public class SwipeAction {
             }
         }
         return true;
+    }
+
+    public static void swipeToRightFromElement(Driver driver, By locator) {
+        Point elementCordinates = driver.GetIntance().findElement(locator).getLocation();
+
+        int Starty = elementCordinates.y;
+        int Startx = elementCordinates.x;
+        int Endy = Starty;
+        int Endx = Startx + 200;
+
+        new TouchAction(driver.GetIntance())
+                .longPress(PointOption.point(Startx, Starty))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+                .moveTo(PointOption.point(Endx, Endy))
+                .release().perform();
     }
 }

@@ -79,19 +79,19 @@ public class PMLPage extends BasePage {
     }
 
     public void assertPMLText() {
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Te queremos conocer mejor, por favor responde las preguntas para poder hacerlo:");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Declaro bajo protesta de decir la verdad que no desempeño actualmente ni durante el año inmediato anterior algún cargo público destacado a nivel federal, estatal, municipal o distrito en México o en el extranjero.");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Declaro también que mi cónyuge, en su caso, o pariente por consanguinidad o afinidad hasta el 2º grado, no desempeña actualmente ni durante el año inmediato anterior ningún cargo público destacado a nivel federal, estatal, municipal o distrital en México o en el extranjero.");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Declaro que ningún tercero obtendrá los beneficios derivados de las operaciones realizadas con KUALI SERVICIOS INTEGRALES DE EMPRENDIMIENTO SAPI DE C.V SOFOM E.N.R. ni ejercerá los derechos de uso, aprovechamiento o disposición de los recursos operados, siendo el verdadero propietario de los mismos. (Propietario real)");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Declaro que ningún tercero aportará regularmente recursos para el cumplimiento de las obligaciones derivadas del contrato que se establece con KUALI SERVICIOS INTEGRALES DE EMPRENDIMIENTO SAPI DE C.V SOFOM E.N.R. sin ser el titular de dicho contrato ni obtener los beneficios económicos derivados del mismo.");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Declaro que bajo protesta de decir verdad que para efectos de la realización de las operaciones con KUALI SERVICIOS INTEGRALES DE EMPRENDIMIENTO SAPI DE C.V SOFOM E.N.R. estoy actuando por cuenta propia.");
-        assertElementWhitTextExist(
+        assertElementWithTextExist(
                 "Declaro que los recursos que utilizaré para el pago de este producto provienen de una fuente licita.");
 
         Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver, continueBtn), "Error, CONTINUE button doesn't exist");

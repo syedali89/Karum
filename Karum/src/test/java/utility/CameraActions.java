@@ -13,6 +13,8 @@ import test.java.constants;
 import java.time.Duration;
 
 public class CameraActions {
+    private static By btnTakePhotoButton = By.id("com.android.camera2:id/shutter_button");
+    private static By btnAcceptPhotoButton = By.id("com.android.camera2:id/done_button");
     private static KeyEvent androidCamera = new KeyEvent(AndroidKey.CAMERA);
     //private static KeyEvent androidCamera = new KeyEvent(AndroidKey.);
 
@@ -21,7 +23,9 @@ public class CameraActions {
         if(true){      return;}
         //
         if(driver.GetDriverType().equals(constants.ANDROID)) {
-            driver.GetAndroidDriver().pressKey(androidCamera);
+            //driver.GetAndroidDriver().pressKey(androidCamera);
+            driver.GetAndroidDriver().findElement(btnTakePhotoButton).click();
+            driver.GetAndroidDriver().findElement(btnAcceptPhotoButton).click();
             //TODO a way to wait time
             driver.GetAndroidDriver().pressKey(androidCamera);
             //TODO a way to wait time

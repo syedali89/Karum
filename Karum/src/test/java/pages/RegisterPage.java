@@ -33,9 +33,15 @@ public class RegisterPage extends BasePage {
         clickElement(avisoPrivacidadCheckbox);
     }
 
-    public PMLPage tapRegistrarme() {
+    public void tapRegistrarme() {
         SwipeAction.swipeDownUntilElementExist(_driver, registratemebtn);
         clickElement(registratemebtn);
+    }
+
+    public PMLPage AllProcessClientReg() {
+        this.goRegistrationPage();
+        this.acceptAvisoPrivacidad();
+        this.tapRegistrarme();
         return new PMLPage(_driver);
     }
 
@@ -45,9 +51,9 @@ public class RegisterPage extends BasePage {
 
     public void assertAvisoPrivacidad() {
         //TODO assert of all the document, but we have to be sure about the content. Now only we evalute the title, the close button and the name of the company
-        assertElementWhitTextExist("Aviso de privacidad");
+        assertElementWithTextExist("Aviso de privacidad");
         Assert.assertTrue(validateElementVisible(avisoPrivacidadClose), "Errro, Is not visible button that close 'Aviso Privacidad' document.");
-        assertElementWhitTextExist("KUALI SERVICIOS INTEGRALES DE EMPRENDIMIENTO SAPI DE C.V., SOFOM ENR");
+        assertElementWithTextExist("KUALI SERVICIOS INTEGRALES DE EMPRENDIMIENTO SAPI DE C.V., SOFOM ENR");
         //Validate correct funtion of the close Aviso Privacidad button.
         clickElement(avisoPrivacidadClose);
         Assert.assertTrue(validateElementVisible(registratemebtn), "Error, REGISTRARME button is not visible after tap on close Aviso Privacidad button.");
@@ -56,10 +62,10 @@ public class RegisterPage extends BasePage {
     public void assertInitialRegistrationPage() {
         assertElementText(registrateMessage, "Regístrate ahora y solicita tu crédito en menos de 5 minutos");
         //TODO assert of all the diferent types of validation that are required for the client to make a account. Now we are only check the Titles.
-        assertElementWhitTextExist("Debes contar con la siguiente documentación para iniciar tu registro:");
-        assertElementWhitTextExist("Identificación oficial");
-        assertElementWhitTextExist("Comprobante de domicilio");
-        assertElementWhitTextExist("Registro facial");
+        assertElementWithTextExist("Debes contar con la siguiente documentación para iniciar tu registro:");
+        assertElementWithTextExist("Identificación oficial");
+        assertElementWithTextExist("Comprobante de domicilio");
+        assertElementWithTextExist("Registro facial");
         Assert.assertTrue(SwipeAction.swipeDownUntilElementExist(_driver, registratemebtn), "Error, REGISTRARME button is not visible.");
     }
 }

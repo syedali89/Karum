@@ -1,30 +1,29 @@
 package test.java.tests;
 
-import org.openqa.selenium.html5.Location;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.*;
 import test.java.data.Client;
 import test.java.pages.*;
+import test.java.utility.DataRecover;
 import test.java.utility.Driver;
 import test.java.utility.GetScreenshot;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Random;
 
 public class BaseTest implements ITestListener {
     protected Driver _driver;
     protected LogIN logIN;
     protected HomePage homePage;
     protected RegisterPage reg;
-    protected PMLPage moneyLaunderingPage;
-    protected INEPhotoPage inePhotoPage ;
     protected Client clientData;
 
     @BeforeClass
     public void beforeClass() {
-        clientData = new Client();
+         clientData = DataRecover.RecoverClientData();
     }
 
     @BeforeMethod
@@ -33,8 +32,6 @@ public class BaseTest implements ITestListener {
         logIN = new LogIN(_driver);
         homePage = new HomePage(_driver);
         reg = new RegisterPage(_driver);
-        moneyLaunderingPage = new PMLPage(_driver);
-        inePhotoPage = new INEPhotoPage(_driver);
     }
 
     @AfterMethod
@@ -43,7 +40,7 @@ public class BaseTest implements ITestListener {
             System.out.println("ERROR FATAL");
             try
             {
-                String path = GetScreenshot.capture(_driver.GetIntance(), result.getName());
+                String path = GetScreenshot.capture(_driver.GetIntance(), result.getName() + "_" + new Random().nextInt(99999999));
                 Reporter.log("<br><img src='" + path + "'/></b>", true);
             }
             catch (IOException e)
