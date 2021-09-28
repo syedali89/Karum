@@ -5,14 +5,14 @@ import test.java.constants;
 import test.java.pages.*;
 
 public class OnBoardingSuite extends BaseTest {
-    @Test
+    @Test(priority = 1)
     public void TC002_InitialScreen() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
         reg.assertInitialRegistrationPage();
     }
 
-    @Test
+    @Test(priority = 2)
     public void TC002_InitialScreen_AvisoPrivacidadDocument() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
@@ -20,7 +20,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.assertAvisoPrivacidad();
     }
 
-    @Test
+    @Test(priority = 3)
     public void TC002_InitialScreen_AcceptAvisoPrivacidadRegistrarmeEnable() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         reg.goRegistrationPage();
@@ -28,7 +28,7 @@ public class OnBoardingSuite extends BaseTest {
         reg.assertRegistrarmeBtnEnabled();
     }
 
-    @Test
+    @Test(priority = 4)
     public void TC003_AMLQuestionnaire_NothingSelected_DisableContinue() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -36,7 +36,7 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.assertContinueBtnDisable();
     }
 
-    @Test
+    @Test(priority = 5)
     public void TC003_AMLQuestionnaire_OneYesRestUnSelected_DisableContinue() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -46,7 +46,7 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.assertContinueBtnDisable();
     }
 
-    @Test
+    @Test(priority = 6)
     public void TC003_AMLQuestionnaire_AllNoSelected_DisableContinue() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -56,7 +56,7 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.assertContinueBtnDisable();
     }
 
-    @Test
+    @Test(priority = 7)
     public void TC003_AMLQuestionnaire_OneNORestYesSelected_DisableContinue() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -67,7 +67,7 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.assertContinueBtnDisable();
     }
 
-    @Test
+    @Test(priority = 8)
     public void TC003_AMLQuestionnaire_AllYesSelected_EnableContinue() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -77,7 +77,7 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.assertContinueBtnEnable();
     }
 
-    @Test
+    @Test(priority = 9)
     public void TC003_AMLQuestionnaire_ValidateText() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -85,7 +85,7 @@ public class OnBoardingSuite extends BaseTest {
         moneyLaunderingPage.assertPMLText();
     }
 
-    @Test
+    @Test(priority = 10)
     public void TC004_INEIFEEvaluation_IdentificacionVigenteCheckBoxRequired() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -95,7 +95,7 @@ public class OnBoardingSuite extends BaseTest {
         inePhotoPage.verifycapturarINEIFEbtnState(false);
     }
 
-    @Test
+    @Test(priority = 11)
     public void TC004_INEIFEEvaluation_ValidadoElementosSeguridadCheckboxCheckBoxRequired() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -105,7 +105,7 @@ public class OnBoardingSuite extends BaseTest {
         inePhotoPage.verifycapturarINEIFEbtnState(false);
     }
 
-    @Test
+    @Test(priority = 12)
     public void TC004_INEIFEEvaluation_AllCheckboxCheckBoxRequiredSelect() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -115,7 +115,7 @@ public class OnBoardingSuite extends BaseTest {
         inePhotoPage.verifycapturarINEIFEbtnState(true);
     }
 
-    @Test
+    @Test(priority = 13)
     public void TC004_INEIFEEvaluation_ConfirmIFEPhotos() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -130,7 +130,7 @@ public class OnBoardingSuite extends BaseTest {
         inePhotoPage.verifyContinuarnextPage();
     }
 
-    @Test
+    @Test(priority = 14)
     public void TC005_AdressDocumentation_BeforePhotoAlert() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -140,7 +140,7 @@ public class OnBoardingSuite extends BaseTest {
         addressPage.verifyAlertBeforePhotos();
     }
 
-    @Test
+    @Test(priority = 15)
     public void TC005_AdressDocumentation_PhotoTakeOK() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -152,7 +152,7 @@ public class OnBoardingSuite extends BaseTest {
         addressPage.verifyPhotoTakedPage();
     }
 
-    @Test
+    @Test(priority = 16)
     public void TC005_AdressDocumentation_TakePhotoAgain() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -166,7 +166,7 @@ public class OnBoardingSuite extends BaseTest {
         addressPage.verifyPhotoTakedPage();
     }
 
-    @Test
+    @Test(priority = 17)
     public void TC006_SelfieBiometricCheck_VerifyIntructions() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -177,7 +177,7 @@ public class OnBoardingSuite extends BaseTest {
         facePage.verifyInstructions();
     }
 
-    @Test
+    @Test(priority = 18)
     public void TC006_SelfieBiometricCheck_VerifyFaceActionT() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -191,7 +191,7 @@ public class OnBoardingSuite extends BaseTest {
         facePage.verifyCaptureFace();
     }
 
-    @Test
+    @Test(priority = 19)
     public void TC006_SelfieBiometricCheck_CaptureGoWrong() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -204,7 +204,7 @@ public class OnBoardingSuite extends BaseTest {
         facePage.verifyWrongphoto();
     }
 
-    @Test
+    @Test(priority = 20)
     public void TC006_SelfieBiometricCheck_FaceFailMatchingINE() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -217,7 +217,7 @@ public class OnBoardingSuite extends BaseTest {
         facePage.verifyPhotoDontMatch();
     }
 
-    @Test
+    @Test(priority = 21)
     public void TC006_SelfieBiometricCheck_FaceMatchINE() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -230,7 +230,7 @@ public class OnBoardingSuite extends BaseTest {
         facePage.verifyPhotoMatch();
     }
 
-    @Test
+    @Test(priority = 22)
     public void TC007_KeyLoadBasicAcctHolderInformation_ValidateTextAddressInfo() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -243,7 +243,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyCONTINUARbtnState(false);
     }
 
-    @Test
+    @Test(priority = 23)
     public void TC007_KeyLoadBasicAcctHolderInformation_ValidateAddressAllFieldsInformet() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -257,7 +257,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyCONTINUARbtnState(true);
     }
 
-    @Test
+    @Test(priority = 24)
     public void TC007_KeyLoadBasicAcctHolderInformation_ValidateOnlyAddressMandatoryFields() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -273,7 +273,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyCONTINUARbtnState(true);
     }
 
-    @Test
+    @Test(priority = 25)
     public void TC007_KeyLoadBasicAcctHolderInformation_ValidateEmailIncorrectFormat() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -289,7 +289,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyCONTINUARbtnState(false);
     }
 
-    @Test
+    @Test(priority = 26)
     public void TC007_KeyLoadBasicAcctHolderInformation_ValidatePhoneNumberNotEquals() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -304,7 +304,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyCONTINUARbtnState(false);
     }
 
-    @Test
+    @Test(priority = 27)
     public void TC007_KeyLoadBasicAcctHolderInformation_ConfirmationAddressText() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -319,7 +319,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyConfirmAddressText(clientData);
     }
 
-    @Test
+    @Test(priority = 28)
     public void TC007_KeyLoadBasicAcctHolderInformation_ConfirmationAddress_ModificarButton() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -336,7 +336,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyModificarBtnWork();
     }
 
-    @Test
+    @Test(priority = 29)
     public void TC007_KeyLoadBasicAcctHolderInformation_ConfirmationAddress_ContinuarEnabledWhenConfirmCheckbox() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -354,7 +354,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyCONTINUARbtnState(true);
     }
 
-    @Test
+    @Test(priority = 30)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_DoYouHaveJobStep() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -367,7 +367,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyDoYouHaveJobText();
     }
 
-    @Test
+    @Test(priority = 31)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_DoYouHaveJob_GoBackButton() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -382,7 +382,7 @@ public class OnBoardingSuite extends BaseTest {
         basicInfoPage.verifyConfirmAddressText(clientData);
     }
 
-    @Test
+    @Test(priority = 32)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_SIButton() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -396,7 +396,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyJobDescription();
     }
 
-    @Test
+    @Test(priority = 33)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_CompanyNameMandatory() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -411,7 +411,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyCONTINUARState(true);
     }
 
-    @Test
+    @Test(priority = 34)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_WorkIndependentlyCheckbox() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -427,7 +427,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyJobCompany(clientData);
     }
 
-    @Test
+    @Test(priority = 35)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_CompleteCompanyNameThemContinue() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -443,7 +443,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyMonthlyIncome();
     }
 
-    @Test
+    @Test(priority = 36)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_NOButton() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -457,7 +457,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyMonthlyIncome();
     }
 
-    @Test
+    @Test(priority = 37)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_MountlyIncomeMandatory() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -473,7 +473,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyCONTINUARState(true);
     }
 
-    @Test
+    @Test(priority = 38)
     public void TC007_KeyLoadBasicAcctHolderInformation_JobInformation_MonthlyIncomeAmount() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -488,7 +488,7 @@ public class OnBoardingSuite extends BaseTest {
         basicHolderJobPage.verifyAmountIsCorrect();
     }
 
-    @Test
+    @Test(priority = 39)
     public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_AuthorizeTextValidation() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -502,7 +502,7 @@ public class OnBoardingSuite extends BaseTest {
         applyCreditPage.verifyTextApplyForCreditFirstPage();
     }
 
-    @Test
+    @Test(priority = 40)
     public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_DocumentsTextValidation() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -523,7 +523,7 @@ public class OnBoardingSuite extends BaseTest {
         applyCreditPage.verifyConsultaBuroCreditoDocument();
     }
 
-    @Test
+    @Test(priority = 41)
     public void TC007_KeyLoadBasicAcctHolderInformation_ApplyForCredit_AllCheckboxMandatory() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
@@ -537,5 +537,75 @@ public class OnBoardingSuite extends BaseTest {
         applyCreditPage.verifyContinuarEnabled(false);
         applyCreditPage.tapAllAuthorizeCheckbox();
         applyCreditPage.verifyContinuarEnabled(true);
+    }
+
+    @Test(priority = 42)
+    public void TC008_PrescreenRequest_SecureCode_TextValidation() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+        RegSecureCode regSecureCode = applyCreditPage.allApplyCreditPage();
+
+        regSecureCode.verifySecureCodePage(clientData);
+    }
+
+    @Test(priority = 43)
+    public void TC008_PrescreenRequest_SecureCode_WaitCountdownAndResendCode() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+        RegSecureCode regSecureCode = applyCreditPage.allApplyCreditPage();
+
+        regSecureCode.waitCountdown();
+        regSecureCode.tapEnviarCodido();
+        regSecureCode.verifyAlertSendCode();
+        regSecureCode.tapACEPTAR();
+        regSecureCode.verifyResendSecureCodePage();
+    }
+
+    @Test(priority = 44)
+    public void TC008_PrescreenRequest_SecureCode_InputWrongCode() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+        RegSecureCode regSecureCode = applyCreditPage.allApplyCreditPage();
+
+        regSecureCode.insertSecurityCode(false);
+        regSecureCode.verifyWrongSecurity();
+    }
+
+    @Test(priority = 45)
+    public void TC008_PrescreenRequest_SecureCode_InputCorrectCode() {
+        logIN.logINClienteAsesor(constants.CLIENTE);
+        PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
+
+        INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
+        AddressPhotoPage addressPage = inePhotoPage.allProcessIFEPhotos();
+        FacialRegistrationPage facePage = addressPage.allProcessAddressPage();
+        BasicHolderAddressPage basicInfoPage = facePage.allProcessFacePage();
+        BasicHolderJobPage basicHolderJobPage = basicInfoPage.allProcessBasicAddressPage(clientData);
+        ApplyCreditPage applyCreditPage = basicHolderJobPage.allProcessBasicAddressPage();
+        RegSecureCode regSecureCode = applyCreditPage.allApplyCreditPage();
+
+        regSecureCode.insertSecurityCode(true);
+        regSecureCode.verifyCorrectSecurityCode();
     }
 }

@@ -29,6 +29,11 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
+    //Wait Element is not Visible
+    protected void waitNotVisibility(By locator) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
     //Click
     protected void clickElement(By locator) {
         waitVisibility(locator);

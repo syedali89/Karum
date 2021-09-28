@@ -50,6 +50,12 @@ public class ApplyCreditPage extends BasePage {
         clickElement(checkboxConsultaBuroCredito);
     }
 
+    public RegSecureCode allApplyCreditPage() {
+        this.tapAllAuthorizeCheckbox();
+        this.tapCONTINUAR();
+        return new RegSecureCode(_driver);
+    }
+
     public void verifyContinuarEnabled(boolean enabled) {
         String enabledDisbledMessage = "disabled";
         if(enabled) {
