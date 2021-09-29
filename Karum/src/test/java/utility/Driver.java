@@ -61,8 +61,8 @@ public class Driver
     private String _driverType;
     private final static String APP_PACKAGE_NAME = "com.karum.credits";
     private final static String APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
-    private final static String DEVICE_NAME_NAME = "ZY323V65L2";
-    //private final static String DEVICE_NAME_NAME = "emulator-5554";
+    //private final static String DEVICE_NAME_NAME = "ZY323V65L2";
+    private final static String DEVICE_NAME_NAME = "emulator-5554";
     private String TEST_DEVISE = "ANDROID";
     private final static String ANDROID = "ANDROID";
     private final static String IOS = "IOS";

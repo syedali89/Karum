@@ -43,14 +43,14 @@ public class LogINSuite extends BaseTest {
     @Test
     public void TC0005_ValidateapplicationAskSecurityPinUponLoginForFirstTimeOnlyAfterInstallingApplication () {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser("two@two.com", "1Qa!2345");
+        logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.verifyMessageActivationCode();
     }
 
     @Test
     public void TC0006_ValidateErrorMessageEnteringInvalidSecurityCodeUponFirstTimeLogin() {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser("two@two.com", "1Qa!2345");
+        logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.insertSecurityCode(false);
 
         logIN.verifyBadCode();
@@ -59,7 +59,7 @@ public class LogINSuite extends BaseTest {
     @Test
     public void TC0006_ValidateCorrectLogin_ValidSecurityCodeUponFirstTimeLogin() {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser("two@two.com", "1Qa!2345");
+        logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.insertSecurityCode(true);
 
         homePage.verifyGoodLogIn();
@@ -68,20 +68,20 @@ public class LogINSuite extends BaseTest {
     @Test
     public void TC0007_ValidateHomeScreenAfterlogin () {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser("two@two.com", "1Qa!2345");
+        logIN.LoginUser(clientData.userName, clientData.userPass);
     }
 
     @Test
     public void TC0008_ValidateErrorMessageLoginScreenEnteringWrongPassword() {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser("two@two.com", "password");
+        logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.verifyBadLogIn();
     }
 
     @Test
     public void TC0008_ValidateErrorMessageLoginScreenEnteringWrongUsername() {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser("user@email.com", "password");
+        logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.verifyBadLogIn();
     }
 }
