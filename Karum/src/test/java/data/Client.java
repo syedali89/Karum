@@ -29,6 +29,7 @@ public class Client {
     //Credentials
     public String userName = "";
     public String userPass = "";
+    public String userPhone = "";
 
     public String getFirstName() {
         if(firstNameTwo.isEmpty()) {

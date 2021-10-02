@@ -3,6 +3,7 @@ package test.java.pages;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import test.java.data.Client;
+import test.java.utility.DataRecover;
 import test.java.utility.Driver;
 
 public class RegSecureCode extends BasePage {
@@ -31,9 +32,13 @@ public class RegSecureCode extends BasePage {
     }
 
     public void insertSecurityCode(boolean correct) {
-        String code = "";
+        String code;
         if(correct) {
-            //TODO recover the correct number for the testing
+            code = DataRecover.RecoverSecurityCode();
+
+            if(code.isEmpty()) {
+                code = "000000";
+            }
         }
         else {
             code = "111111";

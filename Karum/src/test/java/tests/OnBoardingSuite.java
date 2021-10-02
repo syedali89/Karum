@@ -3,6 +3,7 @@ package test.java.tests;
 import org.testng.annotations.Test;
 import test.java.constants;
 import test.java.pages.*;
+import test.java.utility.DataRecover;
 
 public class OnBoardingSuite extends BaseTest {
     @Test(priority = 1)
@@ -131,7 +132,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test(priority = 14)
-    public void TC005_AdressDocumentation_BeforePhotoAlert() {
+    public void TC005_AddressDocumentation_BeforePhotoAlert() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
         INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
@@ -141,7 +142,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test(priority = 15)
-    public void TC005_AdressDocumentation_PhotoTakeOK() {
+    public void TC005_AddressDocumentation_PhotoTakeOK() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
         INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
@@ -153,7 +154,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test(priority = 16)
-    public void TC005_AdressDocumentation_TakePhotoAgain() {
+    public void TC005_AddressDocumentation_TakePhotoAgain() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
         INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();
@@ -167,7 +168,7 @@ public class OnBoardingSuite extends BaseTest {
     }
 
     @Test(priority = 17)
-    public void TC006_SelfieBiometricCheck_VerifyIntructions() {
+    public void TC006_SelfieBiometricCheck_VerifyInstructions() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         PMLPage moneyLaunderingPage = reg.AllProcessClientReg();
         INEPhotoPage inePhotoPage = moneyLaunderingPage.allProcessPNLProcess();

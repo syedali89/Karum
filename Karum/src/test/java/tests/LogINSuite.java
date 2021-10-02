@@ -41,14 +41,14 @@ public class LogINSuite extends BaseTest {
     }
 
     @Test
-    public void TC0005_ValidateapplicationAskSecurityPinUponLoginForFirstTimeOnlyAfterInstallingApplication () {
+    public void TC005_ValidateapplicationAskSecurityPinUponLoginForFirstTimeOnlyAfterInstallingApplication () {
         logIN.logINClienteAsesor(constants.CLIENTE);
         logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.verifyMessageActivationCode();
     }
 
     @Test
-    public void TC0006_ValidateErrorMessageEnteringInvalidSecurityCodeUponFirstTimeLogin() {
+    public void TC006_ValidateErrorMessageEnteringInvalidSecurityCodeUponFirstTimeLogin() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.insertSecurityCode(false);
@@ -57,7 +57,7 @@ public class LogINSuite extends BaseTest {
     }
 
     @Test
-    public void TC0006_ValidateCorrectLogin_ValidSecurityCodeUponFirstTimeLogin() {
+    public void TC006_ValidateCorrectLogin_ValidSecurityCodeUponFirstTimeLogin() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.insertSecurityCode(true);
@@ -66,20 +66,20 @@ public class LogINSuite extends BaseTest {
     }
 
     @Test
-    public void TC0007_ValidateHomeScreenAfterlogin () {
+    public void TC007_ValidateHomeScreenAfterlogin () {
         logIN.logINClienteAsesor(constants.CLIENTE);
         logIN.LoginUser(clientData.userName, clientData.userPass);
     }
 
     @Test
-    public void TC0008_ValidateErrorMessageLoginScreenEnteringWrongPassword() {
+    public void TC008_ValidateErrorMessageLoginScreenEnteringWrongPassword() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.verifyBadLogIn();
     }
 
     @Test
-    public void TC0008_ValidateErrorMessageLoginScreenEnteringWrongUsername() {
+    public void TC008_ValidateErrorMessageLoginScreenEnteringWrongUsername() {
         logIN.logINClienteAsesor(constants.CLIENTE);
         logIN.LoginUser(clientData.userName, clientData.userPass);
         logIN.verifyBadLogIn();
