@@ -6,15 +6,12 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import test.java.constants;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
 public class Driver
 {
     public Driver() throws MalformedURLException {
@@ -69,7 +66,8 @@ public class Driver
     private final static String ANDROID = "ANDROID";
     private final static String IOS = "IOS";
     private final static String APPPATH_IOS = "iosapp";
-    private final static String APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.3.apk";
+    //private final static String APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.4.apk";
+    private final static String APPPATH_ANDROID = "Karum_Fase_2_v1.9.12.apk";
 
 
     public AppiumDriver GetIntance()

@@ -41,7 +41,7 @@ public class BaseTest implements ITestListener {
             try
             {
                 String path = GetScreenshot.capture(_driver.GetIntance(), result.getName() + "_" + new Random().nextInt(99999999));
-                Reporter.log("<br><img src='" + path + "'/></b>", true);
+                Reporter.log(path, true);
             }
             catch (IOException e)
             {

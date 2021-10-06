@@ -74,14 +74,14 @@ public class LogINSuite extends BaseTest {
     @Test
     public void TC008_ValidateErrorMessageLoginScreenEnteringWrongPassword() {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser(clientData.userName, clientData.userPass);
+        logIN.LoginUser(clientData.userName, clientData.userPass+"W");
         logIN.verifyBadLogIn();
     }
 
     @Test
     public void TC008_ValidateErrorMessageLoginScreenEnteringWrongUsername() {
         logIN.logINClienteAsesor(constants.CLIENTE);
-        logIN.LoginUser(clientData.userName, clientData.userPass);
+        logIN.LoginUser(clientData.userName+"W", clientData.userPass);
         logIN.verifyBadLogIn();
     }
 }

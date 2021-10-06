@@ -5,6 +5,8 @@ import test.java.constants;
 import test.java.pages.*;
 import test.java.utility.DataRecover;
 
+import java.util.ArrayList;
+
 public class OnBoardingSuite extends BaseTest {
     @Test(priority = 1)
     public void TC002_InitialScreen() {

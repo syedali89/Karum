@@ -27,7 +27,7 @@ public class BasePage {
     //Constructor
     public BasePage (Driver driver) {
         _driver = driver;
-        wait = new WebDriverWait(driver.GetIntance(), 1200);
+        wait = new WebDriverWait(driver.GetIntance(), 10);
         act = new Actions(driver.GetIntance());
         if(driver.GetDriverType().equals(constants.IOS)) {
             //TODO IOS PATH document
