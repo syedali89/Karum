@@ -51,10 +51,10 @@ public class ApplyCreditPage extends BasePage {
         clickElement(checkboxConsultaBuroCredito);
     }
 
-    public RegSecureCode allApplyCreditPage() {
+    public PrescreenRequestPage allApplyCreditPage() {
         this.tapAllAuthorizeCheckbox();
         this.tapCONTINUAR();
-        return new RegSecureCode(_driver);
+        return new PrescreenRequestPage(_driver);
     }
 
     public void verifyContinuarEnabled(boolean enabled) {

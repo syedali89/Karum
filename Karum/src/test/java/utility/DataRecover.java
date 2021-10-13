@@ -43,6 +43,7 @@ public class DataRecover {
         client.gender = "Masculino";
         client.CURP = "LORA740322HDFPDN00";
         client.jobCompany = "Karum";
+        client.CompanyPhoneNumber = "1234567890";
 
         client.userName = "spring2_u1@gmail.com";
         client.userPass = "temporal#dev";

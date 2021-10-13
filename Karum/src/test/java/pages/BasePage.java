@@ -1,18 +1,13 @@
 package test.java.pages;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import test.java.data.Client;
 import test.java.utility.Driver;
 import test.java.utility.SwipeAction;
 import test.java.constants;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,12 +56,10 @@ public class BasePage {
     protected boolean validateElementVisible(By locator) {
         boolean elementVisible = true;
 
-        try
-        {
+        try {
             waitVisibility(locator);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             elementVisible = false;
         }
 
@@ -132,6 +125,22 @@ public class BasePage {
             }
 
             lastText = lastTextDisplayed;
+        }
+    }
+
+    public void grantAllPermissions() {
+        if(_driver.GetDriverType().equals(constants.ANDROID)) {
+            By allowButtonForeground = By.id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+            By allowButton = By.id("com.android.permissioncontroller:id/permission_allow_button");
+
+           //TODO TEST SANGSUNG
+            while(validateElementVisible(allowButtonForeground)) {
+                    clickElement(allowButtonForeground);
+            }
+
+            while(validateElementVisible(allowButton)) {
+                    clickElement(allowButton);
+            }
         }
     }
 }

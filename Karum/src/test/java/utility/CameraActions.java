@@ -1,16 +1,12 @@
 package test.java.utility;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import test.java.constants;
 
-import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CameraActions {
     private static By btnTakePhotoButton = By.id("com.android.camera2:id/shutter_button");
@@ -30,7 +26,28 @@ public class CameraActions {
             driver.GetAndroidDriver().pressKey(androidCamera);
             //TODO a way to wait time
         }
-
-
     }
+
+    private static Map<String, Object> parameters(Driver driver, String imageName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("repositoryFile", "PRIVATE:" + imageName);
+        params.put("identifier", "com.karum.credits");
+        params.put("resize", "true");
+        return params;
+    }
+
+    public static void ImageInjection(Driver driver, String imageName) {
+        Map<String, Object> params = parameters(driver, imageName);
+        if(driver.GetDriverType().equals(constants.ANDROID)) {
+            Object res = driver.GetAndroidDriver().executeScript("mobile:image.injection:start", params);
+        }
+    }
+
+    public static void ImageInjectionStop(Driver driver, String imageName) {
+        Map<String, Object> params = parameters(driver, imageName);
+        if(driver.GetDriverType().equals(constants.ANDROID)) {
+            Object res = driver.GetAndroidDriver().executeScript("mobile:image.injection:stop", params);
+        }
+    }
+
 }

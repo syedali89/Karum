@@ -12,52 +12,78 @@ import test.java.constants;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class Driver
-{
+public class Driver {
     public Driver() throws MalformedURLException {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME_NAME);
-        capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
+        int exitCode = 0;
+        DesiredCapabilities capabilities = new DesiredCapabilities("", "", Platform.ANY);
+        // 1. Replace <<cloud name>> with your perfecto cloud name (for example, 'demo' is the cloudName of demo.perfectomobile.com).
+        String cloudName = "trial";
 
+        // 2. Replace <<security token>> with your Perfecto security token.
+        String securityToken =
+                "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZDM2NmJiNS01NDAyLTQ4MmMtYTVhOC1kODZhODk4MDYyZjIifQ.eyJpYXQiOjE2MzQwNTIwMzMsImp0aSI6ImE2MjdmMTgxLTIzNDItNGI0Ni1hMGU5LTAzYWVhYzEyZWVmMiIsImlzcyI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsImF1ZCI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsInN1YiI6ImJiZGE3NDJlLWIzNTMtNGI2ZC05NzQ5LTJjZmU0Y2FkMTY0NiIsInR5cCI6Ik9mZmxpbmUiLCJhenAiOiJvZmZsaW5lLXRva2VuLWdlbmVyYXRvciIsIm5vbmNlIjoiOGIwZGZlYTctMTc3Zi00NDFjLWI4YTEtNDlmMjk1ZDg2MGEwIiwic2Vzc2lvbl9zdGF0ZSI6IjZkNzgwNzc3LWI5OTYtNGNiMS1iOGNlLTQyNDZhOTI1YTE2ZSIsInNjb3BlIjoib3BlbmlkIG9mZmxpbmVfYWNjZXNzIHByb2ZpbGUgZW1haWwifQ.Hfps3Bp18N2wsitCOW4fMhnu6cDlvSNMfiYUYjvIDXA";
+        capabilities.setCapability("securityToken", securityToken);
 
         if(TEST_DEVISE.equals(ANDROID)) {
-            String path = new File(constants.APPVERSION_FOLDER + APPPATH_ANDROID).getAbsolutePath();
-            capabilities.setCapability("app", path);
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
+            URL url;
+            if(PERFECTO) {
+                capabilities.setCapability("app",
+                        "PRIVATE:Karum_Fase_2_Sprint_3_v1.10.5.apk");
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,
+                        "99241FFAZ00HKL");
+
+                url = new URL(
+                        "https://" + cloudName.replace(
+                                ".perfectomobile.com", "")
+                                + ".perfectomobile.com/nexperience/perfectomobile/wd/hub");
+            }
+            else {
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,
+                        DEVICE_NAME_NAME);
+                String path = new File(
+                        constants.APPVERSION_FOLDER + APPPATH_ANDROID).getAbsolutePath();
+                capabilities.setCapability("app", path);
+
+                url = new URL("http://localhost:4723/wd/hub");
+            }
+
             capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, APP_PACKAGE_NAME);
             capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, APP_ACTIVITY_NAME);
-            capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
+            capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
 
-            //
-            capabilities.setCapability(AndroidMobileCapabilityType.GPS_ENABLED, false);
-            //
-            _driverType = ANDROID;
+            capabilities.setCapability("enableAppiumBehavior", true);
+            capabilities.setCapability("autoLaunch", true);
+            capabilities.setCapability("autoInstrument", true);
+            capabilities.setCapability("takesScreenshot", true);
+            capabilities.setCapability("screenshotOnError", true);
+            capabilities.setCapability("fullReset", true);
+            capabilities.setCapability("waitForAvailableLicense", true);
+            capabilities.setCapability("sensorInstrument", true);
 
-
-            _driverandroid = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+            _driverandroid = new AndroidDriver(url,capabilities);
             _driver = _driverandroid;
+
+            _driverType = ANDROID;
         }
         else if(TEST_DEVISE.equals(IOS))
         {
             String path = new File(constants.APPVERSION_FOLDER + APPPATH_IOS).getAbsolutePath();
             capabilities.setCapability("app", path);
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.IOS);
-            _driverType = IOS;
 
             _driverios = new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
             _driver = _driverios;
+            _driverType = IOS;
         }
         // Discard state
         _driver.resetApp();
-
-        //Location location = new Location(19.423870, -99.260252, 2240);
-        //_driver.setLocation(location);
     }
 
     private AppiumDriver _driver;
     private AndroidDriver _driverandroid;
     private IOSDriver _driverios;
     private String _driverType;
+    private boolean PERFECTO = true;
     private final static String APP_PACKAGE_NAME = "com.karum.credits";
     private final static String APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
     //private final static String DEVICE_NAME_NAME = "ZY323V65L2";
@@ -66,89 +92,22 @@ public class Driver
     private final static String ANDROID = "ANDROID";
     private final static String IOS = "IOS";
     private final static String APPPATH_IOS = "iosapp";
-    //private final static String APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.4.apk";
-    private final static String APPPATH_ANDROID = "Karum_Fase_2_v1.9.12.apk";
+    private final static String APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.5.apk";
 
 
-    public AppiumDriver GetIntance()
-    {
+    public AppiumDriver GetIntance() {
         return _driver;
     }
 
-    public AndroidDriver GetAndroidDriver()
-    {
+    public AndroidDriver GetAndroidDriver() {
         return _driverandroid;
     }
 
-    public IOSDriver GetIOSDriver()
-    {
+    public IOSDriver GetIOSDriver() {
         return _driverios;
     }
 
     public String GetDriverType() {
         return _driverType;
     }
-/*
-    public void SwitchApp(String activity, String packeage)
-    {
-        driver.StartActivity(activity, packeage, "", "", false);
-    }
-
-    public void ReturnApp()
-    {
-        driver.PressKeyCode(AndroidKeyCode.Back);
-    }
-
-    /// <summary>
-    /// Gets NameTest.
-    /// </summary>
-    public string GetNameTest()
-    {
-        return TestContext.CurrentContext.Test.Name.ToString();
-    }
-
-    public string GetTime()
-    {
-        return driver.DeviceTime.ToString();
-    }
-
-    public static string TakeFullScreenshot()
-    {
-        string filename = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                string.Format(indice + "-" +
-                        TestContext.CurrentContext.Test.Name +
-                        "-" +
-                        "{0}.jpg", Guid.NewGuid().ToString()));
-        Screenshot screenshot = GetIntance().GetScreenshot();
-        screenshot.SaveAsFile(filename, ScreenshotImageFormat.Jpeg);
-        indice++;
-        return filename;
-    }
-
-    /// <summary>
-    /// Toma capturas.
-    /// </summary>
-    public static void TaskPrint()
-    {
-        try
-        {
-            TestContext.AddTestAttachment(TakeFullScreenshot(), TestContext.CurrentContext.Test.Name);
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Hubo un incoveniente en la captunra.");
-        }
-    }
-
-    public static void WriteLog(string message)
-    {
-        StreamWriter log = new StreamWriter(Path.Combine(Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                string.Format(TestContext.CurrentContext.Test.Name +
-                        "-" +
-                        "{0}.txt", Guid.NewGuid().ToString()))));
-        log.Write(message);
-        log.Close();
-    }*/
 }

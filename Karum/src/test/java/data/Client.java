@@ -25,6 +25,7 @@ public class Client {
     //Job Info
     public String jobCompany = "";
     public String income = "";
+    public String CompanyPhoneNumber = "";
 
     //Credentials
     public String userName = "";
