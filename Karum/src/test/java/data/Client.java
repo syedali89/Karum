@@ -28,9 +28,12 @@ public class Client {
     public String CompanyPhoneNumber = "";
 
     //Credentials
-    public String userName = "";
+    public String userEmail = "";
     public String userPass = "";
     public String userPhone = "";
+
+    @Deprecated
+    public String userName = "";
 
     public String getFirstName() {
         if(firstNameTwo.isEmpty()) {

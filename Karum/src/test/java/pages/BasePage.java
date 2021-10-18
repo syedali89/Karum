@@ -16,13 +16,13 @@ public class BasePage {
     public WebDriverWait wait;
     public Actions act;
 
-    //By Document Aviso Privacidad
+    //By Document
     public By documentBody = By.xpath("//android.view.View/android.widget.TextView");
 
     //Constructor
     public BasePage (Driver driver) {
         _driver = driver;
-        wait = new WebDriverWait(driver.GetIntance(), 10);
+        wait = new WebDriverWait(driver.GetIntance(), 30);
         act = new Actions(driver.GetIntance());
         if(driver.GetDriverType().equals(constants.IOS)) {
             //TODO IOS PATH document
@@ -86,7 +86,7 @@ public class BasePage {
     protected void assertElementWithTextExist(String text) {
         By locator = By.xpath("//*[@text='"+ text + "']");
         Assert.assertTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
-        Assert.assertTrue( _driver.GetIntance().findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");
+        Assert.assertTrue(_driver.GetIntance().findElement(locator).isDisplayed(), "Error, element with the text : '" + text + "' is not visible on screem.");
     }
 
     //Evaluate if the official document text is equal to the document displayed on the app
@@ -129,17 +129,19 @@ public class BasePage {
     }
 
     public void grantAllPermissions() {
-        if(_driver.GetDriverType().equals(constants.ANDROID)) {
-            By allowButtonForeground = By.id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-            By allowButton = By.id("com.android.permissioncontroller:id/permission_allow_button");
+        if (_driver.PERFECTO) {
+            if (_driver.GetDriverType().equals(constants.ANDROID)) {
+                By allowButtonForeground = By.id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+                By allowButton = By.id("com.android.permissioncontroller:id/permission_allow_button");
 
-           //TODO TEST SANGSUNG
-            while(validateElementVisible(allowButtonForeground)) {
+                //TODO TEST SANGSUNG
+                while (validateElementVisible(allowButtonForeground)) {
                     clickElement(allowButtonForeground);
-            }
+                }
 
-            while(validateElementVisible(allowButton)) {
+                while (validateElementVisible(allowButton)) {
                     clickElement(allowButton);
+                }
             }
         }
     }

@@ -38,6 +38,7 @@ public class Driver {
                                 + ".perfectomobile.com/nexperience/perfectomobile/wd/hub");
             }
             else {
+                capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
                 capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,
                         DEVICE_NAME_NAME);
                 String path = new File(
@@ -83,7 +84,7 @@ public class Driver {
     private AndroidDriver _driverandroid;
     private IOSDriver _driverios;
     private String _driverType;
-    private boolean PERFECTO = true;
+    public final boolean PERFECTO = false;
     private final static String APP_PACKAGE_NAME = "com.karum.credits";
     private final static String APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
     //private final static String DEVICE_NAME_NAME = "ZY323V65L2";
@@ -92,7 +93,7 @@ public class Driver {
     private final static String ANDROID = "ANDROID";
     private final static String IOS = "IOS";
     private final static String APPPATH_IOS = "iosapp";
-    private final static String APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.5.apk";
+    private final static String APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.6.apk";
 
 
     public AppiumDriver GetIntance() {

@@ -1,5 +1,6 @@
 package test.java.utility;
 
+import org.openqa.selenium.By;
 import test.java.constants;
 import test.java.data.Client;
 
@@ -14,7 +15,8 @@ public class DataRecover {
             "https://www.mailinator.com/v4/public/inboxes.jsp?to=codigomovil";
     private static final String EMAILPATH =
             "https://www.mailinator.com/v4/public/inboxes.jsp?msgid=";
-    private static final String PATHEMAILONPAGE = "table.jambo_table tr";
+    private static final By PATHEMAILONPAGE = By.cssSelector("table.jambo_table tr");
+    private static final By WAITJUSTNOWEMAIL = By.xpath("//table[@class='table-striped jambo_table']//tr//td[contains(text(), 'just now')]");
     private static final String AVISOPRIVACIDAD_DOCUMENT =
             "AVISO DE PRIVACIDAD (22sep2021).pdf";
     private static final String TERMINOSCONDICIONES_DOCUMENT =
@@ -35,7 +37,8 @@ public class DataRecover {
         client.AddressZipCode = "03000";
         client.Email = "some@email.com";
         client.PhoneNumber = "3327885614";
-        client.firstNameOne = "Antonio";
+        //client.firstNameOne = "Antonio";
+        client.firstNameOne = "Jose";
         client.firstNameTwo = "Servando";
         client.lastNameOne = "Lopez";
         client.lastNameTwo = "Rodea";
@@ -46,28 +49,49 @@ public class DataRecover {
         client.CompanyPhoneNumber = "1234567890";
 
         client.userName = "spring2_u1@gmail.com";
+        client.userEmail = "spring2_u1@gmail.com";
         client.userPass = "temporal#dev";
         client.userPhone = "3327885614";
 
         return client;
     }
 
+    public static Client RecoverClientData(String File) {
+        //TODO For now the informations is hardcode. Later is gonna refactor.
+        Client client = new Client();
+        return client;
+    }
+
     public static String RecoverSecurityCode() {
         String securityCode = "";
-        String emailUrl = WebScrap.RecoverDataElementPage(
-                EMAILINBOX, PATHEMAILONPAGE, "id");
+        String dateReturn = "";
 
-        emailUrl = EMAILPATH + emailUrl.substring(4);
-        String dateReturn = WebScrap.RecoverDataElementPage(
-                emailUrl,"body", "", 1);
+
+        WebScrap webScrap = new WebScrap();
+        try {
+            webScrap.waitElementExist(EMAILINBOX, WAITJUSTNOWEMAIL);
+
+            String emailUrl = webScrap.RecoverDataElementPage(
+                    EMAILINBOX, PATHEMAILONPAGE, "id");
+
+            emailUrl = EMAILPATH + emailUrl.substring(4);
+            dateReturn = webScrap.RecoverDataElementPage(
+                    emailUrl, By.cssSelector("body"), "", "html_msg_body");
+
+            webScrap.KillSession();
+
+        }
+        catch (Exception ex) {
+            webScrap.KillSession();
+        }
 
         //Regex to extract the code
         Pattern pattern = Pattern.compile("(\\d{6})");
+
         Matcher matcher = pattern.matcher(dateReturn);
-        if(matcher.find()) {
+        if (matcher.find()) {
             securityCode = matcher.group();
         }
-
         return securityCode;
     }
 
@@ -79,7 +103,6 @@ public class DataRecover {
     public static String TerminosCondicionesDocument() {
         File docFile = new File(constants.DOCUMENTS_FOLDER + TERMINOSCONDICIONES_DOCUMENT);
         return PDFDocument.readDocument(docFile);
-
     }
 
     public static String UsoMediosTecnologicosDocument() {

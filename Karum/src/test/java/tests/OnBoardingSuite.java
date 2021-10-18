@@ -1,10 +1,19 @@
 package test.java.tests;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import test.java.constants;
 import test.java.pages.*;
+import test.java.utility.DataRecover;
 
 public class OnBoardingSuite extends BaseTest {
+    @BeforeMethod
+    public void beforeMethod(){
+        _driver.GetIntance().launchApp();
+        logIN.grantAllPermissions();
+        clientData = DataRecover.RecoverClientData();
+    }
+
     @Test(priority = 1, timeOut = 120000)
     public void TC002_InitialScreen() {
         logIN.logINClienteAsesor(constants.CLIENTE);

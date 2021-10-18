@@ -23,19 +23,12 @@ public class BaseTest implements ITestListener {
 
     @BeforeClass
     public void beforeClass() throws MalformedURLException {
-         clientData = DataRecover.RecoverClientData();
         _driver = new Driver();
         logIN = new LogIN(_driver);
         homePage = new HomePage(_driver);
         reg = new RegisterPage(_driver);
 
         _driver.GetIntance().closeApp();
-    }
-
-    @BeforeMethod
-    public void beforeMethod(){
-        _driver.GetIntance().launchApp();
-        logIN.grantAllPermissions();
     }
 
     @AfterMethod
@@ -51,6 +44,7 @@ public class BaseTest implements ITestListener {
         }
         _driver.GetIntance().closeApp();
     }
+
     @AfterClass
     public void afterClass() {
         if(_driver != null) {

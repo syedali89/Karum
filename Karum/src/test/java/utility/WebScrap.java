@@ -11,28 +11,32 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 
 public class WebScrap {
+    private WebDriver webdriver;
+    private WebDriverWait webdriverwait;
 
-    public static String RecoverDataElementPage(
-            String url, String pathElementData, String attributeToRecover, int Iframe) {
+    public WebScrap() {
+        File file = new File("chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        webdriver = new ChromeDriver(options);
+        webdriverwait = new WebDriverWait(webdriver, 120);
+    }
+
+    public String RecoverDataElementPage(
+            String url, By pathElementData, String attributeToRecover, String Iframe) {
 
         String returnData = "";
 
         try {
-            File file = new File("chromedriver.exe");
-            System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
-            WebDriver driver = new ChromeDriver(options);
-            WebDriverWait wait = new WebDriverWait(driver, 30);
-
-            driver.navigate().to(url);
+            webdriver.navigate().to(url);
             Thread.sleep(1000);
-            if(Iframe>0) {
-                wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Iframe));
+            if(!Iframe.isEmpty()) {
+                webdriverwait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id(Iframe)));
             }
 
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(pathElementData)));
-            WebElement pageElement = driver.findElement(By.cssSelector(pathElementData));
+            webdriverwait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(pathElementData));
+            WebElement pageElement = webdriver.findElement(pathElementData);
 
             if(attributeToRecover.isEmpty()) {
                 returnData = pageElement.getText();
@@ -40,9 +44,6 @@ public class WebScrap {
             else {
                 returnData = pageElement.getAttribute(attributeToRecover);
             }
-
-            driver.close();
-            driver.quit();
         }
         catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -51,8 +52,18 @@ public class WebScrap {
         return returnData;
     }
 
-    public static String RecoverDataElementPage(
-            String url, String pathElementData, String attributeToRecover) {
-        return RecoverDataElementPage(url, pathElementData, attributeToRecover, -1);
+    public String RecoverDataElementPage(
+            String url, By pathElementData, String attributeToRecover) {
+        return RecoverDataElementPage(url, pathElementData, attributeToRecover, "");
+    }
+
+    public void waitElementExist(String url, By locator) {
+        webdriver.navigate().to(url);
+        webdriverwait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+    }
+
+    public void KillSession() {
+        webdriver.close();
+        webdriver.quit();
     }
 }
