@@ -95,6 +95,16 @@ public class LogIN extends BasePage{
         clickElement(iniciaSesionBtn);
     }
 
+    public HomePage allLoginProcess(Client clientData) {
+        this.logINClienteAsesor(constants.CLIENTE);
+
+        this.inputMandatoryFieldThenContinuar(clientData);
+        this.insertSecurityCode(true);
+
+        this.iniciaSessionPassword(clientData);
+        return new HomePage(_driver);
+    }
+
     public void verifyBadCode() {
         assertElementText(alertMessageBadCode, "Código incorrecto, inténtalo nuevamente");
     }
