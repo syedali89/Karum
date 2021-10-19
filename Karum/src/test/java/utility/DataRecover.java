@@ -53,6 +53,8 @@ public class DataRecover {
         client.userPass = "temporal#dev";
         client.userPhone = "3327885614";
 
+        client.accountAmount = "$14,277.13";
+
         return client;
     }
 

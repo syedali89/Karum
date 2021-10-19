@@ -32,6 +32,9 @@ public class Client {
     public String userPass = "";
     public String userPhone = "";
 
+    //Client account information
+    public String accountAmount = "";
+
     @Deprecated
     public String userName = "";
 

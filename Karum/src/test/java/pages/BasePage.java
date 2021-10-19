@@ -16,8 +16,9 @@ public class BasePage {
     public WebDriverWait wait;
     public Actions act;
 
-    //By Document
+    //By Generics
     public By documentBody = By.xpath("//android.view.View/android.widget.TextView");
+    public By headerTitle = By.id("com.karum.credits:id/tv_title_header");
 
     //Constructor
     public BasePage (Driver driver) {
@@ -27,6 +28,24 @@ public class BasePage {
         if(driver.GetDriverType().equals(constants.IOS)) {
             //TODO IOS PATH document
             documentBody = By.xpath("TODO");
+        }
+    }
+
+    public void grantAllPermissions() {
+        if (_driver.PERFECTO) {
+            if (_driver.GetDriverType().equals(constants.ANDROID)) {
+                By allowButtonForeground = By.id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+                By allowButton = By.id("com.android.permissioncontroller:id/permission_allow_button");
+
+                //TODO TEST SANGSUNG
+                while (validateElementVisible(allowButtonForeground)) {
+                    clickElement(allowButtonForeground);
+                }
+
+                while (validateElementVisible(allowButton)) {
+                    clickElement(allowButton);
+                }
+            }
         }
     }
 
@@ -75,14 +94,12 @@ public class BasePage {
         }
     }
 
-    //SendKey
     protected void assertElementText(By locator, String text) {
         waitVisibility(locator);
         String textElement =  _driver.GetIntance().findElement(locator).getText();
         Assert.assertEquals(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
     }
 
-    //SendKey
     protected void assertElementWithTextExist(String text) {
         By locator = By.xpath("//*[@text='"+ text + "']");
         Assert.assertTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
@@ -125,24 +142,6 @@ public class BasePage {
             }
 
             lastText = lastTextDisplayed;
-        }
-    }
-
-    public void grantAllPermissions() {
-        if (_driver.PERFECTO) {
-            if (_driver.GetDriverType().equals(constants.ANDROID)) {
-                By allowButtonForeground = By.id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-                By allowButton = By.id("com.android.permissioncontroller:id/permission_allow_button");
-
-                //TODO TEST SANGSUNG
-                while (validateElementVisible(allowButtonForeground)) {
-                    clickElement(allowButtonForeground);
-                }
-
-                while (validateElementVisible(allowButton)) {
-                    clickElement(allowButton);
-                }
-            }
         }
     }
 }
