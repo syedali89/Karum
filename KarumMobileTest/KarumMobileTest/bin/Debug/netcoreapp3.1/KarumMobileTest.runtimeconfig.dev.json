@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\MAGNUMTECH\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\MAGNUMTECH\\.nuget\\packages"
+    ]
+  }
+}

@@ -41,16 +41,14 @@ public class PMLPage extends BasePage {
     }
 
     public void SetAllFieldsSINOACEPTO(aceptoField siNoAcepto) {
-        for(int position = 0; position<aceptoButtons.size(); position++)
-        {
+        for(int position = 0; position<aceptoButtons.size(); position++) {
             aceptoButtons.set(position, siNoAcepto);
         }
     }
     
     public void tapACEPTOFields() {
         int position = 1;
-        for (aceptoField radiobutton: aceptoButtons)
-        {
+        for (aceptoField radiobutton: aceptoButtons) {
             tapRadiobuttonSINOAcepto(radiobutton, position);
             position++;
         }

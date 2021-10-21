@@ -2,6 +2,7 @@ package test.java.pages;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import test.java.utility.DataRecover;
 import test.java.utility.Driver;
 
 public class ApplyCreditPage extends BasePage {
@@ -50,6 +51,12 @@ public class ApplyCreditPage extends BasePage {
         clickElement(checkboxConsultaBuroCredito);
     }
 
+    public PrescreenRequestPage allApplyCreditPage() {
+        this.tapAllAuthorizeCheckbox();
+        this.tapCONTINUAR();
+        return new PrescreenRequestPage(_driver);
+    }
+
     public void verifyContinuarEnabled(boolean enabled) {
         String enabledDisbledMessage = "disabled";
         if(enabled) {
@@ -79,36 +86,29 @@ public class ApplyCreditPage extends BasePage {
         assertElementWithTextExist("Términos y condiciones");
         Assert.assertTrue(validateElementVisible(closeDocumentBtn),
                 "Error, close document is not visible");
-        assertElementWithTextExist(
-                "Estos Términos y Condiciones regulan el uso del sitio web (en lo sucesivo el “Portal”) y la aplicación de KARUM LATIN AMERICA, S. DE R.L. DE C.V. (“KARUM”) (en lo sucesivo la “App de KARUM”) así como todas aquellas operaciones relacionadas con el uso de dicha aplicación. Estos términos constituyen un acuerdo de voluntades entre KARUM (a quien en adelante nos podremos referir como “KARUM”, “nosotros”, nuestro) y usted (a quien en adelante nos podremos referir como “Usuario”, “Cliente”, “usted”, “suyo”, en plural o singular).");
-        assertElementWithTextExist(
-                "Declara KARUM ser una Sociedad de Responsabilidad Limitada de Capital Variable, cuyo nombre comercial es KARUM, con domicilio en Blvd. Manuel Ávila Camacho No. 5 Interior S 1000, Ed. Torre B, P. 10, Of. 1045, Fracc. Lomas de Sotelo, Naucalpan de Juárez, Estado de Mexico, C.P. 53390. Los presentes Términos y Condiciones se encuentran disponibles a través del sitio web");
-        assertElementWithTextExist(
-                "www.karum.com");
-        assertElementWithTextExist(
-                "y la App de KARUM, disponible para los sistemas operativos iOS y Android.");
-        assertElementWithTextExist(
-                "Declara el Usuario ser una persona mayor de edad y contar con capacidad para contratar y contraer toda clase de obligaciones. Asimismo, declara que entiende plenamente el contenido de los presentes Términos y Condiciones. Si alguna parte de los presentes Términos y Condiciones no le parecen aceptables o no le son comprensibles en su totalidad, requerimos que el Usuario suspenda el uso de la App de KARUM y termine la relación con KARUM. El acceso y uso del Usuario en la aplicación de KARUM implican la aceptación de los Términos y Condiciones expresados en el presente acuerdo.");
-        assertElementWithTextExist(
-                "Para los efectos del presente acuerdo, las partes acuerdan que por Usuario se entenderá: cualquier persona física o moral que contrate una cuenta, ingrese, acceda y/o utilice la App de KARUM (incluyendo cualquiera de los elementos que despliegan su contenido) y/o a la persona física o moral que se registre y/o use, cualquiera de los servicios que se ofrecen a través de dicha aplicación o este sitio web."
-        );
-        assertElementWithTextExist(
-                "Durante el uso de la aplicación el Usuario manifestará expresamente su consentimiento sobre estos Términos y Condiciones a través del uso de medios electrónicos al darse de alta en la App de KARUM y llevará a cabo una o múltiples acciones afirmativas que impliquen una interacción activa del Usuario con la aplicación y de la cual se permita derivar la manifestación de su consentimiento expreso. Asimismo, declara expresamente su aceptación utilizando para tal efecto medios electrónicos para la manifestación de su voluntad, en términos de lo dispuesto por el Código Civil Federal, el Código de Comercio, Código Civil para el Distrito Federal (hoy Ciudad de México) y demás legislación aplicable."
-        );
 
-        //TODO Add all document using files in a more easy way
+        //Document Text
+        assertDocumentText(
+                "Términos y condiciones", DataRecover.TerminosCondicionesDocument());
     }
 
     public void verifyUsoMediosTecnologicosDocument() {
         assertElementWithTextExist("Términos y condiciones para uso de medios electrónicos");
+        Assert.assertTrue(validateElementVisible(closeDocumentBtn),
+                "Error, close document is not visible");
 
-        //TODO Add all document  using files in a more easy way
+        //Document Text
+        assertDocumentText(
+                "Términos y condiciones para uso de medios electrónicos", DataRecover.UsoMediosTecnologicosDocument());
     }
 
     public void verifyConsultaBuroCreditoDocument() {
         assertElementWithTextExist("Buró de crédito y/o Círculo de crédito");
+        Assert.assertTrue(validateElementVisible(closeDocumentBtn),
+                "Error, close document is not visible");
 
-
-        //TODO Add all document using files in a more easy way
+        //Document Text
+        assertDocumentText(
+                "Buró de crédito y/o Círculo de crédito", DataRecover.BuroCreditoDocument());
     }
 }

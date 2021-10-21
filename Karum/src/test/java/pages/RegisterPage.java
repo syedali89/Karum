@@ -2,6 +2,7 @@ package test.java.pages;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import test.java.utility.DataRecover;
 import test.java.utility.Driver;
 import test.java.utility.SwipeAction;
 
@@ -50,13 +51,15 @@ public class RegisterPage extends BasePage {
     }
 
     public void assertAvisoPrivacidad() {
-        //TODO assert of all the document, but we have to be sure about the content. Now only we evalute the title, the close button and the name of the company
         assertElementWithTextExist("Aviso de privacidad");
-        Assert.assertTrue(validateElementVisible(avisoPrivacidadClose), "Errro, Is not visible button that close 'Aviso Privacidad' document.");
-        assertElementWithTextExist("KUALI SERVICIOS INTEGRALES DE EMPRENDIMIENTO SAPI DE C.V., SOFOM ENR");
-        //Validate correct funtion of the close Aviso Privacidad button.
+        Assert.assertTrue(validateElementVisible(avisoPrivacidadClose),
+                "Error, document close button 'Aviso Privacidad' is not visible.");
+        //Document Text
+        assertDocumentText(
+                "Aviso de privacidad", DataRecover.AvisoPrivacidadDocument());
         clickElement(avisoPrivacidadClose);
-        Assert.assertTrue(validateElementVisible(registratemebtn), "Error, REGISTRARME button is not visible after tap on close Aviso Privacidad button.");
+        Assert.assertTrue(validateElementVisible(registratemebtn),
+                "Error, REGISTRARME button is not visible after tap on close Aviso Privacidad button.");
     }
 
     public void assertInitialRegistrationPage() {

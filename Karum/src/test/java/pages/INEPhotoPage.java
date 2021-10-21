@@ -2,6 +2,7 @@ package test.java.pages;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import test.java.utility.CameraActions;
 import test.java.utility.Driver;
 import test.java.utility.SwipeAction;
 
@@ -33,16 +34,18 @@ public class INEPhotoPage extends BasePage {
     }
 
     public void tapCapturarINE() {
+        CameraActions.ImageInjection(_driver, "INE_Front.png");
         clickElement(capturarINEIFEbtn);
     }
 
     public void takeFrontPhoto() {
-        //TODO Camera.Pushphoto("frontINE");
+        waitVisibility(CONFIRMARbtn);
+
+        CameraActions.ImageInjection(_driver, "INE_Back.png");
         clickElement(CONFIRMARbtn);
     }
 
     public void takeBackPhoto() {
-        //TODO Camera.Pushphoto("backINE");
         clickElement(CONFIRMARbtn);
     }
 

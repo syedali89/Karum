@@ -1,6 +1,7 @@
 package test.java.data;
 
 public class Client {
+    //Personal Info
     public String firstNameOne = "";
     public String firstNameTwo = "";
     public String lastNameOne = "";
@@ -9,6 +10,7 @@ public class Client {
     public String gender = "";
     public String CURP = "";
 
+    //Address Info
     public String AddressStreet = "";
     public String AddressExtNum = "";
     public String AddressIntNum = "";
@@ -16,10 +18,25 @@ public class Client {
     public String AddressCity = "";
     public String AddressSubUrb = "";
 
+    //Contact Info
     public String Email = "";
     public String PhoneNumber = "";
 
+    //Job Info
     public String jobCompany = "";
+    public String income = "";
+    public String CompanyPhoneNumber = "";
+
+    //Credentials
+    public String userEmail = "";
+    public String userPass = "";
+    public String userPhone = "";
+
+    //Client account information
+    public String accountAmount = "";
+
+    @Deprecated
+    public String userName = "";
 
     public String getFirstName() {
         if(firstNameTwo.isEmpty()) {

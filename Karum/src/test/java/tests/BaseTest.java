@@ -22,35 +22,32 @@ public class BaseTest implements ITestListener {
     protected Client clientData;
 
     @BeforeClass
-    public void beforeClass() {
-         clientData = DataRecover.RecoverClientData();
-    }
-
-    @BeforeMethod
-    public void beforeTest() throws MalformedURLException {
+    public void beforeClass() throws MalformedURLException {
         _driver = new Driver();
         logIN = new LogIN(_driver);
         homePage = new HomePage(_driver);
         reg = new RegisterPage(_driver);
+
+        _driver.GetIntance().closeApp();
     }
 
     @AfterMethod
-    public void afterTest(ITestResult result){
+    public void afterTest(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             System.out.println("ERROR FATAL");
-            try
-            {
+            try {
                 String path = GetScreenshot.capture(_driver.GetIntance(), result.getName() + "_" + new Random().nextInt(99999999));
-                Reporter.log("<br><img src='" + path + "'/></b>", true);
-            }
-            catch (IOException e)
-            {
+                Reporter.log(path, true);
+            } catch (IOException e) {
                 Reporter.log(e.getMessage());
             }
         }
+        _driver.GetIntance().closeApp();
+    }
 
-        if(_driver != null)
-        {
+    @AfterClass
+    public void afterClass() {
+        if(_driver != null) {
             _driver.GetIntance().quit();
         }
     }
