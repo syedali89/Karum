@@ -18,6 +18,7 @@ namespace pages
         public By documentBody = By.XPath("//android.view.View/android.widget.TextView");
         public By headerTitle = By.Id("com.karum.credits:id/tv_title_header");
         public By backButton = By.Id("com.karum.credits:id/iv_home_back_header");
+        public By clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
 
         //Constructor
         public BasePage(Driver driver)
