@@ -23,6 +23,8 @@ namespace utility
         private const string BUROCREDITO_DOCUMENT =
                 "AUTORIZACIÓN BURÓ DE CRÉDITO (22sep2021).pdf";
 
+        private static string localpath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
+
         public static Client RecoverClientData() 
         {
             //TODO For now the informations is hardcode. Later is gonna refactor.
@@ -70,7 +72,8 @@ namespace utility
 
 
             WebScrap webScrap = new WebScrap();
-            try {
+            try 
+            {
                 webScrap.waitElementExist(EMAILINBOX, WAITJUSTNOWEMAIL);
 
                 string emailUrl = webScrap.RecoverDataElementPage(
@@ -83,7 +86,8 @@ namespace utility
                 webScrap.KillSession();
 
             }
-            catch (Exception ex) {
+            catch (Exception ex) 
+            {
                 Console.WriteLine(ex.Message);
                 webScrap.KillSession();
             }
@@ -93,30 +97,38 @@ namespace utility
 
             MatchCollection matcher = rx.Matches(dateReturn);
             
-            if (matcher.Count > 0) {
+            if (matcher.Count > 0) 
+            {
                 securityCode = matcher[0].Value;
             }
             return securityCode;
         }
 
-        public static string AvisoPrivacidadDocument() {
-            string docFile = constants.DOCUMENTS_FOLDER + AVISOPRIVACIDAD_DOCUMENT;
+        public static string AvisoPrivacidadDocument() 
+        {
+            string docFile = Path.GetFullPath(Path.Combine(
+                localpath, constants.DOCUMENTS_FOLDER, AVISOPRIVACIDAD_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 
-        public static string TerminosCondicionesDocument() {
-            string docFile = constants.DOCUMENTS_FOLDER + TERMINOSCONDICIONES_DOCUMENT;
+        public static string TerminosCondicionesDocument() 
+        {
+            string docFile = Path.GetFullPath(Path.Combine(
+                localpath, constants.DOCUMENTS_FOLDER, TERMINOSCONDICIONES_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 
-        public static string UsoMediosTecnologicosDocument() {
-            string docFile = constants.DOCUMENTS_FOLDER + USOMEDIOSTECNOLOGICOS_DOCUMENT;
+        public static string UsoMediosTecnologicosDocument() 
+        {
+            string docFile = Path.GetFullPath(Path.Combine(
+                localpath, constants.DOCUMENTS_FOLDER, USOMEDIOSTECNOLOGICOS_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 
         public static string BuroCreditoDocument() 
         {
-            string docFile = constants.DOCUMENTS_FOLDER + BUROCREDITO_DOCUMENT;
+            string docFile = Path.GetFullPath(Path.Combine(
+                localpath, constants.DOCUMENTS_FOLDER, BUROCREDITO_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
     }

@@ -9,7 +9,8 @@ namespace tests
         public LogIN logIN;
     
         [SetUp]
-        public void beforeMethod(){
+        public void beforeMethod()
+        {
             _driver.GetIntance().LaunchApp();
             logIN = new LogIN(_driver);
             logIN.grantAllPermissions();
@@ -17,13 +18,15 @@ namespace tests
         }
 
         [Test, Order(1)]
-        public void TC031_LOGIN_ExistingClient() {
+        public void TC031_LOGIN_ExistingClient() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
             logIN.validateSOYCLIENTELogINEmailPhone();
         }
 
         [Test, Order(2)]
-        public void TC032_LOGIN_AllFiendsMandatory() {
+        public void TC032_LOGIN_AllFiendsMandatory() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
             logIN.inputEmail(clientData);
             logIN.inputPhone(clientData);
@@ -32,7 +35,8 @@ namespace tests
         }
 
         [Test, Order(3)]
-        public void TC033_LOGIN_EmailFieldInvalidFormat_CONTINUARdisabled() {
+        public void TC033_LOGIN_EmailFieldInvalidFormat_CONTINUARdisabled() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
             clientData.userEmail = "QWERTY";
 
@@ -43,7 +47,8 @@ namespace tests
         }
 
         [Test, Order(4)]
-        public void TC034_LOGIN_PhoneFieldInvalidFormat_CONTINUARdisabled() {
+        public void TC034_LOGIN_PhoneFieldInvalidFormat_CONTINUARdisabled() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
             clientData.userPhone = "000";
 
@@ -54,7 +59,8 @@ namespace tests
         }
 
         [Test, Order(5)]
-        public void TC035_LOGIN_IncorrectEmailPhoneCredentials() {
+        public void TC035_LOGIN_IncorrectEmailPhoneCredentials() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
             clientData.userEmail = "a@a.a";
 
@@ -63,7 +69,8 @@ namespace tests
         }
 
         [Test, Order(6)]
-        public void TC036_LOGIN_CorrectEmailPhoneCredentials() {
+        public void TC036_LOGIN_CorrectEmailPhoneCredentials() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
@@ -71,7 +78,8 @@ namespace tests
         }
 
         [Test, Order(7)]
-        public void TC037_SecurityCodeLoginPage_ValidateText() {
+        public void TC037_SecurityCodeLoginPage_ValidateText() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
@@ -79,7 +87,8 @@ namespace tests
         }
 
         [Test, Order(8)]
-        public void TC038_SecurityCodeLoginPage_SecurityCodeMandatory() {
+        public void TC038_SecurityCodeLoginPage_SecurityCodeMandatory() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
@@ -88,7 +97,8 @@ namespace tests
         }
 
         [Test, Order(9)]
-        public void TC039_SecurityCodeLoginPage_WrongSecurityCode() {
+        public void TC039_SecurityCodeLoginPage_WrongSecurityCode() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
@@ -98,7 +108,8 @@ namespace tests
         }
 
         [Test, Order(10)]
-        public void TC040_SecurityCodeLoginPage_CorrectSecurityCode() {
+        public void TC040_SecurityCodeLoginPage_CorrectSecurityCode() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
@@ -108,7 +119,8 @@ namespace tests
         }
 
         [Test, Order(11)]
-        public void TC041_PasswordPage_InputIncorrectPassword() {
+        public void TC041_PasswordPage_InputIncorrectPassword() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
@@ -116,12 +128,13 @@ namespace tests
             logIN.tapContinuar();
 
             clientData.userPass = "WRONG";
-            logIN.inputPassword(clientData);
+            logIN.iniciaSessionPassword(clientData);
             logIN.verifyBadPassword();
         }
 
         [Test, Order(12)]
-        public void TC042_PasswordPage_InputCorrectPassword() {
+        public void TC042_PasswordPage_InputCorrectPassword() 
+        {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);

@@ -17,6 +17,7 @@ namespace pages
         //By Generics
         public By documentBody = By.XPath("//android.view.View/android.widget.TextView");
         public By headerTitle = By.Id("com.karum.credits:id/tv_title_header");
+        public By backButton = By.Id("com.karum.credits:id/iv_home_back_header");
 
         //Constructor
         public BasePage(Driver driver)
@@ -28,6 +29,11 @@ namespace pages
                 //TODO IOS PATH document
                 documentBody = By.XPath("TODO");
             }
+        }
+
+        public void tapGoBack()
+        {
+            clickElement(backButton);
         }
 
         public void grantAllPermissions()

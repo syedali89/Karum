@@ -27,6 +27,8 @@ namespace pages
 
         public void verifyHomePageElements(Client clientData) 
         {
+            verifyHomePageOnScreen(clientData);
+
             string lastPhone = clientData.PhoneNumber.Substring(clientData.PhoneNumber.Length - 4);
 
             assertElementWithTextExist("Crédito Karum");
@@ -46,11 +48,8 @@ namespace pages
         }
 
         public void verifyHomePageOnScreen(Client clientData) 
-        {
-            string lastPhone = clientData.PhoneNumber.Substring(clientData.PhoneNumber.Length - 4);
-
-            assertElementWithTextExist("Crédito Karum");
-            assertElementText(numberClient, "************" + lastPhone);
+        {           
+            assertElementText(headerTitle, "Hola, Jose Sanchez" + clientData.firstNameOne + " " + clientData.lastNameOne);
         }
 
         public ConsultaSaldoPage tapSaldoCuenta() 

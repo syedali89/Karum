@@ -105,6 +105,7 @@ namespace pages
 
             this.inputMandatoryFieldThenContinuar(clientData);
             this.insertSecurityCode(true);
+            this.tapContinuar();
 
             this.iniciaSessionPassword(clientData);
             return new HomePage(_driver);

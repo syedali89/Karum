@@ -26,7 +26,8 @@ namespace tests
                 Console.WriteLine("ERROR FATAL");
                 try 
                 {
-                    String path = GetScreenshot.capture(_driver.GetIntance(), TestContext.CurrentContext.Test.Name);                    
+                    string path = GetScreenshot.capture(_driver.GetIntance(), TestContext.CurrentContext.Test.Name);
+                    Console.WriteLine("Screenshot='" + path +"'");
                 } 
                 catch (Exception e) 
                 {

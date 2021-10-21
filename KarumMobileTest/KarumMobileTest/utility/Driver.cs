@@ -71,7 +71,8 @@ namespace utility
             }
             else if(TEST_DEVISE.Equals(IOS))
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, constants.APPVERSION_FOLDER + APPPATH_IOS).ToString();
+                string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..",
+                        constants.APPVERSION_FOLDER, APPPATH_IOS));
                 capabilities.AddAdditionalCapability("app", path);
                 capabilities.AddAdditionalCapability(MobileCapabilityType.PlatformName, IOS);
 
