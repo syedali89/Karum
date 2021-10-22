@@ -6,7 +6,8 @@ namespace pages
     public class PuntosLealtadPage : BasePage
     {
         //By
-        public By pagarTiendaBtn = By.Id("com.karum.credits:id/tv_purchases_main");
+        public By canjearBtn = By.Id("com.karum.credits:id/tv_item_1");
+        public By beneficiosBtn = By.Id("com.karum.credits:id/tv_item_2");
 
 
         //Contructor

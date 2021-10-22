@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace data
 {
     public class Client {
@@ -32,8 +34,18 @@ namespace data
         public string userPass = "";
         public string userPhone = "";
 
+        //Saldo CLient
+        public string newChargesAmount = "";
+        public string paymentCreditAmount = "";
+        public string monthlyAmount = "";
+        public string availableCreditAmount = "";
+        public string overdueAmount = "";
+        public string totalAmount = "";
+
         //Client account information
         public string accountAmount = "";
+
+        public List<Movimiento> clientMovimientos = new List<Movimiento>();
 
         public string getFirstName() 
         {

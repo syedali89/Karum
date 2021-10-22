@@ -24,6 +24,8 @@ namespace utility
         
             capabilities.AddAdditionalCapability("securityToken", securityToken);
             capabilities.AddAdditionalCapability("newCommandTimeout", 60000);
+            /*capabilities.AddAdditionalCapability(MobileCapabilityType.FullReset, false);
+            capabilities.AddAdditionalCapability(MobileCapabilityType.NoReset, true);*/
 
             if (TEST_DEVISE.Equals(ANDROID)) {
                 Uri url;
@@ -60,7 +62,7 @@ namespace utility
                 capabilities.AddAdditionalCapability("autoInstrument", true);
                 capabilities.AddAdditionalCapability("takesScreenshot", true);
                 capabilities.AddAdditionalCapability("screenshotOnError", true);
-                //capabilities.AddAdditionalCapability("fullReset", true);
+                
                 capabilities.AddAdditionalCapability("waitForAvailableLicense", true);
                 capabilities.AddAdditionalCapability("sensorInstrument", true); 
 
