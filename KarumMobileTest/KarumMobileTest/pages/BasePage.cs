@@ -18,6 +18,7 @@ namespace pages
         public By documentBody = By.XPath("//android.view.View/android.widget.TextView");
         public By headerTitle = By.Id("com.karum.credits:id/tv_title_header");
         public By backButton = By.Id("com.karum.credits:id/iv_home_back_header");
+        public By clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
 
         //Constructor
         public BasePage(Driver driver)
@@ -122,7 +123,7 @@ namespace pages
             Assert.AreEqual(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
         }
 
-        protected void assertElementWithTextExist(String text)
+        protected void assertElementWithTextExist(string text)
         {
             By locator = By.XPath("//*[@text='" + text + "']");
             Assert.IsTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");

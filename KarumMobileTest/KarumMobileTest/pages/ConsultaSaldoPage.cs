@@ -6,10 +6,7 @@ namespace pages
     using utility;
 
     public class ConsultaSaldoPage : BasePage
-    {        
-        //ByPage
-        public By clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
-
+    {              
         //Contructor
         public ConsultaSaldoPage(Driver driver) : base(driver) 
         {}

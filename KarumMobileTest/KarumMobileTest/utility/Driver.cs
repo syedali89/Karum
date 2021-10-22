@@ -60,7 +60,7 @@ namespace utility
                 capabilities.AddAdditionalCapability("autoInstrument", true);
                 capabilities.AddAdditionalCapability("takesScreenshot", true);
                 capabilities.AddAdditionalCapability("screenshotOnError", true);
-                capabilities.AddAdditionalCapability("fullReset", true);
+                //capabilities.AddAdditionalCapability("fullReset", true);
                 capabilities.AddAdditionalCapability("waitForAvailableLicense", true);
                 capabilities.AddAdditionalCapability("sensorInstrument", true); 
 

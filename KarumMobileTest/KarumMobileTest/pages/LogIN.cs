@@ -55,7 +55,7 @@ namespace pages
 
                 if(code.Equals(string.Empty))
                 {
-                    code = "000000";
+                    throw new NotFoundException("Error trying to recover security code");
                 }
             }
             else 
