@@ -1,11 +1,11 @@
-using data;
-using OpenQA.Selenium;
-using System;
-using System.IO;
-using System.Text.RegularExpressions;
-
 namespace utility
 {
+    using System;
+    using System.IO;
+    using System.Text.RegularExpressions;
+    using data;
+    using OpenQA.Selenium;
+
     public class DataRecover 
     {
         private const string EMAILINBOX =
@@ -67,9 +67,8 @@ namespace utility
 
         public static string RecoverSecurityCode() 
         {
-            string securityCode = "";
-            string dateReturn = "";
-
+            string securityCode = string.Empty;
+            string dateReturn = string.Empty;
 
             WebScrap webScrap = new WebScrap();
             try 
@@ -81,10 +80,9 @@ namespace utility
 
                 emailUrl = EMAILPATH + emailUrl.Substring(4);
                 dateReturn = webScrap.RecoverDataElementPage(
-                        emailUrl, By.CssSelector("body"), "", "html_msg_body");
+                        emailUrl, By.CssSelector("body"), string.Empty, "html_msg_body");
 
                 webScrap.KillSession();
-
             }
             catch (Exception ex) 
             {

@@ -123,7 +123,7 @@ namespace pages
             Assert.AreEqual(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
         }
 
-        protected void assertElementWithTextExist(String text)
+        protected void assertElementWithTextExist(string text)
         {
             By locator = By.XPath("//*[@text='" + text + "']");
             Assert.IsTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");

@@ -96,7 +96,7 @@ namespace tests
             logIN.verifyCONTINUARbtnState(true);
         }
 
-        [Test, Order(9)]
+        [Test, Order(13)]
         public void TC039_SecurityCodeLoginPage_WrongSecurityCode() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
