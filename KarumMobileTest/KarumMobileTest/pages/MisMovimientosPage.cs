@@ -12,7 +12,7 @@ namespace pages
         public By allMovewmentsItems = By.XPath("//*[@resource-id='com.karum.credits:id/rv_movements']/*");
         public By amountItem = By.XPath("//*[@resource-id='com.karum.credits:id/tv_amount_item']");
         public By transactionNumber = By.XPath("//*[@resource-id='com.karum.credits:id/tv_transaction_item']");
-        public By transactionType = By.XPath("//*@resource-id='com.karum.credits:id/tv_credit_item']");
+        public By transactionType = By.XPath("//*[@resource-id='com.karum.credits:id/tv_credit_item']");
         //By Movement selected
         public By movementDetail = By.Id("com.karum.credits:id/tv_movement_detail");
         public By amountDetail = By.Id("com.karum.credits:id/tv_amount_detail");
@@ -69,14 +69,14 @@ namespace pages
             assertElementText(headerTitle, "Mis movimientos");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
             assertElementWithTextExist("Para mayor detalle de movimientos, favor de llamar al Credit Center al número 5570903047 opción 4");
-
+                        
             foreach (var element in _driver.GetIntance().FindElements(allMovewmentsItems))
             {
                 movimientosScreen.Add(
                     new Movimiento(element.FindElement(transactionNumber).Text, element.FindElement(transactionType).Text, element.FindElement(amountItem).Text));
-            }
-
-            SwipeAction.swipeToDown(_driver);
+            }            
+            
+            SwipeAction.swipeDownUntilElementText(_driver, clientData.clientMovimientos[clientData.clientMovimientos.Count - 1].moneyAmount);
 
             foreach (var element in _driver.GetIntance().FindElements(allMovewmentsItems))
             {
@@ -86,16 +86,27 @@ namespace pages
 
             Assert.IsTrue(movimientosScreen.Count > 0, "Error, there are no Movimientos on Screen");
 
-            foreach (var movimiento in movimientosScreen)
+            foreach (var movimientoScreen in movimientosScreen)
             {
-                Assert.IsTrue(
-                    clientData.clientMovimientos.Contains(movimiento),
-                    "Error, Movimiento \n" +
-                    "Transaction: " + movimiento.transactionNumber +
-                    "Credit" + movimiento.transactionType +
-                    "Amount: " + movimiento.moneyAmount +
-                    "is not a 'Movimiento' expected for this client"
-                    );
+                bool match = false;
+
+                foreach (var movimientoClient in clientData.clientMovimientos)
+                {
+                    match = movimientoScreen.equalMovements(movimientoClient);
+
+                    if (match)
+                    {
+                        break;
+                    }
+                }
+                
+                Assert.IsTrue(match,
+                        "Error, Movimiento \n" +
+                        "Transaction: " + movimientoScreen.transactionNumber +
+                        "Credit" + movimientoScreen.transactionType +
+                        "Amount: " + movimientoScreen.moneyAmount +
+                        "is not a 'Movimiento' expected for this client"
+                        );                
             }
         }
     }

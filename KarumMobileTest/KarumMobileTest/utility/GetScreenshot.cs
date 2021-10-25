@@ -13,7 +13,7 @@ namespace utility
             AppDomain.CurrentDomain.BaseDirectory,
             string.Format(screenshotName +
                           "_" +
-                          "{0}.PNG", DateTime.Today.ToString("YYYY-MM-dd-HH.mm.ss")));
+                          "{0}.PNG", DateTime.Now.ToString("yyyy-MM-dd.HH.mm.ss")));
             Screenshot screenshot = driver.GetScreenshot();
             screenshot.SaveAsFile(filename, ScreenshotImageFormat.Png);
             return filename;

@@ -84,13 +84,13 @@ namespace utility
             int Height = driver.GetWindownSizeHeight();
             int Width = driver.GetWindownSizeWidth();
 
-            int Starty = Height / 2;
+            int Starty = (int)(Height * 0.80);
             int Startx = Width / 2;
-            int Endy = Starty / 2;
+            int Endy = (int)(Height * 0.20);
             int Endx = Startx;
 
             new TouchAction(driver.GetIntance())
-                     .LongPress(Startx, Starty)
+                    .LongPress(Startx, Starty)
                     .Wait(100)
                     .MoveTo(Endx, Endy)
                     .Release().Perform();

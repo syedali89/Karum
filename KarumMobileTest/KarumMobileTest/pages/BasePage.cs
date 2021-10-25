@@ -80,10 +80,17 @@ namespace pages
         }
 
         //SendKey
-        protected void sendTextElement(By locator, String text)
+        protected void sendTextElement(By locator, string text)
         {
             waitVisibility(locator);
             _driver.GetIntance().FindElement(locator).SendKeys(text);
+        }
+
+        //Recover Text
+        protected string getTextElement(By locator)
+        {
+            waitVisibility(locator);
+            return _driver.GetIntance().FindElement(locator).Text;
         }
 
         //Assert elements
@@ -116,11 +123,21 @@ namespace pages
             }
         }
 
-        protected void assertElementText(By locator, String text)
+        protected void assertElementText(By locator, string text)
         {
-            waitVisibility(locator);
-            string textElement = _driver.GetIntance().FindElement(locator).Text;
+            string textElement = getTextElement(locator);
             Assert.AreEqual(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
+        }
+
+        protected void assertTextContains(By locator, string textexpected)
+        {
+            string textcompare = getTextElement(locator);
+            assertTextContains(textcompare, textexpected);
+        }
+
+        protected void assertTextContains(string textcompare, string textexpected)
+        {
+            Assert.IsTrue(textcompare.Contains(textexpected), "Error, the element text '" + textcompare + "' not contains '" + textexpected + "'");
         }
 
         protected void assertElementWithTextExist(string text)

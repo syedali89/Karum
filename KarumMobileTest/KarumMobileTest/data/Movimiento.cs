@@ -12,5 +12,12 @@ namespace data
             transactionType = transaccionType;
             this.moneyAmount = moneyAmount;
         }
+
+        public bool equalMovements(Movimiento mov)
+        {
+            return mov.moneyAmount.Equals(this.moneyAmount)
+                     && mov.transactionNumber.Equals(this.transactionNumber)
+                     && mov.transactionType.Equals(this.transactionType);
+        }
     }
 }

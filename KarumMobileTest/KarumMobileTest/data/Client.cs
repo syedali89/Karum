@@ -44,6 +44,7 @@ namespace data
 
         //Client account information
         public string accountAmount = "";
+        public string creditNumber = "";
 
         public List<Movimiento> clientMovimientos = new List<Movimiento>();
 
@@ -73,6 +74,11 @@ namespace data
         public string getFullName() 
         {
             return getFirstName() + " " + getLastName();
+        }
+
+        public string getLastCreditNumber() 
+        {
+            return creditNumber.Substring(creditNumber.Length - 4);
         }
     }
 }
