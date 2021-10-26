@@ -11,7 +11,7 @@ namespace tests
         public LogIN logIN; 
         public ConsultaSaldoPage consultaSaldo; 
 
-        [SetUp] 
+        [SetUp]
         public void beforeMethod()
         {
             logIN = new LogIN(_driver);

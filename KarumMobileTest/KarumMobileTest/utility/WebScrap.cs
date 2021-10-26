@@ -50,6 +50,7 @@ namespace utility
                     returnData = pageElement.GetAttribute(attributeToRecover);
                 }
             }
+            
             catch (Exception exception) 
             {
                 Console.WriteLine(exception.Message);

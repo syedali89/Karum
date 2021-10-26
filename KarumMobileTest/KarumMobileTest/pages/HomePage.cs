@@ -5,9 +5,9 @@ using utility;
 
 namespace pages
 {
-    public class HomePage : BasePage{
-
-        //By Home buttons
+    public class HomePage : BasePage
+    {
+        //By Home buttonS
         public By pagarTiendaBtn = By.Id("com.karum.credits:id/tv_purchases_main");
         public By misMovimientosBtn = By.Id("com.karum.credits:id/tv_movements_main");
         public By estadoCuentaBtn = By.Id("com.karum.credits:id/tv_account_status_main");
@@ -20,7 +20,6 @@ namespace pages
         public By numberClient = By.Id("com.karum.credits:id/tv_credit_card_main");
         public By totalamountClient = By.Id("com.karum.credits:id/tv_credit_balance_main");
 
-
         //Contructor
         public HomePage(Driver driver) : base(driver)
         {}
@@ -29,10 +28,8 @@ namespace pages
         {
             verifyHomePageOnScreen(clientData);
 
-            string lastPhone = clientData.PhoneNumber.Substring(clientData.PhoneNumber.Length - 4);
-
             assertElementWithTextExist("Crédito Karum");
-            assertElementText(numberClient, "************" + lastPhone);
+            assertElementText(numberClient, "************" + clientData.getLastCreditNumber());
 
             assertElementText(totalamountClient, clientData.accountAmount);
             Assert.IsTrue(validateElementVisible(consultaSaldoBtn),
@@ -49,7 +46,7 @@ namespace pages
 
         public void verifyHomePageOnScreen(Client clientData) 
         {           
-            assertElementText(headerTitle, "Hola, Jose Sanchez" + clientData.firstNameOne + " " + clientData.lastNameOne);
+            assertElementText(headerTitle, "Hola, " + clientData.firstNameOne + " " + clientData.lastNameOne);
         }
 
         public ConsultaSaldoPage tapSaldoCuenta() 
@@ -82,6 +79,12 @@ namespace pages
             return new SanwichMenuPage(_driver);
         }
 
+        public EstadoCuentaPage tapEstadoCuentaBtn() 
+        {
+            clickElement(estadoCuentaBtn);
+            return new EstadoCuentaPage(_driver);
+        }
+
         public void verifySaldoCuentaOnScreen() 
         {
             assertElementText(headerTitle, "Saldo");
@@ -100,6 +103,11 @@ namespace pages
         public void verifyPuntosLealtadPageOnScreen() 
         {
             assertElementText(headerTitle, "Puntos de lealtad");
+        }
+
+        public void verifyEstadoCuentaPageOnScreen() 
+        {
+            assertElementText(headerTitle, "Estado de Cuenta");
         }
     }
 }

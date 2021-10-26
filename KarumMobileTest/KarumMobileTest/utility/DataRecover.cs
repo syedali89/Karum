@@ -40,7 +40,8 @@ namespace utility
             //client.firstNameOne = "Antonio";
             client.firstNameOne = "Jose";
             client.firstNameTwo = "Servando";
-            client.lastNameOne = "Lopez";
+            //client.lastNameOne = "Lopez";
+            client.lastNameOne = "Sanchez";
             client.lastNameTwo = "Rodea";
             client.birthDate = "22/03/1974";
             client.gender = "Masculino";
@@ -54,6 +55,29 @@ namespace utility
             client.userPhone = "3327885614";
 
             client.accountAmount = "$14,277.13";
+            client.creditNumber = "************5168";
+
+            client.newChargesAmount = "$0.00";
+            client.paymentCreditAmount = "$0.00";
+            client.monthlyAmount = "$1,200.00";
+            client.availableCreditAmount = "$0.00";
+            client.overdueAmount = "$0.00";
+            client.totalAmount = "$0.00";
+
+            client.creditLimitAmount = "$2,500.00";
+            client.paymentAmount = "$1,200.00";
+            client.totalLoyalPoints = "0";
+
+            client.clientMovimientos.Add(new Movimiento("93054", "Devolución IVA", "$7,777.88"));
+            client.clientMovimientos.Add(new Movimiento("93054", "IVA", "-$4,677.88"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$2,334.44"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Abono", "-$5,551.33"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$4,880.00"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$4,660.22"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$3,333.33"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$4,455.22"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$5,770.01"));
+            client.clientMovimientos.Add(new Movimiento("93054", "Abono", "-$250.00"));
 
             return client;
         }

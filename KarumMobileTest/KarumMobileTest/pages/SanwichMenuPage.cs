@@ -8,9 +8,9 @@ namespace pages
     public class SanwichMenuPage : BasePage
     {
         //By
-        public By closeBtn = By.Id("close");
-        public By userNameDisplay = By.Id("username");
-        public By cerrarSesionBtn = By.Id("cerrarsesion");
+        public By closeBtn = By.Id("com.karum.credits:id/iv_close_menu");
+        public By userNameDisplay = By.Id("com.karum.credits:id/tv_name_menu");
+        public By cerrarSesionBtn = By.Id("com.karum.credits:id/menuLogout");
 
         //Contructor
         public SanwichMenuPage(Driver driver) : base(driver)

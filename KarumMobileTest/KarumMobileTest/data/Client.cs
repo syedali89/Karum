@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace data
 {
     public class Client {
@@ -32,8 +34,22 @@ namespace data
         public string userPass = "";
         public string userPhone = "";
 
+        //Saldo CLient
+        public string newChargesAmount = "";
+        public string paymentCreditAmount = "";
+        public string monthlyAmount = "";
+        public string availableCreditAmount = "";
+        public string overdueAmount = "";
+        public string totalAmount = "";
+
         //Client account information
         public string accountAmount = "";
+        public string creditNumber = "";
+        public string creditLimitAmount = "";
+        public string paymentAmount = "";
+        public string totalLoyalPoints = "";
+
+        public List<Movimiento> clientMovimientos = new List<Movimiento>();
 
         public string getFirstName() 
         {
@@ -61,6 +77,11 @@ namespace data
         public string getFullName() 
         {
             return getFirstName() + " " + getLastName();
+        }
+
+        public string getLastCreditNumber() 
+        {
+            return creditNumber.Substring(creditNumber.Length - 4);
         }
     }
 }

@@ -107,7 +107,7 @@ namespace tests
             logIN.verifyBadCode();
         }
 
-        [Test, Order(10)]
+        [Test, Order(9)]
         public void TC040_SecurityCodeLoginPage_CorrectSecurityCode() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
@@ -118,7 +118,7 @@ namespace tests
             logIN.verifyPasswordPage(clientData);
         }
 
-        [Test, Order(11)]
+        [Test, Order(10)]
         public void TC041_PasswordPage_InputIncorrectPassword() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
@@ -132,7 +132,7 @@ namespace tests
             logIN.verifyBadPassword();
         }
 
-        [Test, Order(12)]
+        [Test, Order(11)]
         public void TC042_PasswordPage_InputCorrectPassword() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);

@@ -38,13 +38,11 @@ namespace pages
 
         public void verifyPageElements(Client clientData)
         {
-            string lastPhone = clientData.PhoneNumber.Substring(clientData.PhoneNumber.Length - 4);
-
             assertElementText(headerTitle, "Pagar en tienda");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
 
             assertElementWithTextExist("Crédito Karum");
-            assertElementText(clientNumber, "************" + lastPhone);
+            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
             
             assertElementText(codigoQRbutton, "Código QR");
             assertElementText(codigoBarrasbutton, "Código de barras");

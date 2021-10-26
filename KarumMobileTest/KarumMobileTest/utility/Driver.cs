@@ -24,6 +24,8 @@ namespace utility
         
             capabilities.AddAdditionalCapability("securityToken", securityToken);
             capabilities.AddAdditionalCapability("newCommandTimeout", 60000);
+            /*capabilities.AddAdditionalCapability(MobileCapabilityType.FullReset, false);
+            capabilities.AddAdditionalCapability(MobileCapabilityType.NoReset, true);*/
 
             if (TEST_DEVISE.Equals(ANDROID)) {
                 Uri url;
@@ -31,7 +33,7 @@ namespace utility
                 if(REMOTEEXECUTION) 
                 {                   
                     capabilities.AddAdditionalCapability("app",
-                            "PRIVATE:Karum_Fase_2_Sprint_3_v1.10.5.apk");
+                            "PRIVATE:Karum_Fase_2_Sprint_3_v1.10.6.apk");
                     capabilities.AddAdditionalCapability(MobileCapabilityType.DeviceName,
                             "99241FFAZ00HKL");
 
@@ -60,7 +62,7 @@ namespace utility
                 capabilities.AddAdditionalCapability("autoInstrument", true);
                 capabilities.AddAdditionalCapability("takesScreenshot", true);
                 capabilities.AddAdditionalCapability("screenshotOnError", true);
-                //capabilities.AddAdditionalCapability("fullReset", true);
+                
                 capabilities.AddAdditionalCapability("waitForAvailableLicense", true);
                 capabilities.AddAdditionalCapability("sensorInstrument", true); 
 

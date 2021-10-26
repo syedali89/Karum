@@ -3,7 +3,7 @@ using pages;
 using utility;
 
 namespace tests
-{
+{    
     public class OnBoardingSuite : BaseTest
     {
         public LogIN logIN;

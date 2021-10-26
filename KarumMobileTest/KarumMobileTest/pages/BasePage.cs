@@ -20,6 +20,11 @@ namespace pages
         public By backButton = By.Id("com.karum.credits:id/iv_home_back_header");
         public By clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
 
+        //DownMenu
+        public By downMenuHome = By.Id("com.karum.credits:id/mainFragment");
+        public By downMenuCredit = By.Id("com.karum.credits:id/creditsFragment");
+        public By downMenuProfile = By.Id("com.karum.credits:id/menu_3");
+
         //Constructor
         public BasePage(Driver driver)
         {
@@ -35,6 +40,16 @@ namespace pages
         public void tapGoBack()
         {
             clickElement(backButton);
+        }
+
+        public void tapGoHomeDownMenu()
+        {
+            clickElement(downMenuHome);
+        }
+
+        public void tapGoCreditDownMenu()
+        {
+            clickElement(downMenuCredit);
         }
 
         public void grantAllPermissions()
@@ -80,10 +95,17 @@ namespace pages
         }
 
         //SendKey
-        protected void sendTextElement(By locator, String text)
+        protected void sendTextElement(By locator, string text)
         {
             waitVisibility(locator);
             _driver.GetIntance().FindElement(locator).SendKeys(text);
+        }
+
+        //Recover Text
+        protected string getTextElement(By locator)
+        {
+            waitVisibility(locator);
+            return _driver.GetIntance().FindElement(locator).Text;
         }
 
         //Assert elements
@@ -116,11 +138,21 @@ namespace pages
             }
         }
 
-        protected void assertElementText(By locator, String text)
+        protected void assertElementText(By locator, string text)
         {
-            waitVisibility(locator);
-            string textElement = _driver.GetIntance().FindElement(locator).Text;
+            string textElement = getTextElement(locator);
             Assert.AreEqual(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
+        }
+
+        protected void assertTextContains(By locator, string textexpected)
+        {
+            string textcompare = getTextElement(locator);
+            assertTextContains(textcompare, textexpected);
+        }
+
+        protected void assertTextContains(string textcompare, string textexpected)
+        {
+            Assert.IsTrue(textcompare.Contains(textexpected), "Error, the element text '" + textcompare + "' not contains '" + textexpected + "'");
         }
 
         protected void assertElementWithTextExist(string text)
