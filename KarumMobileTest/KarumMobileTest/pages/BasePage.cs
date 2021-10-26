@@ -20,6 +20,11 @@ namespace pages
         public By backButton = By.Id("com.karum.credits:id/iv_home_back_header");
         public By clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
 
+        //DownMenu
+        public By downMenuHome = By.Id("com.karum.credits:id/mainFragment");
+        public By downMenuCredit = By.Id("com.karum.credits:id/creditsFragment");
+        public By downMenuProfile = By.Id("com.karum.credits:id/menu_3");
+
         //Constructor
         public BasePage(Driver driver)
         {
@@ -35,6 +40,16 @@ namespace pages
         public void tapGoBack()
         {
             clickElement(backButton);
+        }
+
+        public void tapGoHomeDownMenu()
+        {
+            clickElement(downMenuHome);
+        }
+
+        public void tapGoCreditDownMenu()
+        {
+            clickElement(downMenuCredit);
         }
 
         public void grantAllPermissions()

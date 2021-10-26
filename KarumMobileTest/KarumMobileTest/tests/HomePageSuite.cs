@@ -64,5 +64,14 @@ namespace tests
             SanwichMenuPage sandwichPage = home.tapSandwichBtn();
             sandwichPage.tapCerrarSesionBtn();
         }
+
+        [Test, Order(8)]
+        public void TC026_HomePage_EstadoCuentaButton()
+        {
+            var estadoCuenta = home.tapEstadoCuentaBtn();
+            home.verifyEstadoCuentaPageOnScreen();
+            estadoCuenta.tapGoBack();
+            home.verifyHomePageOnScreen(clientData);
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace pages
         public By userEmailOnScreen = By.Id("com.karum.credits:id/tv_username");
         public By changeUserBtn = By.Id("com.karum.credits:id/tv_change_user");
         public By iniciaSesionBtn = By.Id("com.karum.credits:id/btn_login");
+        public By wrongPasswordMessage = By.Id("com.karum.credits:id/tv_error_login");
 
         //Security Code Menu
         public By greatingsActivationDevice = By.Id("com.karum.credits:id/tv_sms_title");
@@ -190,7 +191,7 @@ namespace pages
 
         public void verifyBadPassword() 
         {
-            assertElementWithTextExist("Contraseña incorrecta");
+            assertElementText(wrongPasswordMessage, "Contraseña incorrecta");
         }
 
         public void verifyCorrectPassword() 

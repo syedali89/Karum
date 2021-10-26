@@ -45,6 +45,9 @@ namespace data
         //Client account information
         public string accountAmount = "";
         public string creditNumber = "";
+        public string creditLimitAmount = "";
+        public string paymentAmount = "";
+        public string totalLoyalPoints = "";
 
         public List<Movimiento> clientMovimientos = new List<Movimiento>();
 

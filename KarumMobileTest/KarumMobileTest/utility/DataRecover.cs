@@ -64,6 +64,10 @@ namespace utility
             client.overdueAmount = "$0.00";
             client.totalAmount = "$0.00";
 
+            client.creditLimitAmount = "$2,500.00";
+            client.paymentAmount = "$1,200.00";
+            client.totalLoyalPoints = "0";
+
             client.clientMovimientos.Add(new Movimiento("93054", "Devolución IVA", "$7,777.88"));
             client.clientMovimientos.Add(new Movimiento("93054", "IVA", "-$4,677.88"));
             client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$2,334.44"));

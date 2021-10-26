@@ -33,7 +33,7 @@ namespace utility
                 if(REMOTEEXECUTION) 
                 {                   
                     capabilities.AddAdditionalCapability("app",
-                            "PRIVATE:Karum_Fase_2_Sprint_3_v1.10.5.apk");
+                            "PRIVATE:Karum_Fase_2_Sprint_3_v1.10.6.apk");
                     capabilities.AddAdditionalCapability(MobileCapabilityType.DeviceName,
                             "99241FFAZ00HKL");
 
