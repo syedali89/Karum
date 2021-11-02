@@ -59,7 +59,6 @@ namespace pages
             assertElementWithTextExist("Aviso de privacidad");
             Assert.IsTrue(validateElementVisible(avisoPrivacidadClose),
                     "Error, document close button 'Aviso Privacidad' is not visible.");
-            //Document Text
             assertDocumentText(
                     "Aviso de privacidad", DataRecover.AvisoPrivacidadDocument());
             clickElement(avisoPrivacidadClose);
@@ -70,11 +69,27 @@ namespace pages
         public void assertInitialRegistrationPage()
         {
             assertElementText(registrateMessage, "Regístrate ahora y solicita tu crédito en menos de 5 minutos");
-            //TODO assert of all the diferent types of validation that are required for the client to make a account. Now we are only check the Titles.
             assertElementWithTextExist("Debes contar con la siguiente documentación para iniciar tu registro:");
             assertElementWithTextExist("Identificación oficial");
+            assertElementWithTextExist("INE / IFE vigente");
+
             assertElementWithTextExist("Comprobante de domicilio");
+            assertElementWithTextExist("CFE Luz");
+            assertElementWithTextExist("Agua");
+            assertElementWithTextExist("Predial");
+            assertElementWithTextExist("Telmex (línea fija)");
+            assertElementWithTextExist("TV de paga cable fijo");
+            assertElementWithTextExist("Gas Natural / conexión fija");
+            assertElementWithTextExist("Contrato de arrendamiento a nombre del solicitante");
+            assertElementWithTextExist("Edos. de Cta. bancarios a nombre del solicitante");
+            assertElementWithTextExist("(cheques, ahorro, crédito, débito)");
+
             assertElementWithTextExist("Registro facial");
+            assertElementWithTextExist("Considera también que te pediremos tomarte una selfie.");
+            assertElementWithTextExist("Autorizo el");
+
+            Assert.IsTrue(SwipeAction.swipeDownUntilElementExist(_driver, avisoPrivacidadLink), "Error, 'aviso  de privacidad' LinkText is not visible.");
+            
             Assert.IsTrue(SwipeAction.swipeDownUntilElementExist(_driver, registratemebtn), "Error, REGISTRARME button is not visible.");
         }
     }

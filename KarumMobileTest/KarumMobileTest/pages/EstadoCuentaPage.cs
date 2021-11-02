@@ -112,14 +112,6 @@ namespace pages
 
             var currentDaTE = DateTime.Now;
             var listMonths = new List<string>();
-            //{
-            //    currentDaTE.AddMonths(-1).ToString("MMMM yyyy", new CultureInfo("es-ES")),
-            //    currentDaTE.AddMonths(-2).ToString("MMMM yyyy", new CultureInfo("es-ES")),
-            //    currentDaTE.AddMonths(-3).ToString("MMMM yyyy", new CultureInfo("es-ES")),
-            //    currentDaTE.AddMonths(-4).ToString("MMMM yyyy", new CultureInfo("es-ES")),
-            //    currentDaTE.AddMonths(-5).ToString("MMMM yyyy", new CultureInfo("es-ES")),
-            //    currentDaTE.AddMonths(-6).ToString("MMMM yyyy", new CultureInfo("es-ES"))
-            //};
 
             for(int i = -1;i >= -6;i-- )
             {
@@ -221,7 +213,7 @@ namespace pages
             }
             else if (_driver.GetDriverType().Equals(IOS))
             {
-                ///TODO
+                path = MOVILE_DOWNLOAD_PATHFOLDER_IOS;
             }
 
             return DataRecover.RecoverFolderFilesNames(_driver, path);
