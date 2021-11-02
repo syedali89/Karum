@@ -1,11 +1,12 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System;
-using utility;
-
 namespace pages
 {
+    using System;
+    using data;
+    using NUnit.Framework;
+    using OpenQA.Selenium;    
+    using utility;
+    using static constants;
+
     public class CreditPage : BasePage
     {
         //By button
@@ -43,8 +44,10 @@ namespace pages
             assertElementText(creditLimitAmount, clientData.creditLimitAmount);
             assertElementText(paymentAmount, clientData.paymentAmount);
 
-            string nextPaymentText = DateTime.Now.AddMonths(2).ToString("MM/yy");
-            assertTextContains(nextPaymentDate, nextPaymentText);
+            string nextPaymentTextTwo = DateTime.Now.AddMonths(2).ToString("MM/yy");
+            string nextPaymentTextOne = DateTime.Now.AddMonths(1).ToString("MM/yy");
+            
+            Assert.IsTrue(getTextElement(nextPaymentDate).Contains(nextPaymentTextTwo) || getTextElement(nextPaymentDate).Contains(nextPaymentTextOne), " Error next payment date is invalid");
 
             Assert.IsTrue(validateElementVisible(misMovimientosBtn),
                     "Error,  'Mis movimientos' button is not visible");
@@ -54,13 +57,16 @@ namespace pages
                     "Error,  'Comprar en tienda' button is not visible");
             Assert.IsTrue(validateElementVisible(misPuntosBtn),
                     "Error,  'Mis Puntos' button is not visible");
-            
-            assertTextContains(misPuntosBtn, "Mis puntos " + clientData.totalLoyalPoints + " pts");
+
+            assertTextContains(misPuntosBtn, "Mis puntos");
+            assertTextContains(misPuntosBtn, clientData.totalLoyalPoints + " pts");
 
             assertElementWithTextExist("Solicitar tarjeta física");
             assertElementWithTextExist("Tramita tu tarjeta física y paga donde quieras y cuando quieras");
 
             assertElementText(RequestCardBtn, "SOLICITAR");
+
+            verifyButtonMenuScreen(DownMenuSelected.CREDIT);
         }
 
         public void verifyCreditPageOnScreen() 

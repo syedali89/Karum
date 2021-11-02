@@ -23,7 +23,7 @@ namespace utility
             options.AddArguments("--headless");
             options.AddArguments("--window-size=1920,1080");
             webdriver = new ChromeDriver(options);
-            webdriverwait = new WebDriverWait(webdriver, TimeSpan.FromSeconds(120));
+            webdriverwait = new WebDriverWait(webdriver, TimeSpan.FromSeconds(240));
         }
 
         public string RecoverDataElementPage(

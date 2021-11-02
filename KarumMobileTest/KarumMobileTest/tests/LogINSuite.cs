@@ -19,9 +19,9 @@ namespace tests
 
         [Test, Order(1)]
         public void TC031_LOGIN_ExistingClient() 
-        {
+        {            
             logIN.logINClienteAsesor(constants.CLIENTE);
-            logIN.validateSOYCLIENTELogINEmailPhone();
+            logIN.validateSOYCLIENTELogINEmailPhone();            
         }
 
         [Test, Order(2)]

@@ -1,10 +1,11 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using utility;
-
 namespace pages
 {
+    using data;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using utility;
+    using static constants;
+
     public class HomePage : BasePage
     {
         //By Home buttonS
@@ -33,15 +34,17 @@ namespace pages
 
             assertElementText(totalamountClient, clientData.accountAmount);
             Assert.IsTrue(validateElementVisible(consultaSaldoBtn),
-                    "Error,  'Consulta de saldo' button is not visible");
+                    "Error, 'Consulta de saldo' button is not visible");
             Assert.IsTrue(validateElementVisible(pagarTiendaBtn),
-                    "Error,  'Pagar en Tienda' button is not visible");
+                    "Error, 'Pagar en Tienda' button is not visible");
             Assert.IsTrue(validateElementVisible(misMovimientosBtn),
-                    "Error,  'Mis mivimientos' button is not visible");
+                    "Error, 'Mis mivimientos' button is not visible");
             Assert.IsTrue(validateElementVisible(estadoCuentaBtn),
-                    "Error,  'Estado de cuenta' button is not visible");
+                    "Error, 'Estado de cuenta' button is not visible");
             Assert.IsTrue(validateElementVisible(puntosLealtadBtn),
-                    "Error,  'Puntos de lealtad' button is not visible");
+                    "Error, 'Puntos de lealtad' button is not visible");
+
+            verifyButtonMenuScreen(DownMenuSelected.HOME);
         }
 
         public void verifyHomePageOnScreen(Client clientData) 
@@ -107,7 +110,7 @@ namespace pages
 
         public void verifyEstadoCuentaPageOnScreen() 
         {
-            assertElementText(headerTitle, "Estado de Cuenta");
+            assertElementText(headerTitle, "Estado de cuenta");
         }
     }
 }

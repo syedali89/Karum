@@ -33,6 +33,7 @@ namespace data
         public string userEmail = "";
         public string userPass = "";
         public string userPhone = "";
+        public string estadoCuentaPass = "";
 
         //Saldo CLient
         public string newChargesAmount = "";

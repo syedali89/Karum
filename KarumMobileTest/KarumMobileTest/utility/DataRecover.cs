@@ -1,7 +1,10 @@
 namespace utility
 {
     using System;
+    using System.Buffers.Text;
+    using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Text.RegularExpressions;
     using data;
     using OpenQA.Selenium;
@@ -53,8 +56,10 @@ namespace utility
             client.userEmail = "spring2_u1@gmail.com";
             client.userPass = "temporal#dev";
             client.userPhone = "3327885614";
+            client.estadoCuentaPass = "0030";
 
-            client.accountAmount = "$14,277.13";
+            //client.accountAmount = "$14,277.13";
+            client.accountAmount = "$17,295.70";
             client.creditNumber = "************5168";
 
             client.newChargesAmount = "$0.00";
@@ -152,6 +157,23 @@ namespace utility
             string docFile = Path.GetFullPath(Path.Combine(
                 localpath, constants.DOCUMENTS_FOLDER, BUROCREDITO_DOCUMENT));
             return PDFDocument.readDocument(docFile);
+        }
+
+        public static List<string> RecoverFolderFilesNames(Driver driver, string folderpath) 
+        {
+            var Listfilesnames = new List<string>();
+            byte[] downloadFolder = driver.GetIntance().PullFolder(folderpath);
+            File.WriteAllBytes("zipfile", downloadFolder);
+
+            using (ZipArchive zip = ZipFile.Open("zipfile", ZipArchiveMode.Read))
+            {
+                foreach (ZipArchiveEntry entry in zip.Entries)
+                {
+                    Listfilesnames.Add(entry.Name);
+                }
+            }
+
+            return Listfilesnames;
         }
     }
 }

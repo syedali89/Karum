@@ -4,6 +4,7 @@ namespace utility
     using System.Drawing;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Appium.MultiTouch;
+    using static constants;
 
     public class SwipeAction 
     {
@@ -34,7 +35,7 @@ namespace utility
 
         public static bool swipeDownUntilElementText(Driver driver, string text)
         {
-            if (driver.GetDriverType().Equals(constants.ANDROID)) 
+            if (driver.GetDriverType().Equals(ANDROID)) 
             {
                 try 
                 {
@@ -48,11 +49,12 @@ namespace utility
                     return false;
                 }
             }
-            else if (driver.GetDriverType().Equals(constants.IOS)) 
+            else if (driver.GetDriverType().Equals(IOS)) 
             {
                 try 
                 {
                     ///TODO IOS
+                    throw new NotImplementedException();
                 } 
                 catch (Exception ex) 
                 {
@@ -63,37 +65,48 @@ namespace utility
             return true;
         }
 
-        public static void swipeToRightFromElement(Driver driver, By locator) 
-        {
+        public static void swipeDirectionFromElement(Driver driver, By locator, Direction direction)
+        {            
             Point elementCordinates = driver.GetIntance().FindElement(locator).Location;
+            Size elementSize = driver.GetIntance().FindElement(locator).Size;
+            
+            int Starty = 0;
+            int Startx = 0;
+            int Endy = 0;
+            int Endx = 0;
 
-            int Starty = elementCordinates.Y;
-            int Startx = elementCordinates.X;
-            int Endy = Starty;
-            int Endx = Startx + 200;
+            switch (direction)
+            {
+                case Direction.UP:
+                    Starty = elementCordinates.Y + 10;
+                    Startx = elementCordinates.X + 10;
+                    Endy = (int)((elementCordinates.Y + elementSize.Height) * 0.9);
+                    Endx = Startx;
+
+                    break;
+                case Direction.DOWN:
+                    Starty = (int)(elementSize.Height * 0.80);
+                    Startx = elementCordinates.X + 10;
+                    Endy = (int)(elementSize.Height * 0.10);
+                    Endx = Startx;                   
+
+                    break;                
+                case Direction.LEFT:
+                case Direction.RIGHT:
+                default:
+                    Starty = elementCordinates.Y;
+                    Startx = elementCordinates.X;
+                    Endy = Starty;
+                    Endx = Startx;
+                    break;
+            }
 
             new TouchAction(driver.GetIntance())
-                    .LongPress(Startx, Starty)
-                    .Wait(100)
+                    .Press(Startx, Starty)
+                    .Wait(500)
                     .MoveTo(Endx, Endy)
-                    .Release().Perform();
-        }
-
-        public static void swipeToDown(Driver driver) 
-        {
-            int Height = driver.GetWindownSizeHeight();
-            int Width = driver.GetWindownSizeWidth();
-
-            int Starty = (int)(Height * 0.80);
-            int Startx = Width / 2;
-            int Endy = (int)(Height * 0.20);
-            int Endx = Startx;
-
-            new TouchAction(driver.GetIntance())
-                    .LongPress(Startx, Starty)
-                    .Wait(100)
-                    .MoveTo(Endx, Endy)
-                    .Release().Perform();
+                    .Release()
+                    .Perform();
         }
     }
 }
