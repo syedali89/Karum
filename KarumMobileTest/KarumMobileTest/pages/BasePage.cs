@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using utility;
+using static constants;
 
 namespace pages 
 {
@@ -56,12 +57,11 @@ namespace pages
         {
             if (_driver.GetRemoteState())
             {
-                if (_driver.GetDriverType().Equals(constants.ANDROID))
+                if (_driver.GetDriverType().Equals(ANDROID))
                 {
                     By allowButtonForeground = By.Id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
                     By allowButton = By.Id("com.android.permissioncontroller:id/permission_allow_button");
 
-                    //TODO TEST SANGSUNG
                     while (validateElementVisible(allowButtonForeground))
                     {
                         clickElement(allowButtonForeground);
@@ -138,10 +138,36 @@ namespace pages
             }
         }
 
+        protected void verifyButtonMenuScreen(DownMenuSelected menuSelected)
+        {
+            Assert.IsTrue(validateElementVisible(downMenuHome), "Error, down menu home button is not visible");
+            Assert.IsTrue(validateElementVisible(downMenuCredit), "Error, down menu credit button is not visible");
+            Assert.IsTrue(validateElementVisible(downMenuProfile), "Error, down menu profile button is not visible");
+
+            By elementSelected = null;
+
+            if (menuSelected.Equals(DownMenuSelected.HOME))
+            {
+                elementSelected = downMenuHome;
+            }
+            else if (menuSelected.Equals(DownMenuSelected.CREDIT))
+            {
+                elementSelected = downMenuCredit;
+            }
+
+            Assert.IsTrue(_driver.GetIntance().FindElement(elementSelected).Selected, "Error, The expected down menu element '" + menuSelected.ToString() + "' is not Selected");
+        }        
+
         protected void assertElementText(By locator, string text)
         {
             string textElement = getTextElement(locator);
-            Assert.AreEqual(text, textElement, "Error, the expeted text was '" + text + "', but current text is '" + textElement + "'.");
+            Assert.AreEqual(text, textElement, "Error, the expected text was '" + text + "', but current text is '" + textElement + "'.");
+        }
+
+        protected void assertElementText(AppiumWebElement element, string text)
+        {
+            string textElement = element.Text;
+            Assert.AreEqual(text, textElement, "Error, the expected text was '" + text + "', but current text is '" + textElement + "'.");
         }
 
         protected void assertTextContains(By locator, string textexpected)

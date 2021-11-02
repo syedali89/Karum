@@ -46,15 +46,28 @@ namespace pages
             assertElementWithTextExist("Fecha de corte");
 
             var todayDate = DateTime.Now;
-            string payLimitDate = todayDate.AddMonths(2).ToString("MM/yy");
-            string currentPeriotDate = todayDate.AddMonths(1).ToString("MMMM yyyy", new CultureInfo("es-ES")).ToUpper();
-            string cutoffDate = todayDate.AddMonths(1).ToString("MM/yy");
-
-            assertTextContains(deadlinePayment, payLimitDate);
 
             string currentPeriodTimeText = getTextElement(currentPeriodMonth).ToUpper();
-            assertTextContains(currentPeriodTimeText, currentPeriotDate);
+            string currentPeriotDate = todayDate.ToString("MMMM", new CultureInfo("es-ES")).ToUpper();
 
+            string payLimitDate;
+            string cutoffDate;
+
+            if (currentPeriodTimeText.Contains(currentPeriotDate))
+            {
+                payLimitDate = todayDate.AddMonths(1).ToString("MM/yy");
+                currentPeriotDate = todayDate.ToString("MMMM yyyy", new CultureInfo("es-ES")).ToUpper();
+                cutoffDate = todayDate.ToString("MM/yy");
+            }
+            else
+            {
+                payLimitDate = todayDate.AddMonths(2).ToString("MM/yy");
+                currentPeriotDate = todayDate.AddMonths(1).ToString("MMMM yyyy", new CultureInfo("es-ES")).ToUpper();
+                cutoffDate = todayDate.AddMonths(1).ToString("MM/yy");
+            }
+
+            assertTextContains(deadlinePayment, payLimitDate);            
+            assertTextContains(currentPeriodTimeText, currentPeriotDate);
             assertTextContains(cutOffCreditDate, cutoffDate);
 
             assertElementWithTextExist("Nuevos Cargos");

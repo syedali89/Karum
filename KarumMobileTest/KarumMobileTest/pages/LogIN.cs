@@ -1,6 +1,7 @@
 using data;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System.Threading;
 using utility;
 
 namespace pages
@@ -22,7 +23,7 @@ namespace pages
         public By userEmailOnScreen = By.Id("com.karum.credits:id/tv_username");
         public By changeUserBtn = By.Id("com.karum.credits:id/tv_change_user");
         public By iniciaSesionBtn = By.Id("com.karum.credits:id/btn_login");
-        public By wrongPasswordMessage = By.Id("com.karum.credits:id/tv_error_login");
+        public By wrongPasswordMessage = By.XPath("//*[contains(@text, 'Contraseña incorrecta')]");
 
         //Security Code Menu
         public By greatingsActivationDevice = By.Id("com.karum.credits:id/tv_sms_title");
@@ -182,7 +183,7 @@ namespace pages
             assertElementText(userEmailOnScreen, client.userEmail);
             assertElementText(changeUserBtn, "Cambiar usuario");
 
-            assertElementWithTextExist("Contraseña *");
+            assertElementWithTextExist(@"Contraseña *");
             Assert.IsTrue(validateElementVisible(logINPassword),
                     "Error, input Password field is not visible");
 
@@ -191,7 +192,7 @@ namespace pages
 
         public void verifyBadPassword() 
         {
-            assertElementText(wrongPasswordMessage, "Contraseña incorrecta");
+            Assert.IsTrue(_driver.GetIntance().FindElements(wrongPasswordMessage).Count > 0, "Error, the error message for wrong password was not displayed on screen");
         }
 
         public void verifyCorrectPassword() 
