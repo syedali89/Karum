@@ -1,15 +1,16 @@
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using utility;
-using static constants;
-
 namespace pages 
 {
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Appium;
+    using OpenQA.Selenium.Interactions;
+    using OpenQA.Selenium.Support.UI;
+    using System;
+    using System.Collections.Generic;
+    using utility;
+    using data;
+    using static constants;
+
     public class BasePage {
         public Driver _driver;
         public WebDriverWait wait;
@@ -32,7 +33,8 @@ namespace pages
             _driver = driver;
             wait = new WebDriverWait(driver.GetIntance(), TimeSpan.FromSeconds(30));
             act = new Actions(driver.GetIntance());
-            if (driver.GetDriverType().Equals(constants.IOS)) {
+            if (driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS)) 
+            {
                 //TODO IOS PATH document
                 documentBody = By.XPath("TODO");
             }
@@ -57,7 +59,7 @@ namespace pages
         {
             if (_driver.GetRemoteState())
             {
-                if (_driver.GetDriverType().Equals(ANDROID))
+                if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.ANDROID))
                 {
                     By allowButtonForeground = By.Id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
                     By allowButton = By.Id("com.android.permissioncontroller:id/permission_allow_button");
@@ -66,6 +68,15 @@ namespace pages
                     {
                         clickElement(allowButtonForeground);
                     }
+
+                    while (validateElementVisible(allowButton))
+                    {
+                        clickElement(allowButton);
+                    }
+                }
+                if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS));
+                {
+                    By allowButton = By.Id("Allow");
 
                     while (validateElementVisible(allowButton))
                     {

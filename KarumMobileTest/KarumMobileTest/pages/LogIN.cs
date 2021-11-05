@@ -38,7 +38,7 @@ namespace pages
         /// </summary>
         /// <param name="driver"></param>
         public LogIN(Driver driver) : base(driver) 
-        {   
+        {
         }
 
         public void logINClienteAsesor(string type) {

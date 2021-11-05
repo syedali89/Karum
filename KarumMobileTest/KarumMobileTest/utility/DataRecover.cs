@@ -1,12 +1,13 @@
 namespace utility
 {
-    using System;
-    using System.Buffers.Text;
+    using System;    
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
     using System.Text.RegularExpressions;
+    using static constants;
     using data;
+    using Newtonsoft.Json;
     using OpenQA.Selenium;
 
     public class DataRecover 
@@ -94,6 +95,22 @@ namespace utility
             return client;
         }
 
+        public static EnvironmentData RecoverEnviromentData(string file)
+        {
+            string docFile = Path.GetFullPath(Path.Combine(
+                localpath, JSON_FOLDER, file));
+
+            EnvironmentData data;
+
+            using (StreamReader r = new StreamReader(docFile))
+            {
+                string json = r.ReadToEnd();
+                data = JsonConvert.DeserializeObject<EnvironmentData>(json);
+            }
+
+            return data;
+        }
+
         public static string RecoverSecurityCode() 
         {
             string securityCode = string.Empty;
@@ -141,21 +158,21 @@ namespace utility
         public static string TerminosCondicionesDocument() 
         {
             string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, TERMINOSCONDICIONES_DOCUMENT));
+                localpath, DOCUMENTS_FOLDER, TERMINOSCONDICIONES_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 
         public static string UsoMediosTecnologicosDocument() 
         {
             string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, USOMEDIOSTECNOLOGICOS_DOCUMENT));
+                localpath, DOCUMENTS_FOLDER, USOMEDIOSTECNOLOGICOS_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 
         public static string BuroCreditoDocument() 
         {
             string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, BUROCREDITO_DOCUMENT));
+                localpath, DOCUMENTS_FOLDER, BUROCREDITO_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 

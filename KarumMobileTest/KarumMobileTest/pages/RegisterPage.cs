@@ -5,7 +5,7 @@ namespace pages
     using utility;
 
     public class RegisterPage : BasePage
-    {       
+    {
         //By elements
         public By registrateGobtn = By.Id("com.karum.credits:id/btn_on_boarding");
         public By registrateMessage = By.Id("com.karum.credits:id/tv_title_privacy_notice");

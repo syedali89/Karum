@@ -2,16 +2,13 @@ namespace utility
 {
     using System;
     using System.IO;
+    using System.Collections.Generic;
+    using data;
     using OpenQA.Selenium.Appium.Android;
     using OpenQA.Selenium.Appium;
     using OpenQA.Selenium.Appium.Enums;
     using OpenQA.Selenium.Appium.iOS;
-    using System.Reflection;
-    using static constants;
-    using Newtonsoft.Json;
-    using System.Collections.Generic;
-    using OpenQA.Selenium.Appium.Service.Options;
-    using OpenQA.Selenium.Appium.Service;
+    using static constants;    
 
     public class Driver 
     {       
@@ -20,43 +17,51 @@ namespace utility
         /// </summary>
         public Driver() 
         {
+            SetEnvironmentData();
+
             _appiumOptions = new AppiumOptions();
             _appiumOptions.AddAdditionalCapability("newCommandTimeout", 60000);
             _appiumOptions.AddAdditionalCapability("disableWindowAnimation", true);
+            _appiumOptions.AddAdditionalCapability("enableAppiumBehavior", true);
+            _appiumOptions.AddAdditionalCapability("autoLaunch", true);
+            _appiumOptions.AddAdditionalCapability("autoInstrument", true);
+            _appiumOptions.AddAdditionalCapability("takesScreenshot", true);
+            
+            _appiumOptions.AddAdditionalCapability("waitForAvailableLicense", true);
+            _appiumOptions.AddAdditionalCapability("sensorInstrument", true);
 
-            if (TEST_DEVISE.Equals(ANDROID)) {
+            _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, _env.PLATAFORM_VERSION);
+            
+            if (!string.IsNullOrEmpty(_env.DEVICE_NAME))
+            {
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, _env.DEVICE_NAME);
+            }
 
-                Uri url = this.URLPathConfig();                
+            Uri url = this.URLPathConfig();
+            setAppCapability();
 
+            if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID)) 
+            {
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "android");
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "uiautomator2");
                 _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, APP_PACKAGE_NAME);
                 _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, APP_ACTIVITY_NAME);
-                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
-
-                _appiumOptions.AddAdditionalCapability("enableAppiumBehavior", true);
-                _appiumOptions.AddAdditionalCapability("autoLaunch", true);
-                _appiumOptions.AddAdditionalCapability("autoInstrument", true);
-                _appiumOptions.AddAdditionalCapability("takesScreenshot", true);
-                _appiumOptions.AddAdditionalCapability("screenshotOnError", true);
-                _appiumOptions.AddAdditionalCapability("automationName", "uiautomator2");                
-                
-                _appiumOptions.AddAdditionalCapability("waitForAvailableLicense", true);
-                _appiumOptions.AddAdditionalCapability("sensorInstrument", true); 
 
                 _driverandroid = new AndroidDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromSeconds(240));
-                _driver = _driverandroid;
-
-                _driverType = ANDROID;                                
+                _driver = _driverandroid;                             
             }
-            else if(TEST_DEVISE.Equals(IOS))
+            else if(_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
             {
-                string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..",
-                        constants.APPVERSION_FOLDER, APPPATH_IOS));
-                _appiumOptions.AddAdditionalCapability("app", path);
-                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, IOS);
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "ios");                
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");
+                
+                if (string.IsNullOrEmpty(_env.IOS_UDID))
+                {
+                    _appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, _env.IOS_UDID);
+                }
 
-                _driverios = new IOSDriver<AppiumWebElement>(new Uri("http://localhost:4723/wd/hub"), _appiumOptions, TimeSpan.FromSeconds(240));
+                _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromSeconds(240));
                 _driver = _driverios;
-                _driverType = IOS;
             }
 
             _height = _driver.Manage().Window.Size.Height;
@@ -67,44 +72,59 @@ namespace utility
         private AndroidDriver<AppiumWebElement> _driverandroid;
         private IOSDriver<AppiumWebElement> _driverios;
         private AppiumOptions _appiumOptions;
-        private string _driverType;
-        private const bool REMOTEEXECUTION = false;
-        private const string APP_PACKAGE_NAME = "com.karum.credits";
-        private const string APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
+        private string APP_PACKAGE_NAME = "com.karum.credits";
+        private string APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
         //private const string DEVICE_NAME_NAME = "ZY323V65L2";
-        private const string DEVICE_NAME_NAME = "emulator-5554";
-        private string TEST_DEVISE = "ANDROID";
-        private const string APPPATH_IOS = "iosapp";
-        private const string APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.6.apk";
+        private EnvironmentData _env;
+        /*
+        private string DEVICE_EMULATOR = "emulator-5554";
+        private string DEVICE_SIMULATOR = "iPhone 12";
+        
+        private string IOS_UDID = "C21D4C83-C029-487E-8F49-F0E13B1C1DC0";
+        private string APPPATH_IOS = "iosapp";
+        private string APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.6.apk";*/
 
         private int _height;
         private int _width;
 
         public void DeleteFilesDownload()
         {
-            if (_driverType.Equals(ANDROID))
+            if (_env.REMOTE)
+            { 
+                ///TODO
+            }
+            else
             {
-                List<string> delete = new List<string>
+                if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
                 {
-                    "-rf", 
+                    List<string> delete = new List<string>
+                {
+                    "-rf",
                     MOVILE_DOWNLOAD_PATHFOLDER_ANDROID + @"/*.*"
                 };
 
-                var deleteCommand = new Dictionary<string, object>();
-                deleteCommand.Add("command", "rm");
-                deleteCommand.Add("args", delete);
-                ExecuteCommand(deleteCommand);
+                    var deleteCommand = new Dictionary<string, object>();
+                    deleteCommand.Add("command", "rm");
+                    deleteCommand.Add("args", delete);
+                    ExecuteCommand(deleteCommand);
+                }
+                else if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
+                { 
+                    ///TODO
+                }
             }
-            ///TODO IOS
         }
 
         public void ExecuteCommand(Dictionary<string, object> args)
         {
-            if (_driverType.Equals(ANDROID))
+            if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
             {
                 _driver.ExecuteScript("mobile: shell", args);
             }
-            ///TODO IOS
+            else if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
+            {
+                ///TODO
+            }
         }
 
         public int GetWindownSizeHeight()
@@ -118,8 +138,8 @@ namespace utility
         }
 
         public bool GetRemoteState()
-        {
-            return REMOTEEXECUTION;
+        {            
+            return _env.REMOTE;
         }
 
         public AppiumDriver<AppiumWebElement> GetIntance() 
@@ -137,46 +157,100 @@ namespace utility
             return _driverios;
         }
 
-        public string GetDriverType() 
+        public EnvironmentData.DEVICE GetDriverType() 
         {
-            return _driverType;
+            return  _env.TEST_DEVICE;
+        }
+
+        private void setAppCapability()
+        {
+            if (_env.REMOTE)
+            {
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, "PRIVATE:" + _env.APP_VERSION);
+            }
+            else
+            {
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..",
+                       APPVERSION_FOLDER, _env.APP_VERSION)));
+            }       
         }
 
         private Uri URLPathConfig()
         {
             Uri url;
 
-            if (REMOTEEXECUTION)
+            if (_env.REMOTE)
             {
                 // 1. Replace <<cloud name>> with your perfecto cloud name (for example, 'demo' is the cloudName of demo.perfectomobile.com).
-                string cloudName = "trial";
+                /*string cloudName = "trial";
 
                 // 2. Replace <<security token>> with your Perfecto security token.
-                string securityToken = "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZDM2NmJiNS01NDAyLTQ4MmMtYTVhOC1kODZhODk4MDYyZjIifQ.eyJpYXQiOjE2MzQwNTIwMzMsImp0aSI6ImE2MjdmMTgxLTIzNDItNGI0Ni1hMGU5LTAzYWVhYzEyZWVmMiIsImlzcyI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsImF1ZCI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsInN1YiI6ImJiZGE3NDJlLWIzNTMtNGI2ZC05NzQ5LTJjZmU0Y2FkMTY0NiIsInR5cCI6Ik9mZmxpbmUiLCJhenAiOiJvZmZsaW5lLXRva2VuLWdlbmVyYXRvciIsIm5vbmNlIjoiOGIwZGZlYTctMTc3Zi00NDFjLWI4YTEtNDlmMjk1ZDg2MGEwIiwic2Vzc2lvbl9zdGF0ZSI6IjZkNzgwNzc3LWI5OTYtNGNiMS1iOGNlLTQyNDZhOTI1YTE2ZSIsInNjb3BlIjoib3BlbmlkIG9mZmxpbmVfYWNjZXNzIHByb2ZpbGUgZW1haWwifQ.Hfps3Bp18N2wsitCOW4fMhnu6cDlvSNMfiYUYjvIDXA";
+                string securityToken = "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZDM2NmJiNS01NDAyLTQ4MmMtYTVhOC1kODZhODk4MDYyZjIifQ.eyJpYXQiOjE2MzQwNTIwMzMsImp0aSI6ImE2MjdmMTgxLTIzNDItNGI0Ni1hMGU5LTAzYWVhYzEyZWVmMiIsImlzcyI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsImF1ZCI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsInN1YiI6ImJiZGE3NDJlLWIzNTMtNGI2ZC05NzQ5LTJjZmU0Y2FkMTY0NiIsInR5cCI6Ik9mZmxpbmUiLCJhenAiOiJvZmZsaW5lLXRva2VuLWdlbmVyYXRvciIsIm5vbmNlIjoiOGIwZGZlYTctMTc3Zi00NDFjLWI4YTEtNDlmMjk1ZDg2MGEwIiwic2Vzc2lvbl9zdGF0ZSI6IjZkNzgwNzc3LWI5OTYtNGNiMS1iOGNlLTQyNDZhOTI1YTE2ZSIsInNjb3BlIjoib3BlbmlkIG9mZmxpbmVfYWNjZXNzIHByb2ZpbGUgZW1haWwifQ.Hfps3Bp18N2wsitCOW4fMhnu6cDlvSNMfiYUYjvIDXA";*/
 
-                _appiumOptions.AddAdditionalCapability("securityToken", securityToken);
-                _appiumOptions.AddAdditionalCapability("app",
-                        "PRIVATE:Karum_Fase_2_Sprint_3_v1.10.6.apk");
+                _appiumOptions.AddAdditionalCapability("securityToken", _env.SECURITYTOKEN);                
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName,
-                        "99241FFAZ00HKL");
+                        _env.REMOTE_DEVICENAME);                
 
-                url = new Uri("https://" + cloudName.Replace(
+                url = new Uri("https://" + _env.CLOUDNAME.Replace(
                                 ".perfectomobile.com", "")
                                 + ".perfectomobile.com/nexperience/perfectomobile/wd/hub");
             }
             else
             {
-                _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AutoGrantPermissions, true);
-                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName,
-                        DEVICE_NAME_NAME);
-                string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..",
-                    APPVERSION_FOLDER, APPPATH_ANDROID));
-                _appiumOptions.AddAdditionalCapability("app", path);
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
+                
+                if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
+                {
+                    _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AutoGrantPermissions, true);
+                }
+                else if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
+                {
+                    _appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
+                }
 
                 url = new Uri("http://localhost:4723/wd/hub");
             }
 
             return url;
+        }
+
+        private void SetEnvironmentData()
+        {
+            string remote = "N";//Environment.GetEnvironmentVariable("REMOTE");
+            string device = ANDROID;//Environment.GetEnvironmentVariable("DEVICE");
+
+            if (remote != "Y" && remote != "N")
+            {
+                throw new InvalidDataException("Environment variable 'REMOTE' has a invalid value");
+            }
+
+            if (device != ANDROID && device != IOS)
+            {
+                throw new InvalidDataException("Environment variable 'DEVICE' has a invalid value");
+            }
+
+            if (remote.Equals("Y"))
+            {
+                if (device.Equals(ANDROID))
+                {
+                    _env = DataRecover.RecoverEnviromentData("env_android_remote.json");
+                }
+                else
+                {
+                    _env = DataRecover.RecoverEnviromentData("env_ios_remote.json");
+                }
+            }
+            else
+            {
+                if (device.Equals(ANDROID))
+                {
+                    _env = DataRecover.RecoverEnviromentData("env_android_local.json");
+                }
+                else
+                {
+                    _env = DataRecover.RecoverEnviromentData("env_ios_local.json");
+                }
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ namespace utility
     using OpenQA.Selenium;
     using OpenQA.Selenium.Appium.MultiTouch;
     using static constants;
+    using data;
 
     public class SwipeAction 
     {
@@ -35,7 +36,7 @@ namespace utility
 
         public static bool swipeDownUntilElementText(Driver driver, string text)
         {
-            if (driver.GetDriverType().Equals(ANDROID)) 
+            if (driver.GetDriverType().Equals(EnvironmentData.DEVICE.ANDROID)) 
             {
                 try 
                 {
@@ -49,7 +50,7 @@ namespace utility
                     return false;
                 }
             }
-            else if (driver.GetDriverType().Equals(IOS)) 
+            else if (driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS))
             {
                 try 
                 {

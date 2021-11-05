@@ -207,11 +207,11 @@ namespace pages
         private List<string> filesONDownload()
         {            
             string path = string.Empty;
-            if (_driver.GetDriverType().Equals(ANDROID))
+            if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.ANDROID))
             {
                 path = MOVILE_DOWNLOAD_PATHFOLDER_ANDROID;
             }
-            else if (_driver.GetDriverType().Equals(IOS))
+            else if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS))
             {
                 path = MOVILE_DOWNLOAD_PATHFOLDER_IOS;
             }
