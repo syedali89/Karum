@@ -5,8 +5,7 @@
 	"IOS_UDID": "",
 	"PLATAFORM_VERSION": "[11].*",
 	"MODEL": "Pixel.*",
-	"REMOTE": "false",
+	"REMOTE": false,
 	"CLOUDNAME": "",
-	"SECURITYTOKEN": "",
-	"REMOTE_DEVICENAME": ""
+	"SECURITYTOKEN": ""
 }

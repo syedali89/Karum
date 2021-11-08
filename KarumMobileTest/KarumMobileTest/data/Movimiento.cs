@@ -8,8 +8,8 @@ namespace data
 
         public Movimiento(string transaccionNumber, string transaccionType, string moneyAmount)
         {
-            transactionNumber = transaccionNumber;
-            transactionType = transaccionType;
+            this.transactionNumber = transaccionNumber;
+            this.transactionType = transaccionType;
             this.moneyAmount = moneyAmount;
         }
 

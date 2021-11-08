@@ -74,7 +74,7 @@ namespace pages
                         clickElement(allowButton);
                     }
                 }
-                if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS));
+                if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS))
                 {
                     By allowButton = By.Id("Allow");
 

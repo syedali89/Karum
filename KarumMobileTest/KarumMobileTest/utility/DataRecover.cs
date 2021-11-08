@@ -9,6 +9,8 @@ namespace utility
     using data;
     using Newtonsoft.Json;
     using OpenQA.Selenium;
+    using System.Text;
+    using System.Globalization;
 
     public class DataRecover 
     {
@@ -31,7 +33,9 @@ namespace utility
 
         public static Client RecoverClientData() 
         {
-            //TODO For now the informations is hardcode. Later is gonna refactor.
+            return RecoverClientData("clientDefaultData.json");
+
+            /** TODO Delete this code after verify that read json work
             Client client = new Client();
             client.AddressStreet = "Some Street";
             client.AddressExtNum = "1234";
@@ -85,13 +89,25 @@ namespace utility
             client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$5,770.01"));
             client.clientMovimientos.Add(new Movimiento("93054", "Abono", "-$250.00"));
 
-            return client;
+            return client;*/
         }
 
-        public static Client RecoverClientData(string File) 
+        public static Client RecoverClientData(string file)
         {
-            //TODO For now the informations is hardcode. Later is gonna refactor.
-            Client client = new Client();
+            string docFile = Path.GetFullPath(Path.Combine(
+                localpath, JSON_FOLDER, file));
+
+            Client client;
+
+            using (StreamReader r = new StreamReader(docFile, Encoding.UTF8))
+            {
+                string json = r.ReadToEnd();
+                json = json.Replace("M�", "Mé").Replace("ci�n", "ción");
+                var setting = new JsonSerializerSettings();
+                setting.Culture = new CultureInfo("es-ES");
+                client = JsonConvert.DeserializeObject<Client>(json, setting);
+            } 
+
             return client;
         }
 

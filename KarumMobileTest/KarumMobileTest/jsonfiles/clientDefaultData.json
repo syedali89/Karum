@@ -1,0 +1,87 @@
+{
+	"firstNameOne": "Jose",
+	"firstNameTwo": "Servando",
+	"lastNameOne": "Sanchez",
+	"lastNameTwo": "Rodea",
+	"birthDate": "22/03/1974",
+	"gender": "Masculino",
+	"CURP": "LORA740322HDFPDN00",
+	"AddressStreet": "Some Street",
+	"AddressExtNum": "1234",
+	"AddressIntNum": "1234",
+	"AddressZipCode": "03000",
+	"AddressCity": "Ciudad de México",
+	"AddressSubUrb": "Piedad Narvarte",
+	"Email": "some@email.com",
+	"PhoneNumber": "3327885614",
+	"jobCompany": "Karum",
+	"income": "5000",
+	"CompanyPhoneNumber": "1234567890",
+	"userEmail": "spring2_u1@gmail.com",
+	"userPass": "temporal#dev",
+	"userPhone": "3327885614",
+	"estadoCuentaPass": "0030",
+	"newChargesAmount": "$0.00",
+	"paymentCreditAmount": "$0.00",
+	"monthlyAmount": "$1,200.00",
+	"availableCreditAmount": "$0.00",
+	"overdueAmount": "$0.00",
+	"totalAmount": "$0.00",
+	"accountAmount": "$17,295.70",
+	"creditNumber": "************5168",
+	"creditLimitAmount": "$2,500.00",
+	"paymentAmount": "$1,200.00",
+	"totalLoyalPoints": "0",
+	"clientMovimientos": [
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Devolución IVA",
+			"moneyAmount": "$7,777.88"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "IVA",
+			"moneyAmount": "-$4,677.88"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Compra",
+			"moneyAmount": "$2,334.44"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Abono",
+			"moneyAmount": "-$5,551.33"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Compra",
+			"moneyAmount": "$4,880.00"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Compra",
+			"moneyAmount": "$4,660.22"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Compra",
+			"moneyAmount": "$3,333.33"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Compra",
+			"moneyAmount": "$4,455.22"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Compra",
+			"moneyAmount": "$5,770.01"
+		},
+		{
+			"transactionNumber": "93054",
+			"transactionType": "Abono",
+			"moneyAmount": "-$250.00"
+		}
+	]
+}

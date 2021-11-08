@@ -103,9 +103,9 @@ namespace pages
                 Assert.IsTrue(match,
                         "Error, Movimiento \n" +
                         "Transaction: " + movimientoScreen.transactionNumber +
-                        "Credit" + movimientoScreen.transactionType +
-                        "Amount: " + movimientoScreen.moneyAmount +
-                        "is not a 'Movimiento' expected for this client"
+                        "\nCredit" + movimientoScreen.transactionType +
+                        "\nAmount: " + movimientoScreen.moneyAmount +
+                        "\nIs not a 'Movimiento' expected for this client"
                         );                
             }
         }

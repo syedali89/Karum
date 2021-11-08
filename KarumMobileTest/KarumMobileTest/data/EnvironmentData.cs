@@ -22,7 +22,5 @@ namespace data
         public bool REMOTE { get; set; }
         public string CLOUDNAME { get; set; }
         public string SECURITYTOKEN { get; set; }
-        public string REMOTE_DEVICENAME { get; set; }
-
     }
 }

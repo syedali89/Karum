@@ -28,14 +28,15 @@ namespace utility
             _appiumOptions.AddAdditionalCapability("takesScreenshot", true);
             
             _appiumOptions.AddAdditionalCapability("waitForAvailableLicense", true);
-            _appiumOptions.AddAdditionalCapability("sensorInstrument", true);
-
-            _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, _env.PLATAFORM_VERSION);
+            _appiumOptions.AddAdditionalCapability("sensorInstrument", true);            
             
             if (!string.IsNullOrEmpty(_env.DEVICE_NAME))
             {
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, _env.DEVICE_NAME);
             }
+
+            _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, _env.PLATAFORM_VERSION);
+            _appiumOptions.AddAdditionalCapability("model", _env.MODEL);
 
             Uri url = this.URLPathConfig();
             setAppCapability();
@@ -43,7 +44,15 @@ namespace utility
             if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID)) 
             {
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "android");
-                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "uiautomator2");
+                if (_env.REMOTE)
+                {
+                    _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "Appium");
+                }
+                else
+                {
+                    _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "uiautomator2");
+                }
+
                 _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, APP_PACKAGE_NAME);
                 _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, APP_ACTIVITY_NAME);
 
@@ -74,15 +83,7 @@ namespace utility
         private AppiumOptions _appiumOptions;
         private string APP_PACKAGE_NAME = "com.karum.credits";
         private string APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
-        //private const string DEVICE_NAME_NAME = "ZY323V65L2";
         private EnvironmentData _env;
-        /*
-        private string DEVICE_EMULATOR = "emulator-5554";
-        private string DEVICE_SIMULATOR = "iPhone 12";
-        
-        private string IOS_UDID = "C21D4C83-C029-487E-8F49-F0E13B1C1DC0";
-        private string APPPATH_IOS = "iosapp";
-        private string APPPATH_ANDROID = "Karum_Fase_2_Sprint_3_v1.10.6.apk";*/
 
         private int _height;
         private int _width;
@@ -181,15 +182,9 @@ namespace utility
 
             if (_env.REMOTE)
             {
-                // 1. Replace <<cloud name>> with your perfecto cloud name (for example, 'demo' is the cloudName of demo.perfectomobile.com).
-                /*string cloudName = "trial";
-
-                // 2. Replace <<security token>> with your Perfecto security token.
-                string securityToken = "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2ZDM2NmJiNS01NDAyLTQ4MmMtYTVhOC1kODZhODk4MDYyZjIifQ.eyJpYXQiOjE2MzQwNTIwMzMsImp0aSI6ImE2MjdmMTgxLTIzNDItNGI0Ni1hMGU5LTAzYWVhYzEyZWVmMiIsImlzcyI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsImF1ZCI6Imh0dHBzOi8vYXV0aDMucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL3RyaWFsLXBlcmZlY3RvbW9iaWxlLWNvbSIsInN1YiI6ImJiZGE3NDJlLWIzNTMtNGI2ZC05NzQ5LTJjZmU0Y2FkMTY0NiIsInR5cCI6Ik9mZmxpbmUiLCJhenAiOiJvZmZsaW5lLXRva2VuLWdlbmVyYXRvciIsIm5vbmNlIjoiOGIwZGZlYTctMTc3Zi00NDFjLWI4YTEtNDlmMjk1ZDg2MGEwIiwic2Vzc2lvbl9zdGF0ZSI6IjZkNzgwNzc3LWI5OTYtNGNiMS1iOGNlLTQyNDZhOTI1YTE2ZSIsInNjb3BlIjoib3BlbmlkIG9mZmxpbmVfYWNjZXNzIHByb2ZpbGUgZW1haWwifQ.Hfps3Bp18N2wsitCOW4fMhnu6cDlvSNMfiYUYjvIDXA";*/
-
-                _appiumOptions.AddAdditionalCapability("securityToken", _env.SECURITYTOKEN);                
-                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName,
-                        _env.REMOTE_DEVICENAME);                
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
+                _appiumOptions.AddAdditionalCapability("securityToken", _env.SECURITYTOKEN);                       
+                _appiumOptions.AddAdditionalCapability("securityToken", _env.SECURITYTOKEN);                        
 
                 url = new Uri("https://" + _env.CLOUDNAME.Replace(
                                 ".perfectomobile.com", "")
@@ -198,6 +193,7 @@ namespace utility
             else
             {
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
+                
                 
                 if (_env.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
                 {
