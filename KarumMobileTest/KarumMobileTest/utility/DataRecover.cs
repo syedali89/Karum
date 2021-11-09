@@ -29,7 +29,7 @@ namespace utility
         private const string BUROCREDITO_DOCUMENT =
                 "AUTORIZACIÓN BURÓ DE CRÉDITO (22sep2021).pdf";
 
-        private static string localpath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
+        public static string localpath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
 
         public static Client RecoverClientData() 
         {
@@ -40,7 +40,7 @@ namespace utility
             client.AddressStreet = "Some Street";
             client.AddressExtNum = "1234";
             client.AddressIntNum = "1234";
-            client.AddressCity = "Ciudad de México";
+            client.AddressCity =  "Ciudad de México";
             client.AddressSubUrb = "Piedad Narvarte";
             client.AddressZipCode = "03000";
             client.Email = "some@email.com";
@@ -94,18 +94,15 @@ namespace utility
 
         public static Client RecoverClientData(string file)
         {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, JSON_FOLDER, file));
+            string docFile = RecoverJsonFilePath(file);
 
             Client client;
 
             using (StreamReader r = new StreamReader(docFile, Encoding.UTF8))
             {
-                string json = r.ReadToEnd();
-                json = json.Replace("M�", "Mé").Replace("ci�n", "ción");
+                string json = r.ReadToEnd().Replace("M�", "Mé").Replace("ci�n", "ción");
                 var setting = new JsonSerializerSettings();
-                setting.Culture = new CultureInfo("es-ES");
-                client = JsonConvert.DeserializeObject<Client>(json, setting);
+                client = JsonConvert.DeserializeObject<Client>(json);
             } 
 
             return client;
@@ -113,8 +110,7 @@ namespace utility
 
         public static EnvironmentData RecoverEnviromentData(string file)
         {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, JSON_FOLDER, file));
+            string docFile = RecoverJsonFilePath(file);
 
             EnvironmentData data;
 
@@ -125,6 +121,12 @@ namespace utility
             }
 
             return data;
+        }        
+
+        public static string RecoverJsonFilePath(string file)
+        { 
+            return Path.GetFullPath(Path.Combine(
+                localpath, JSON_FOLDER, file));
         }
 
         public static string RecoverSecurityCode() 
@@ -167,7 +169,7 @@ namespace utility
         public static string AvisoPrivacidadDocument() 
         {
             string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, AVISOPRIVACIDAD_DOCUMENT));
+                localpath, DOCUMENTS_FOLDER, AVISOPRIVACIDAD_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 

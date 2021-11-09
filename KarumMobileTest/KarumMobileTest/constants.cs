@@ -2,8 +2,8 @@
 {
     public const string REMOTE = "REMOTE";
     public const string CLIENTE = "CLIENTE";
-    public const string ANDROID = "ANDROID";
-    public const string IOS = "IOS";
+    public const string ANDROID = "A";
+    public const string IOS = "I";
     public const string DOCUMENTS_FOLDER = "documents";
     public const string JSON_FOLDER = "jsonfiles";
     public const string APPVERSION_FOLDER = "appVersion";
