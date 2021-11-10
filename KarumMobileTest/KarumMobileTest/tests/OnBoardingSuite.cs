@@ -3,7 +3,8 @@ using pages;
 using utility;
 
 namespace tests
-{    
+{
+    [TestFixture("OnBoarding Suite")]
     public class OnBoardingSuite : BaseTest
     {
         public LogIN logIN;
@@ -17,6 +18,12 @@ namespace tests
             reg = new RegisterPage(_driver);
             logIN.grantAllPermissions();
             clientData = DataRecover.RecoverClientData();
+            TestCaseStartReport();
+        }
+
+        public OnBoardingSuite(string testClass)
+        {
+            this.testClass = testClass;
         }
 
         [Test, Order(1)]

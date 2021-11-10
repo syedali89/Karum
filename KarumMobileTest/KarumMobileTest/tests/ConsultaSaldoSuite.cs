@@ -5,11 +5,17 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Consulta de Saldo Suite")]
     public class ConsultaSaldoSuite : BaseTest 
     {
         public HomePage home;
         public LogIN logIN; 
-        public ConsultaSaldoPage consultaSaldo; 
+        public ConsultaSaldoPage consultaSaldo;
+
+        public ConsultaSaldoSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
 
         [SetUp]
         public void beforeMethod()
@@ -22,6 +28,7 @@ namespace tests
 
             home = logIN.allLoginProcess(clientData);
             consultaSaldo = home.tapSaldoCuenta();
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

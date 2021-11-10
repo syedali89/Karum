@@ -5,10 +5,16 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Home Page Suite")]
     public class HomePageSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
+        public LogIN logIN;
+
+        public HomePageSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
 
         [SetUp] 
         public void beforeMethod()
@@ -20,6 +26,7 @@ namespace tests
             clientData = DataRecover.RecoverClientData();
 
             home = logIN.allLoginProcess(clientData);
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

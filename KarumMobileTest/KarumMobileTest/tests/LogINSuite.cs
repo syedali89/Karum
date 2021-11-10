@@ -4,10 +4,16 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Log IN Suite")]
     public class LogINSuite : BaseTest 
     {
         public LogIN logIN;
-    
+
+        public LogINSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
+
         [SetUp]
         public void beforeMethod()
         {
@@ -15,6 +21,7 @@ namespace tests
             logIN = new LogIN(_driver);
             logIN.grantAllPermissions();
             clientData = DataRecover.RecoverClientData();
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

@@ -6,11 +6,17 @@ namespace tests
     using utility;
     using static constants;
 
+    [TestFixture("Estado de Cuenta Suite")]
     public class EstadoCuentaSuite  : BaseTest 
     {
         public HomePage home;
         public LogIN logIN; 
         public EstadoCuentaPage estadoCuenta;
+
+        public EstadoCuentaSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
 
         [SetUp] 
         public void beforeMethod()
@@ -23,6 +29,7 @@ namespace tests
 
             home = logIN.allLoginProcess(clientData);
             estadoCuenta = home.tapEstadoCuentaBtn();
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

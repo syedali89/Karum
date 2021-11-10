@@ -10,6 +10,8 @@ namespace utility
     using OpenQA.Selenium.Appium.iOS;
     using static constants;
     using Newtonsoft.Json;
+    using Reportium.Client;
+    using Reportium.Model;
 
     public class Driver 
     {       
@@ -76,6 +78,8 @@ namespace utility
 
             _height = _driver.Manage().Window.Size.Height;
             _width = _driver.Manage().Window.Size.Width;
+
+            SetCiudadMexicoLocation();
         }
 
         private AppiumDriver<AppiumWebElement> _driver;            
@@ -96,6 +100,16 @@ namespace utility
         }
         private ConfigurationsEnv _env;
 
+        public void SetCiudadMexicoLocation()
+        {
+            if (GetRemoteState())
+            {
+                Dictionary<string, object> pars = new Dictionary<string, object>();
+                pars.Add("coordinates", "19.4090, -99.1270");
+                _driver.ExecuteScript("mobile:location:set", pars);
+            }
+        }
+        
         public void DeleteFilesDownload()
         {
             if (_env.envData.REMOTE)
@@ -151,7 +165,7 @@ namespace utility
         public bool GetRemoteState()
         {            
             return _env.envData.REMOTE;
-        }
+        }      
 
         public AppiumDriver<AppiumWebElement> GetIntance() 
         {

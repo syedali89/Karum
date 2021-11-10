@@ -4,11 +4,17 @@ namespace tests
     using pages;
     using utility;
 
+    [TestFixture("Credit Page Suite")]
     public class CreditPageSuite : BaseTest 
     {
         public HomePage home;
         public LogIN logIN; 
-        public CreditPage creditpage; 
+        public CreditPage creditpage;
+
+        public CreditPageSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
 
         [SetUp] 
         public void beforeMethod()
@@ -21,6 +27,7 @@ namespace tests
             clientData = DataRecover.RecoverClientData();
 
             home = logIN.allLoginProcess(clientData);
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

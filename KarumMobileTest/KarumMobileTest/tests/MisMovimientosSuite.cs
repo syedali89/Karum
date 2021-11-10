@@ -5,11 +5,17 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Mis Movimientos Suite")]
     public class MisMovimientosSuite : BaseTest 
     {
         public HomePage home;
         public LogIN logIN; 
-        public MisMovimientosPage movimientosPage; 
+        public MisMovimientosPage movimientosPage;
+
+        public MisMovimientosSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
 
         [SetUp] 
         public void beforeMethod()
@@ -22,6 +28,7 @@ namespace tests
 
             home = logIN.allLoginProcess(clientData);
             movimientosPage = home.tapMisMovimientosBtnBtn();
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

@@ -5,11 +5,17 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Puntos de Lealtad Suite")]
     public class PuntosLealtadSuite : BaseTest 
     {
         public HomePage home;
         public LogIN logIN; 
-        public PuntosLealtadPage lealtadPage; 
+        public PuntosLealtadPage lealtadPage;
+
+        public PuntosLealtadSuite(string testClass)
+        {
+            this.testClass = testClass;
+        }
 
         [SetUp] 
         public void beforeMethod()
@@ -22,6 +28,7 @@ namespace tests
 
             home = logIN.allLoginProcess(clientData);
             lealtadPage = home.tapPuntosLealtadBtn();
+            TestCaseStartReport();
         }
 
         [Test, Order(1)]

@@ -22,12 +22,6 @@ namespace utility
         private static By WAITJUSTNOWEMAIL = By.XPath("//table[@class='table-striped jambo_table']//tr//td[contains(text(), 'just now')]");
         private const string AVISOPRIVACIDAD_DOCUMENT =
                 "AVISO DE PRIVACIDAD (22sep2021).pdf";
-        private const string TERMINOSCONDICIONES_DOCUMENT =
-                "TÉRMINOS Y CONDICIONES (22sep2021).pdf";
-        private const string USOMEDIOSTECNOLOGICOS_DOCUMENT =
-                "TERMS Y COND MEDIOS ELECTRONICOS (22sep2021).pdf";
-        private const string BUROCREDITO_DOCUMENT =
-                "AUTORIZACIÓN BURÓ DE CRÉDITO (22sep2021).pdf";
 
         public static string localpath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
 
@@ -170,27 +164,6 @@ namespace utility
         {
             string docFile = Path.GetFullPath(Path.Combine(
                 localpath, DOCUMENTS_FOLDER, AVISOPRIVACIDAD_DOCUMENT));
-            return PDFDocument.readDocument(docFile);
-        }
-
-        public static string TerminosCondicionesDocument() 
-        {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, DOCUMENTS_FOLDER, TERMINOSCONDICIONES_DOCUMENT));
-            return PDFDocument.readDocument(docFile);
-        }
-
-        public static string UsoMediosTecnologicosDocument() 
-        {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, DOCUMENTS_FOLDER, USOMEDIOSTECNOLOGICOS_DOCUMENT));
-            return PDFDocument.readDocument(docFile);
-        }
-
-        public static string BuroCreditoDocument() 
-        {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, DOCUMENTS_FOLDER, BUROCREDITO_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 
