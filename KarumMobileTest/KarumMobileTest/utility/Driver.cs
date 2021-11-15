@@ -23,7 +23,7 @@ namespace utility
             SetEnvironmentData();
 
             _appiumOptions = new AppiumOptions();
-            _appiumOptions.AddAdditionalCapability("newCommandTimeout", 60000);
+            _appiumOptions.AddAdditionalCapability("newCommandTimeout", 360);
             _appiumOptions.AddAdditionalCapability("disableWindowAnimation", true);
             _appiumOptions.AddAdditionalCapability("enableAppiumBehavior", true);
             _appiumOptions.AddAdditionalCapability("autoLaunch", true);
@@ -31,7 +31,7 @@ namespace utility
             _appiumOptions.AddAdditionalCapability("takesScreenshot", true);
             
             _appiumOptions.AddAdditionalCapability("waitForAvailableLicense", true);
-            _appiumOptions.AddAdditionalCapability("sensorInstrument", true);            
+            _appiumOptions.AddAdditionalCapability("sensorInstrument", true);
             
             if (!string.IsNullOrEmpty(_env.envData.DEVICE_NAME))
             {
@@ -47,6 +47,7 @@ namespace utility
             if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID)) 
             {
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "android");
+                
                 if (_env.envData.REMOTE)
                 {
                     _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "Appium");
@@ -59,7 +60,7 @@ namespace utility
                 _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, APP_PACKAGE_NAME);
                 _appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, APP_ACTIVITY_NAME);
 
-                _driverandroid = new AndroidDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromSeconds(240));
+                _driverandroid = new AndroidDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromMinutes(5));
                 _driver = _driverandroid;                             
             }
             else if(_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
@@ -72,7 +73,7 @@ namespace utility
                     _appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, _env.envData.IOS_UDID);
                 }
 
-                _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromSeconds(240));
+                _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromMinutes(5));
                 _driver = _driverios;
             }
 
@@ -88,9 +89,9 @@ namespace utility
         private AppiumOptions _appiumOptions;
         private string APP_PACKAGE_NAME = "com.karum.credits";
         private string APP_ACTIVITY_NAME = "com.karum.credits.ui.SplashActivity";
-
         private int _height;
         private int _width;
+        public ReportTool Report;
 
         private class ConfigurationsEnv 
         {
@@ -182,7 +183,7 @@ namespace utility
             return _driverios;
         }
 
-        public EnvironmentData.DEVICE GetDriverType() 
+        public EnvironmentData.DEVICE GetDevice() 
         {
             return  _env.envData.TEST_DEVICE;
         }
@@ -192,6 +193,15 @@ namespace utility
             if (_env.envData.REMOTE)
             {
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, "PRIVATE:" + _env.envData.APP_VERSION);
+
+                if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
+                {
+                    _appiumOptions.AddAdditionalCapability("resolution", "1440x3040");
+                }
+                else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
+                {
+                    _appiumOptions.AddAdditionalCapability("resolution", "1125x2436");
+                }
             }
             else
             {
@@ -277,6 +287,25 @@ namespace utility
                 {
                     _env.envData = DataRecover.RecoverEnviromentData("env_ios_local.json");
                 }
+            }
+        }
+
+        public void CreateReportingClient(string testClass)
+        {
+            if (GetRemoteState())
+            {
+                PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+                   .WithProject(new Project("KarumAutomationMobile", "v1.0"))
+                   .WithContextTags(new[] { testClass, GetDevice().ToString() })
+                   .WithJob(new Job("Karum Mobile Automation", 1))
+                   .WithWebDriver(GetIntance())
+                   .Build();
+
+                Report = new ReportTool(GetRemoteState(), GetDevice().ToString(), PerfectoClientFactory.CreatePerfectoReportiumClient(perfectoExecutionContext));
+            }
+            else
+            {
+                Report = new ReportTool(GetRemoteState(), GetDevice().ToString());
             }
         }
     }

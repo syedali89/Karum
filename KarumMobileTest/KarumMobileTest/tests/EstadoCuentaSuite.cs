@@ -21,6 +21,7 @@ namespace tests
         [SetUp] 
         public void beforeMethod()
         {
+            _driver.Report.TestCaseStartReport();
             logIN = new LogIN(_driver);
 
             _driver.GetIntance().LaunchApp();
@@ -28,8 +29,7 @@ namespace tests
             clientData = DataRecover.RecoverClientData();
 
             home = logIN.allLoginProcess(clientData);
-            estadoCuenta = home.tapEstadoCuentaBtn();
-            TestCaseStartReport();
+            estadoCuenta = home.tapEstadoCuentaBtn();            
         }
 
         [Test, Order(1)]

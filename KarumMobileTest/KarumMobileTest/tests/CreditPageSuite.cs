@@ -19,6 +19,7 @@ namespace tests
         [SetUp] 
         public void beforeMethod()
         {
+            _driver.Report.TestCaseStartReport();
             logIN = new LogIN(_driver);
             creditpage = new CreditPage(_driver);
 
@@ -26,8 +27,7 @@ namespace tests
             logIN.grantAllPermissions();
             clientData = DataRecover.RecoverClientData();
 
-            home = logIN.allLoginProcess(clientData);
-            TestCaseStartReport();
+            home = logIN.allLoginProcess(clientData);            
         }
 
         [Test, Order(1)]
@@ -69,7 +69,7 @@ namespace tests
         public void TC024_MisCreditosPage_MisMovimientosButton() 
         {
             creditpage.tapGoCreditDownMenu();
-            var movimientosPage = creditpage.tapMisMovimientosBtnBtn();
+            var movimientosPage = creditpage.tapMisMovimientosBtn();
             creditpage.verifyMisMovimientosPageOnScreen();
             movimientosPage.tapGoBack();
             creditpage.verifyCreditPageOnScreen();

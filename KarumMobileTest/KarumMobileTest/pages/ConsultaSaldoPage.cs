@@ -35,6 +35,8 @@ namespace pages
 
         public void verifyPageElements(Client clientData)
         {
+            _driver.Report.StepDescription("Verify if all elements from Consulta Saldo Page are on screen");
+
             assertElementText(headerTitle, "Saldo");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
 
@@ -117,6 +119,8 @@ namespace pages
             assertTextContains(stepThreeDescriptionText, "Realiza tu pago en efectivo con tu número de referencia y mencionando el pago mediante Paynet");
 
             assertElementWithTextExist("Tu pago quedará registrado en línea automáticamente, guarda tu comprobante de pago para cualquier aclaración al número 800 286 2726");
+
+            _driver.Report.EndStep();
         }
     }
 }

@@ -18,26 +18,36 @@ namespace pages
 
         public void tapCodigoQRbutton() 
         {
+            _driver.Report.StepDescription("Tap Código QR");
             clickElement(codigoQRbutton);
+            _driver.Report.EndStep();
         }
 
         public void tapCodigoBarrasbutton() 
         {
+            _driver.Report.StepDescription("Tap Código Barras");
             clickElement(codigoBarrasbutton);
+            _driver.Report.EndStep();
         }
 
         public void verifyQRcodeDisplayed()
         {
+            _driver.Report.StepDescription("Verify if QR Code is on screen");
             Assert.IsTrue(validateElementVisible(QRcodeDisplay), "Error, QR code is not visible");
+            _driver.Report.EndStep();
         }
 
         public void verifyBardcodeDisplayed()
         {
+            _driver.Report.StepDescription("Verify if Barcode is on screen");
             Assert.IsTrue(validateElementVisible(bardcodeDisplay), "Error, Bardcode is not visible");
+            _driver.Report.EndStep();
         }
 
         public void verifyPageElements(Client clientData)
         {
+            _driver.Report.StepDescription("Verify if all elements from Pagar en Tienda Page are on Screen");
+
             assertElementText(headerTitle, "Pagar en tienda");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
 
@@ -48,6 +58,8 @@ namespace pages
             assertElementText(codigoBarrasbutton, "Código de barras");
 
             verifyQRcodeDisplayed();
+
+            _driver.Report.EndStep();
         }
     }
 }

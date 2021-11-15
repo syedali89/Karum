@@ -19,6 +19,7 @@ namespace tests
         [SetUp] 
         public void beforeMethod()
         {
+            _driver.Report.TestCaseStartReport();
             logIN = new LogIN(_driver);
 
             _driver.GetIntance().LaunchApp();
@@ -26,7 +27,6 @@ namespace tests
             clientData = DataRecover.RecoverClientData();
 
             home = logIN.allLoginProcess(clientData);
-            TestCaseStartReport();
         }
 
         [Test, Order(1)]
@@ -66,7 +66,7 @@ namespace tests
         [Test, Order(6)]
         public void TC006_UserHomePage_SandwichMenuButton() 
         {
-            SanwichMenuPage sandwichPage = home.tapSandwichBtn();
+            SandwichMenuPage sandwichPage = home.tapSandwichBtn();
             sandwichPage.verifytextElements(clientData);
             sandwichPage.tapCloseBtn();
             home.verifyHomePageOnScreen(clientData);
@@ -75,7 +75,7 @@ namespace tests
         [Test, Order(7)]
         public void TC007_UserHomePage_SandwichMenuButton_CerrarSesion() 
         {
-            SanwichMenuPage sandwichPage = home.tapSandwichBtn();
+            SandwichMenuPage sandwichPage = home.tapSandwichBtn();
             sandwichPage.tapCerrarSesionBtn();
         }
 

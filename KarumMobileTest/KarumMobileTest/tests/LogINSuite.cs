@@ -16,12 +16,12 @@ namespace tests
 
         [SetUp]
         public void beforeMethod()
-        {
+        {            
             _driver.GetIntance().LaunchApp();
             logIN = new LogIN(_driver);
             logIN.grantAllPermissions();
             clientData = DataRecover.RecoverClientData();
-            TestCaseStartReport();
+            _driver.Report.TestCaseStartReport();
         }
 
         [Test, Order(1)]

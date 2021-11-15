@@ -33,6 +33,7 @@ namespace pages
 
         public void verifyCreditPageElements(Client clientData) 
         {
+            _driver.Report.StepDescription("Verify if all elements from Credito Page are on Screen");          
             verifyCreditPageOnScreen();
 
             assertElementWithTextExist("Crédito Karum");
@@ -67,66 +68,94 @@ namespace pages
             assertElementText(RequestCardBtn, "SOLICITAR");
 
             verifyButtonMenuScreen(DownMenuSelected.CREDIT);
+            _driver.Report.EndStep();
         }
 
         public void verifyCreditPageOnScreen() 
-        {           
+        {
+            _driver.Report.StepDescription("Verify if Credito Page is on Screen");
             assertElementText(headerTitle, "Mis créditos");
+            _driver.Report.EndStep();
         }
 
         public PagarTiendaPage tapComprarTiendaBtn() 
         {
+            _driver.Report.StepDescription("Tap Comprar tienda button");
             clickElement(comprarTiendaBtn);
-            return new PagarTiendaPage(_driver);
+            _driver.Report.EndStep();
+
+            return new PagarTiendaPage(_driver);       
         }
 
-        public MisMovimientosPage tapMisMovimientosBtnBtn() 
+        public MisMovimientosPage tapMisMovimientosBtn() 
         {
+            _driver.Report.StepDescription("Tap Mis movimientos button");
             clickElement(misMovimientosBtn);
+            _driver.Report.EndStep();
+
             return new MisMovimientosPage(_driver);
         }
 
         public PuntosLealtadPage tapMisPuntosBtn() 
         {
+            _driver.Report.StepDescription("Tap Mis Puntos button");
             clickElement(misPuntosBtn);
+            _driver.Report.EndStep();
+
             return new PuntosLealtadPage(_driver);
         }
 
-        public SanwichMenuPage tapSandwichBtn() 
+        public SandwichMenuPage tapSandwichBtn() 
         {
+            _driver.Report.StepDescription("Tap Sandwich button");
             clickElement(sandwichBtn);
-            return new SanwichMenuPage(_driver);
+            _driver.Report.EndStep();
+
+            return new SandwichMenuPage(_driver);
         }
 
         public EstadoCuentaPage tapEstadoCuentaBtn() 
         {
+            _driver.Report.StepDescription("Tap Estado de Cuenta button");
             clickElement(estadoCuentaBtn);
+            _driver.Report.EndStep();
+
             return new EstadoCuentaPage(_driver);
         }
 
         public void verifySaldoCuentaOnScreen() 
         {
+            _driver.Report.StepDescription("Verify if Saldo de Cuenta Page is on Screen");
             assertElementText(headerTitle, "Saldo");
+            _driver.Report.EndStep();
         }
 
         public void verifyPagarTiendaOnScreen() 
         {
+            _driver.Report.StepDescription("Verify if Pagar en tienda Page is on Screen");
             assertElementText(headerTitle, "Pagar en tienda");
+            _driver.Report.EndStep();
         }
 
         public void verifyMisMovimientosPageOnScreen() 
         {
+            _driver.Report.StepDescription("Verify if Mis movimientos Page is on Screen");
             assertElementText(headerTitle, "Mis movimientos");
+            _driver.Report.EndStep();
         }
 
         public void verifyPuntosLealtadPageOnScreen() 
         {
+            _driver.Report.StepDescription("Verify if Puntos de lealtad Page is on Screen");
             assertElementText(headerTitle, "Puntos de lealtad");
+            _driver.Report.EndStep();
         }
 
         public void verifyEstadoCuentaPageOnScreen() 
         {
+            _driver.Report.StepDescription("Verify if Estado de cuenta Page is on Screen");
             assertElementText(headerTitle, "Estado de cuenta");
+            _driver.Report.EndStep();
         }
     }
 }

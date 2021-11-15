@@ -36,7 +36,7 @@ namespace utility
 
         public static bool swipeDownUntilElementText(Driver driver, string text)
         {
-            if (driver.GetDriverType().Equals(EnvironmentData.DEVICE.ANDROID)) 
+            if (driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID)) 
             {
                 try 
                 {
@@ -50,7 +50,7 @@ namespace utility
                     return false;
                 }
             }
-            else if (driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS))
+            else if (driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
             {
                 try 
                 {

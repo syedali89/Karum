@@ -13,12 +13,12 @@ namespace tests
         [SetUp]
         public void beforeMethod() 
         {
+            _driver.Report.TestCaseStartReport();
             _driver.GetIntance().LaunchApp();
             logIN = new LogIN(_driver);
             reg = new RegisterPage(_driver);
             logIN.grantAllPermissions();
-            clientData = DataRecover.RecoverClientData();
-            TestCaseStartReport();
+            clientData = DataRecover.RecoverClientData();            
         }
 
         public OnBoardingSuite(string testClass)

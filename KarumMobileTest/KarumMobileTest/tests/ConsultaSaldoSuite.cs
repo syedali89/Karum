@@ -20,6 +20,8 @@ namespace tests
         [SetUp]
         public void beforeMethod()
         {
+            _driver.Report.TestCaseStartReport();
+
             logIN = new LogIN(_driver);
 
             _driver.GetIntance().LaunchApp();
@@ -28,7 +30,6 @@ namespace tests
 
             home = logIN.allLoginProcess(clientData);
             consultaSaldo = home.tapSaldoCuenta();
-            TestCaseStartReport();
         }
 
         [Test, Order(1)]

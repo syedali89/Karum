@@ -33,7 +33,7 @@ namespace pages
             _driver = driver;
             wait = new WebDriverWait(driver.GetIntance(), TimeSpan.FromSeconds(30));
             act = new Actions(driver.GetIntance());
-            if (driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS)) 
+            if (driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS)) 
             {
                 //TODO IOS PATH document
                 documentBody = By.XPath("TODO");
@@ -59,7 +59,7 @@ namespace pages
         {
             if (_driver.GetRemoteState())
             {
-                if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.ANDROID))
+                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
                 {
                     By allowButtonForeground = By.Id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
                     By allowButton = By.Id("com.android.permissioncontroller:id/permission_allow_button");
@@ -74,7 +74,7 @@ namespace pages
                         clickElement(allowButton);
                     }
                 }
-                if (_driver.GetDriverType().Equals(EnvironmentData.DEVICE.IOS))
+                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
                 {
                     By allowButton = By.Id("Allow");
 

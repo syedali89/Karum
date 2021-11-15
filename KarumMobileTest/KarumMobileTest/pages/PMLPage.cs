@@ -40,31 +40,40 @@ namespace pages
         }
 
         public void SetAllFieldsSINOACEPTO(aceptoField siNoAcepto) 
-        {
+        {            
             for (int position = 0; position < aceptoButtons.Count; position++) 
             {
                 aceptoButtons[position] = siNoAcepto;
             }
         }
 
-        public void tapACEPTOFields() {
+        public void tapACEPTOFields() 
+        {
+            _driver.Report.StepDescription("Check the 'ACEPTO' fields");
+
             int position = 1;
             foreach(aceptoField radiobutton in aceptoButtons) 
             {
                 tapRadiobuttonSINOAcepto(radiobutton, position);
                 position++;
             }
+
+            _driver.Report.EndStep();
         }
 
         public void tapContinue() 
         {
+            _driver.Report.StepDescription("Tap CONTINUAR button");
+
             SwipeAction.swipeDownUntilElementExist(_driver, continueBtn);
             clickElement(continueBtn);
+
+            _driver.Report.EndStep();
         }
 
         public INEPhotoPage allProcessPNLProcess() 
         {
-            this.SetAllFieldsSINOACEPTO(PMLPage.aceptoField.SIACEPTO);
+            this.SetAllFieldsSINOACEPTO(aceptoField.SIACEPTO);
             this.tapACEPTOFields();
             this.tapContinue();
             return new INEPhotoPage(_driver);
@@ -72,16 +81,26 @@ namespace pages
 
         public void assertContinueBtnDisable() 
         {
+            _driver.Report.StepDescription("Verify if CONTINUAR button is disabled");
+
             Assert.IsTrue(!validateElementEnable(continueBtn), "Error, CONTINUE button is enabled and all 'SI ACEPTO' aren't selected.");
+
+            _driver.Report.EndStep();
         }
 
         public void assertContinueBtnEnable() 
         {
+            _driver.Report.StepDescription("Verify if CONTINUAR button is enabled");
+
             Assert.IsTrue(validateElementEnable(continueBtn), "Error, CONTINUE button is disable and all 'SI ACEPTO' are selected.");
+
+            _driver.Report.EndStep();
         }
 
         public void assertPMLText() 
         {
+            _driver.Report.StepDescription("Verify if all elements from Prevent Laundering are on screen");
+
             assertElementWithTextExist(
                     "Te queremos conocer mejor, por favor responde las preguntas para poder hacerlo:");
             assertElementWithTextExist(
@@ -98,9 +117,12 @@ namespace pages
                     "Declaro que los recursos que utilizaré para el pago de este producto provienen de una fuente licita.");
 
             Assert.IsTrue(SwipeAction.swipeDownUntilElementExist(_driver, continueBtn), "Error, CONTINUE button doesn't exist");
+
+
+            _driver.Report.EndStep();
         }
 
-        public void tapRadiobuttonSINOAcepto(aceptoField aceptoFieldradiobutton, int radPosition) 
+        private void tapRadiobuttonSINOAcepto(aceptoField aceptoFieldradiobutton, int radPosition) 
         {
             if (aceptoFieldradiobutton != aceptoField.UNINFORMED) 
             {

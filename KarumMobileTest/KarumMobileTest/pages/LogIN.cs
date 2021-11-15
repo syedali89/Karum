@@ -42,14 +42,20 @@ namespace pages
         }
 
         public void logINClienteAsesor(string type) {
-            if(type.Equals(constants.CLIENTE)) 
+            _driver.Report.StepDescription("Tap button:" + type);
+
+            if (type.Equals(constants.CLIENTE))
             {
                 clickElement(soyClienteBtn);
             }
+
+            _driver.Report.EndStep();
         }
 
         public void insertSecurityCode(bool correct) 
         {
+            _driver.Report.StepDescription("Insert the Security Code");
+
             string code;
             if(correct) 
             {
@@ -66,43 +72,54 @@ namespace pages
             }
 
             sendTextElement(inputSecurityCode, code);
+            _driver.Report.EndStep();
         }
 
         public void inputEmail(Client client) 
         {
+            _driver.Report.StepDescription("Inform the input email field");
             sendTextElement(inputemail, client.userEmail);
+            _driver.Report.EndStep();
         }
 
         public void inputPhone(Client client) 
         {
+            _driver.Report.StepDescription("Inform the input phone field");
             sendTextElement(inputPhoneNumber, client.userPhone);
+            _driver.Report.EndStep();
         }
 
         public void inputPassword(Client client) 
         {
+            _driver.Report.StepDescription("Inform the input Password field");
             sendTextElement(logINPassword, client.userPass);
+            _driver.Report.EndStep();
         }
 
         public void tapContinuar() 
         {
+            _driver.Report.StepDescription("Tap CONTINUAR button");
             clickElement(CONTINUARbtn);
+            _driver.Report.EndStep();
         }
 
         public void inputMandatoryFieldThenContinuar(Client client) 
         {
             inputEmail(client);
             inputPhone(client);
-            clickElement(CONTINUARbtn);
+            tapContinuar();
         }
 
         public void iniciaSessionPassword(Client client) 
-        {
+        {            
             inputPassword(client);
+            _driver.Report.StepDescription("Tap Inicia Sesion");
             clickElement(iniciaSesionBtn);
+            _driver.Report.EndStep();
         }
 
         public HomePage allLoginProcess(Client clientData) 
-        {
+        {            
             this.logINClienteAsesor(constants.CLIENTE);
 
             this.inputMandatoryFieldThenContinuar(clientData);
@@ -115,17 +132,22 @@ namespace pages
 
         public void verifyBadCode() 
         {
+            _driver.Report.StepDescription("Verify error message when input a incorrect Security code");
             assertElementText(alertMessageBadCode, "Código incorrecto, inténtalo nuevamente");
+            _driver.Report.EndStep();
         }
 
-        public void verifyMessageActivationCode() 
+        public void verifyMessageActivationCode()
         {
+            _driver.Report.StepDescription("Verify Security Code Message is on Screen");
             Assert.IsTrue(validateElementVisible(inputSecurityCode),
                     "Error, Security Code Input Field is not visible.");
+            _driver.Report.EndStep();
         }
 
         public void verifySecurityCodeLoginText(Client client) 
         {
+            _driver.Report.StepDescription("Verify if all elements from Security Code Page are on Screen");
             string lastPhone = client.userPhone.Substring(client.userPhone.Length - 4);
 
             assertElementText(greatingsActivationDevice, "Hola, "+ client.firstNameOne);
@@ -138,23 +160,30 @@ namespace pages
 
             Assert.IsTrue(validateElementVisible(CONTINUARbtn),
                     "Error, CONTINUAR button is not visible.");
+
+            _driver.Report.EndStep();
         }
 
         public void verifyCONTINUARbtnState(bool isEnable) 
-        {
+        {            
             string enabledDisabledMessage = "disabled";
             if(isEnable) {
                 enabledDisabledMessage = "enabled";
             }
 
+            _driver.Report.StepDescription("Verify if CONTINUAR button is " + enabledDisabledMessage);
+
             Assert.AreEqual(validateElementEnable(CONTINUARbtn), isEnable,
                     "Error, CONTINUAR btn input should be " + enabledDisabledMessage);
+
+            _driver.Report.EndStep();
         }
 
         public void validateSOYCLIENTELogINEmailPhone() 
         {
-            assertElementText(titleScreenCLIENTE, "Comienza a comprar\r\ndesde tu celular");
+            _driver.Report.StepDescription("Verify if all elements from LogIN Email and Phone are on screen");
 
+            assertElementText(titleScreenCLIENTE, "Comienza a comprar\r\ndesde tu celular");
             assertElementWithTextExist("Ingresa tu número celular (10 digitos) *");
             Assert.IsTrue(validateElementVisible(inputPhoneNumber), "Error, input phone number field is not visible.");
             Assert.IsTrue(validateElementVisible(inputPhoneNumberArea), "Error, input phone area field is not visible.");
@@ -168,16 +197,24 @@ namespace pages
 
             Assert.IsTrue(validateElementVisible(CONTINUARbtn), "Error, CONTINUAR button is not Visible.");
             verifyCONTINUARbtnState(false);
+
+            _driver.Report.EndStep();
         }
 
         public void verifyEmailPhoneIncorrect() 
         {
+            _driver.Report.StepDescription("Verify error login message when you introduce a email and phone that doesn't match");
+
             assertElementText(alertMessage, "Los datos proporcionados no coinciden con ningun registro");
             assertElementWithTextExist("ACEPTAR");
+
+            _driver.Report.EndStep();
         }
 
         public void verifyPasswordPage(Client client) 
         {
+            _driver.Report.StepDescription("Verify if all elements from LogIN Password Page are on screen");
+
             assertElementWithTextExist("Hola, "+ client.firstNameOne);
             assertElementWithTextExist("Usuario");
             assertElementText(userEmailOnScreen, client.userEmail);
@@ -188,16 +225,26 @@ namespace pages
                     "Error, input Password field is not visible");
 
             assertElementText(iniciaSesionBtn, "INICIA SESIÓN");
+
+            _driver.Report.EndStep();
         }
 
         public void verifyBadPassword() 
         {
+            _driver.Report.StepDescription("Verify error message when is introduce a incorrect password");
+
             Assert.IsTrue(_driver.GetIntance().FindElements(wrongPasswordMessage).Count > 0, "Error, the error message for wrong password was not displayed on screen");
+
+            _driver.Report.EndStep();
         }
 
         public void verifyCorrectPassword() 
         {
+            _driver.Report.StepDescription("Verify correct Login when is introduce a correct password");
+
             assertElementWithTextExist("Crédito Karum");
+
+            _driver.Report.EndStep();
         }
     }
 }
