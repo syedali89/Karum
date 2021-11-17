@@ -12,6 +12,7 @@ namespace utility
     using Newtonsoft.Json;
     using Reportium.Client;
     using Reportium.Model;
+    using OpenQA.Selenium.Remote;
 
     public class Driver 
     {       
@@ -20,9 +21,10 @@ namespace utility
         /// </summary>
         public Driver() 
         {
-            SetEnvironmentData();
-
             _appiumOptions = new AppiumOptions();
+            SetEnvironmentData();
+            Uri url = this.URLPathConfig();
+            
             _appiumOptions.AddAdditionalCapability("newCommandTimeout", 360);
             _appiumOptions.AddAdditionalCapability("disableWindowAnimation", true);
             _appiumOptions.AddAdditionalCapability("enableAppiumBehavior", true);
@@ -32,6 +34,7 @@ namespace utility
             
             _appiumOptions.AddAdditionalCapability("waitForAvailableLicense", true);
             _appiumOptions.AddAdditionalCapability("sensorInstrument", true);
+            _appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
             
             if (!string.IsNullOrEmpty(_env.envData.DEVICE_NAME))
             {
@@ -40,8 +43,8 @@ namespace utility
 
             _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, _env.envData.PLATAFORM_VERSION);
             _appiumOptions.AddAdditionalCapability("model", _env.envData.MODEL);
-
-            Uri url = this.URLPathConfig();
+            _appiumOptions.AddAdditionalCapability("manufacturer", _env.envData.MANUFACTURER);
+            
             SetAppCapability();
 
             if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID)) 
@@ -65,15 +68,16 @@ namespace utility
             }
             else if(_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
             {
-                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "ios");                
+                _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "ios");     
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");
-                
-                if (string.IsNullOrEmpty(_env.envData.IOS_UDID))
+                _appiumOptions.AddAdditionalCapability("sendKeyStrategy", "setValue");
+
+                if (!string.IsNullOrEmpty(_env.envData.IOS_UDID))
                 {
                     _appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, _env.envData.IOS_UDID);
                 }
 
-                _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromMinutes(5));
+                 _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromMinutes(5));
                 _driver = _driverios;
             }
 
@@ -196,7 +200,7 @@ namespace utility
 
                 if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
                 {
-                    _appiumOptions.AddAdditionalCapability("resolution", "1440x3040");
+                    _appiumOptions.AddAdditionalCapability("resolution", "1080x2280");
                 }
                 else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
                 {
@@ -219,9 +223,7 @@ namespace utility
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
                 _appiumOptions.AddAdditionalCapability("securityToken", _env.envData.SECURITYTOKEN);     
 
-                url = new Uri("https://" + _env.envData.CLOUDNAME.Replace(
-                                ".perfectomobile.com", "")
-                                + ".perfectomobile.com/nexperience/perfectomobile/wd/hub");
+                url = new Uri(string.Format("https://{0}.perfectomobile.com/nexperience/perfectomobile/wd/hub", _env.envData.CLOUDNAME));                                
             }
             else
             {

@@ -17,6 +17,7 @@ namespace data
         public string IOS_UDID { get; set; }
         public string PLATAFORM_VERSION { get; set; }
         public string MODEL { get; set; }
+        public string MANUFACTURER { get; set; }
 
         //REMOTE EXECUTION
         public bool REMOTE { get; set; }

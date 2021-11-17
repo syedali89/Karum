@@ -10,7 +10,6 @@ namespace tests
     public class EstadoCuentaSuite  : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
         public EstadoCuentaPage estadoCuenta;
 
         public EstadoCuentaSuite(string testClass)
@@ -18,18 +17,14 @@ namespace tests
             this.testClass = testClass;
         }
 
-        [SetUp] 
-        public void beforeMethod()
+        [SetUp]
+        public override void beforeMethod()
         {
-            _driver.Report.TestCaseStartReport();
-            logIN = new LogIN(_driver);
+            base.beforeMethod();
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
-            estadoCuenta = home.tapEstadoCuentaBtn();            
+            estadoCuenta = home.tapEstadoCuentaBtn();
         }
 
         [Test, Order(1)]

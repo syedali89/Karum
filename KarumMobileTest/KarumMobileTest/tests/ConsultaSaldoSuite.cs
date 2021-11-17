@@ -9,7 +9,6 @@ namespace tests
     public class ConsultaSaldoSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
         public ConsultaSaldoPage consultaSaldo;
 
         public ConsultaSaldoSuite(string testClass)
@@ -18,16 +17,10 @@ namespace tests
         }
 
         [SetUp]
-        public void beforeMethod()
+        public override void beforeMethod()
         {
-            _driver.Report.TestCaseStartReport();
-
-            logIN = new LogIN(_driver);
-
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+            base.beforeMethod();
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
             consultaSaldo = home.tapSaldoCuenta();
         }

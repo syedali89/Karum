@@ -12,7 +12,6 @@ namespace pages
         public By deadlinePayment = By.Id("com.karum.credits:id/tv_balance_deadline");
         public By currentPeriodMonth = By.Id("com.karum.credits:id/tv_balance_period");
         public By cutOffCreditDate = By.Id("com.karum.credits:id/tv_cutoff_date");
-
         public By newChargesAmount = By.Id("com.karum.credits:id/tv_new_charges");         
         public By paymentsCreditsAmount = By.Id("com.karum.credits:id/tv_payments_credits");         
         public By monthlyAmount = By.Id("com.karum.credits:id/tv_monthly");

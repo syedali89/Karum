@@ -6,33 +6,8 @@ using utility;
 
 namespace pages
 {
-    public class LogIN : BasePage
-    {
-        //LogIN
-        public By soyClienteBtn = By.Id("com.karum.credits:id/btn_client");
-        public By inputemail = By.Id("com.karum.credits:id/et_email");
-        public By inputPhoneNumber = By.Id("com.karum.credits:id/et_phone");
-        public By inputPhoneNumberArea = By.Id("com.karum.credits:id/et_code_area");
-        public By registrateGobtn = By.Id("com.karum.credits:id/btn_on_boarding");
-        public By CONTINUARbtn = By.Id("com.karum.credits:id/btn_continue");
-        public By titleScreenCLIENTE = By.Id("com.karum.credits:id/tv_title_login");
-        public By alertMessage = By.Id("android:id/message");
-
-        //Password
-        public By logINPassword = By.Id("com.karum.credits:id/et_pass_login");
-        public By userEmailOnScreen = By.Id("com.karum.credits:id/tv_username");
-        public By changeUserBtn = By.Id("com.karum.credits:id/tv_change_user");
-        public By iniciaSesionBtn = By.Id("com.karum.credits:id/btn_login");
-        public By wrongPasswordMessage = By.XPath("//*[contains(@text, 'Contraseña incorrecta')]");
-
-        //Security Code Menu
-        public By greatingsActivationDevice = By.Id("com.karum.credits:id/tv_sms_title");
-        public By messageActivationDevice = By.Id("com.karum.credits:id/tv_instructions_sms");
-        public By inputSecurityCode = By.Id("com.karum.credits:id/pv_otp");
-        public By continueBtn = By.Id("com.karum.credits:id/btn_continue");
-        public By alertMessageBadCode = By.Id("com.karum.credits:id/tv_error_login");
-        public By resendcodeLinktext = By.Id("com.karum.credits:id/btn_resend_sms");
-
+    public partial class LogIN : BasePage
+    {        
         /// <summary>
         /// Contructor
         /// </summary>
@@ -41,7 +16,8 @@ namespace pages
         {
         }
 
-        public void logINClienteAsesor(string type) {
+        public void logINClienteAsesor(string type) 
+        {
             _driver.Report.StepDescription("Tap button:" + type);
 
             if (type.Equals(constants.CLIENTE))
@@ -68,10 +44,35 @@ namespace pages
             }
             else 
             {
-                code = "111111";
+                code = "123456";
             }
 
-            sendTextElement(inputSecurityCode, code);
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                sendTextElement(inputSecurityCode, code);
+            }
+            else
+            {
+                _driver.GetIntance().FindElement(inputSecurityCode).SendKeys(code);
+            }
+            //    int i = 0;
+            //    var listSecurityInputs = _driver.GetIntance().FindElements(inputSecurityCode);
+
+            //    foreach (var element in listSecurityInputs)
+            //    {
+            //        if (listSecurityInputs.Count > i)
+            //        {
+            //            element.Clear();
+            //            sendTextElement(element, code.Substring(i, i + 1));                        
+            //        }
+            //        else
+            //        {
+            //            sendTextElement(element, code.Substring(i));
+            //        }
+
+            //        i++;
+            //    }
+            //}
             _driver.Report.EndStep();
         }
 
@@ -152,8 +153,15 @@ namespace pages
 
             assertElementText(greatingsActivationDevice, "Hola, "+ client.firstNameOne);
             assertElementText(messageActivationDevice, "Activa tu dispositivo, ingresando el código de activación que te enviamos por SMS al ******" + lastPhone);
-            assertElementText(resendcodeLinktext, "Enviar de nuevo");
-            assertElementWithTextExist("¿No recibiste el código?");
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                assertElementText(resendcodeLinktext, "Enviar de nuevo");
+                assertElementWithTextExist("¿No recibiste el código?");
+            }
+            else
+            {
+                assertElementText(resendcodeLinktext, "¿No recibiste el código? Enviar de nuevo");
+            }
 
             Assert.IsTrue(validateElementVisible(inputSecurityCode),
                     "Error, Security Code Input Field is not visible.");
@@ -183,8 +191,13 @@ namespace pages
         {
             _driver.Report.StepDescription("Verify if all elements from LogIN Email and Phone are on screen");
 
-            assertElementText(titleScreenCLIENTE, "Comienza a comprar\r\ndesde tu celular");
-            assertElementWithTextExist("Ingresa tu número celular (10 digitos) *");
+            string title = getTextElement(titleScreenCLIENTE);
+            
+            assertTextContains(title, "Comienza a comprar");
+            assertTextContains(title, "desde tu celular");
+
+            assertElementWithTextExist("Ingresa tu número celular (10 dígitos) *");
+
             Assert.IsTrue(validateElementVisible(inputPhoneNumber), "Error, input phone number field is not visible.");
             Assert.IsTrue(validateElementVisible(inputPhoneNumberArea), "Error, input phone area field is not visible.");
 
@@ -192,7 +205,12 @@ namespace pages
             Assert.IsTrue(validateElementVisible(inputemail), "Error, input phone number field is not Visible.");
 
             assertElementWithTextExist("* Campos obligatorios");
-            assertElementWithTextExist("No tienes cuenta,");
+
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                assertElementWithTextExist("No tienes cuenta,");
+            }
+
             Assert.IsTrue(validateElementVisible(registrateGobtn), "Error, registrate linktext is not Visible.");
 
             Assert.IsTrue(validateElementVisible(CONTINUARbtn), "Error, CONTINUAR button is not Visible.");
@@ -204,8 +222,8 @@ namespace pages
         public void verifyEmailPhoneIncorrect() 
         {
             _driver.Report.StepDescription("Verify error login message when you introduce a email and phone that doesn't match");
-
-            assertElementText(alertMessage, "Los datos proporcionados no coinciden con ningun registro");
+            
+            assertElementWithTextExist("Los datos proporcionados no coinciden con ningun registro");
             assertElementWithTextExist("ACEPTAR");
 
             _driver.Report.EndStep();

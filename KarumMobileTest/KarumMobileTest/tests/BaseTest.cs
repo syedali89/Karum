@@ -3,10 +3,7 @@ namespace tests
     using data;
     using NUnit.Framework;
     using NUnit.Framework.Interfaces;
-    using Reportium.Client;
-    using Reportium.Model;
-    using Reportium.Test.Result;
-    using System;
+    using pages;
     using utility;
 
     [TestFixture]
@@ -15,17 +12,34 @@ namespace tests
         protected string testClass;
         protected Driver _driver;
         protected Client clientData;
+        public LogIN logIN;
 
-        [OneTimeSetUp]
-        public void beforeClass()
+        //[OneTimeSetUp]
+        //public void beforeClass()
+        //{
+        //    _driver = new Driver();
+        //    CreateReportingClient();
+        //}
+
+        [SetUp]
+        public virtual void beforeMethod()
         {
+            //Create Driver and Report Client
             _driver = new Driver();
             CreateReportingClient();
+
+            //Create LogIN and grand all permissions
+            logIN = new LogIN(_driver);
+            logIN.grantAllPermissions();            
+
+            //Start Reporting
+            _driver.Report.TestCaseStartReport();
         }
 
         [TearDown]
         public void afterTest() 
-        {                        
+        {
+            //Reporting for success or fail
             if (TestContext.CurrentContext.Result.Outcome == ResultState.Success)
             {
                 _driver.Report.TestSuccess();
@@ -35,19 +49,26 @@ namespace tests
                 _driver.Report.TestFails(_driver.GetIntance());
             }
 
-            _driver.GetIntance().CloseApp();
-        }
-
-        [OneTimeTearDown]
-        public void afterClass()
-        {
+            //End report
             _driver.Report.TestCaseEndReport();
 
-            if (_driver != null) 
+            //End Driver Session
+            if (_driver != null)
             {
                 _driver.GetIntance().Quit();
             }
         }
+
+        //[OneTimeTearDown]
+        //public void afterClass()
+        //{
+        //    _driver.Report.TestCaseEndReport();
+
+        //    if (_driver != null)
+        //    {
+        //        _driver.GetIntance().Quit();
+        //    }
+        //}
 
         private void CreateReportingClient()
         {

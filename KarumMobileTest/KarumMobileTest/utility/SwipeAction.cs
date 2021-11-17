@@ -6,6 +6,8 @@ namespace utility
     using OpenQA.Selenium.Appium.MultiTouch;
     using static constants;
     using data;
+    using System.Collections.Generic;
+    using System.Threading;
 
     public class SwipeAction 
     {
@@ -22,13 +24,13 @@ namespace utility
             int intents = 0;
 
             while (driver.GetIntance().FindElements(locator).Count == 0 && intents < 100)
-            {
-                intents++;
+            {                
                 new TouchAction(driver.GetIntance())
                         .LongPress(Startx, Starty)
                         .Wait(100)
                         .MoveTo(Endx, Endy)
                         .Release().Perform();
+                intents++;
             }
 
             return intents < 100;
@@ -43,6 +45,7 @@ namespace utility
                     string mySelector = "new UiSelector().text(\"" + text + "\").instance(0)";
                     string command = "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(" + mySelector + ");";
                     driver.GetAndroidDriver().FindElementByAndroidUIAutomator(command);
+                    return true;
                 } 
                 catch (Exception ex) 
                 {
@@ -52,17 +55,35 @@ namespace utility
             }
             else if (driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
             {
-                try 
+                By pre = By.XPath(string.Format("//*[@label='{0}']", text));
+                int ANIMATION_TIME = 200;
+                Dictionary<string, string> scrollObject = new Dictionary<string, string>();
+                scrollObject.Add("direction", "down");
+
+                int intents = 0;
+                while (driver.GetIntance().FindElements(pre).Count == 0 && intents < 100)
                 {
-                    ///TODO IOS
-                    throw new NotImplementedException();
-                } 
-                catch (Exception ex) 
-                {
-                    Console.WriteLine(ex.Message);
-                    return false;
+                    try
+                    {                        
+                        driver.GetIOSDriver().ExecuteScript("mobile:scroll", scrollObject);
+                        Thread.Sleep(ANIMATION_TIME);
+
+                        if (driver.GetIntance().FindElements(pre).Count > 0)
+                        {
+                            break;
+                        }
+                        intents++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return false;
+                    }
                 }
+
+                return intents < 100;
             }
+
             return true;
         }
 

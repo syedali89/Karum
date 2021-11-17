@@ -8,7 +8,6 @@ namespace tests
     public class CreditPageSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
         public CreditPage creditpage;
 
         public CreditPageSuite(string testClass)
@@ -16,18 +15,14 @@ namespace tests
             this.testClass = testClass;
         }
 
-        [SetUp] 
-        public void beforeMethod()
+        [SetUp]
+        public override void beforeMethod()
         {
-            _driver.Report.TestCaseStartReport();
-            logIN = new LogIN(_driver);
-            creditpage = new CreditPage(_driver);
+            base.beforeMethod();
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
             clientData = DataRecover.RecoverClientData();
-
-            home = logIN.allLoginProcess(clientData);            
+            home = logIN.allLoginProcess(clientData);
+            creditpage = new CreditPage(_driver);
         }
 
         [Test, Order(1)]

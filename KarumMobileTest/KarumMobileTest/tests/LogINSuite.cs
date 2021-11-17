@@ -7,21 +7,16 @@ namespace tests
     [TestFixture("Log IN Suite")]
     public class LogINSuite : BaseTest 
     {
-        public LogIN logIN;
-
         public LogINSuite(string testClass)
         {
             this.testClass = testClass;
         }
 
         [SetUp]
-        public void beforeMethod()
-        {            
-            _driver.GetIntance().LaunchApp();
-            logIN = new LogIN(_driver);
-            logIN.grantAllPermissions();
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
             clientData = DataRecover.RecoverClientData();
-            _driver.Report.TestCaseStartReport();
         }
 
         [Test, Order(1)]
@@ -69,14 +64,14 @@ namespace tests
         public void TC035_LOGIN_IncorrectEmailPhoneCredentials() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
-            clientData.userEmail = "a@a.a";
+            clientData.userEmail = "test1@mail.com";
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
             logIN.verifyEmailPhoneIncorrect();
         }
 
         [Test, Order(6)]
-        public void TC036_LOGIN_CorrectEmailPhoneCredentials() 
+         public void TC036_LOGIN_CorrectEmailPhoneCredentials() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
 
