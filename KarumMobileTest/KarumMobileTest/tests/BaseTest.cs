@@ -3,48 +3,76 @@ namespace tests
     using data;
     using NUnit.Framework;
     using NUnit.Framework.Interfaces;
-    using System;
+    using pages;
     using utility;
 
     [TestFixture]
     public class BaseTest
     {
+        protected string testClass;
         protected Driver _driver;
         protected Client clientData;
+        public LogIN logIN;
 
-        [OneTimeSetUp]
-        public void beforeClass()
+        //[OneTimeSetUp]
+        //public void beforeClass()
+        //{
+        //    _driver = new Driver();
+        //    CreateReportingClient();
+        //}
+
+        [SetUp]
+        public virtual void beforeMethod()
         {
+            //Create Driver and Report Client
             _driver = new Driver();
-            _driver.GetIntance().CloseApp();
+            CreateReportingClient();
+
+            //Create LogIN and grand all permissions
+            logIN = new LogIN(_driver);
+            logIN.grantAllPermissions();            
+
+            //Start Reporting
+            _driver.Report.TestCaseStartReport();
         }
 
         [TearDown]
         public void afterTest() 
         {
-            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success) {
-                Console.WriteLine("ERROR FATAL");
-                try 
-                {
-                    string path = GetScreenshot.capture(_driver.GetIntance(), TestContext.CurrentContext.Test.Name);
-                    Console.WriteLine("Screenshot='" + path +"'");
-                } 
-                catch (Exception e) 
-                {
-                    Console.WriteLine(e.Message);
-                }
+            //Reporting for success or fail
+            if (TestContext.CurrentContext.Result.Outcome == ResultState.Success)
+            {
+                _driver.Report.TestSuccess();
+            }
+            else
+            {
+                _driver.Report.TestFails(_driver.GetIntance());
             }
 
-            _driver.GetIntance().CloseApp();
-        }
+            //End report
+            _driver.Report.TestCaseEndReport();
 
-        [OneTimeTearDown]
-        public void afterClass() 
-        {
-            if(_driver != null) 
+            //End Driver Session
+            if (_driver != null)
             {
                 _driver.GetIntance().Quit();
             }
         }
+
+        //[OneTimeTearDown]
+        //public void afterClass()
+        //{
+        //    _driver.Report.TestCaseEndReport();
+
+        //    if (_driver != null)
+        //    {
+        //        _driver.GetIntance().Quit();
+        //    }
+        //}
+
+        private void CreateReportingClient()
+        {
+            _driver.CreateReportingClient(testClass);
+        }        
     }
 }

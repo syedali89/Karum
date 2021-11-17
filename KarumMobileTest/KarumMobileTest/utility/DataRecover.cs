@@ -1,13 +1,16 @@
 namespace utility
 {
-    using System;
-    using System.Buffers.Text;
+    using System;    
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
     using System.Text.RegularExpressions;
+    using static constants;
     using data;
+    using Newtonsoft.Json;
     using OpenQA.Selenium;
+    using System.Text;
+    using System.Globalization;
 
     public class DataRecover 
     {
@@ -19,23 +22,19 @@ namespace utility
         private static By WAITJUSTNOWEMAIL = By.XPath("//table[@class='table-striped jambo_table']//tr//td[contains(text(), 'just now')]");
         private const string AVISOPRIVACIDAD_DOCUMENT =
                 "AVISO DE PRIVACIDAD (22sep2021).pdf";
-        private const string TERMINOSCONDICIONES_DOCUMENT =
-                "TÉRMINOS Y CONDICIONES (22sep2021).pdf";
-        private const string USOMEDIOSTECNOLOGICOS_DOCUMENT =
-                "TERMS Y COND MEDIOS ELECTRONICOS (22sep2021).pdf";
-        private const string BUROCREDITO_DOCUMENT =
-                "AUTORIZACIÓN BURÓ DE CRÉDITO (22sep2021).pdf";
 
-        private static string localpath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
+        public static string localpath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
 
         public static Client RecoverClientData() 
         {
-            //TODO For now the informations is hardcode. Later is gonna refactor.
+            return RecoverClientData("clientDefaultData.json");
+
+            /** TODO Delete this code after verify that read json work
             Client client = new Client();
             client.AddressStreet = "Some Street";
             client.AddressExtNum = "1234";
             client.AddressIntNum = "1234";
-            client.AddressCity = "Ciudad de México";
+            client.AddressCity =  "Ciudad de México";
             client.AddressSubUrb = "Piedad Narvarte";
             client.AddressZipCode = "03000";
             client.Email = "some@email.com";
@@ -84,14 +83,44 @@ namespace utility
             client.clientMovimientos.Add(new Movimiento("93054", "Compra", "$5,770.01"));
             client.clientMovimientos.Add(new Movimiento("93054", "Abono", "-$250.00"));
 
+            return client;*/
+        }
+
+        public static Client RecoverClientData(string file)
+        {
+            string docFile = RecoverJsonFilePath(file);
+
+            Client client;
+
+            using (StreamReader r = new StreamReader(docFile, Encoding.UTF8))
+            {
+                string json = r.ReadToEnd().Replace("M�", "Mé").Replace("ci�n", "ción");
+                var setting = new JsonSerializerSettings();
+                client = JsonConvert.DeserializeObject<Client>(json);
+            } 
+
             return client;
         }
 
-        public static Client RecoverClientData(string File) 
+        public static EnvironmentData RecoverEnviromentData(string file)
         {
-            //TODO For now the informations is hardcode. Later is gonna refactor.
-            Client client = new Client();
-            return client;
+            string docFile = RecoverJsonFilePath(file);
+
+            EnvironmentData data;
+
+            using (StreamReader r = new StreamReader(docFile))
+            {
+                string json = r.ReadToEnd();
+                data = JsonConvert.DeserializeObject<EnvironmentData>(json);
+            }
+
+            return data;
+        }        
+
+        public static string RecoverJsonFilePath(string file)
+        { 
+            return Path.GetFullPath(Path.Combine(
+                localpath, JSON_FOLDER, file));
         }
 
         public static string RecoverSecurityCode() 
@@ -134,28 +163,7 @@ namespace utility
         public static string AvisoPrivacidadDocument() 
         {
             string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, AVISOPRIVACIDAD_DOCUMENT));
-            return PDFDocument.readDocument(docFile);
-        }
-
-        public static string TerminosCondicionesDocument() 
-        {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, TERMINOSCONDICIONES_DOCUMENT));
-            return PDFDocument.readDocument(docFile);
-        }
-
-        public static string UsoMediosTecnologicosDocument() 
-        {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, USOMEDIOSTECNOLOGICOS_DOCUMENT));
-            return PDFDocument.readDocument(docFile);
-        }
-
-        public static string BuroCreditoDocument() 
-        {
-            string docFile = Path.GetFullPath(Path.Combine(
-                localpath, constants.DOCUMENTS_FOLDER, BUROCREDITO_DOCUMENT));
+                localpath, DOCUMENTS_FOLDER, AVISOPRIVACIDAD_DOCUMENT));
             return PDFDocument.readDocument(docFile);
         }
 

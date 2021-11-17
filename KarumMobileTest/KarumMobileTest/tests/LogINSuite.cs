@@ -4,16 +4,18 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Log IN Suite")]
     public class LogINSuite : BaseTest 
     {
-        public LogIN logIN;
-    
-        [SetUp]
-        public void beforeMethod()
+        public LogINSuite(string testClass)
         {
-            _driver.GetIntance().LaunchApp();
-            logIN = new LogIN(_driver);
-            logIN.grantAllPermissions();
+            this.testClass = testClass;
+        }
+
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
             clientData = DataRecover.RecoverClientData();
         }
 
@@ -62,14 +64,14 @@ namespace tests
         public void TC035_LOGIN_IncorrectEmailPhoneCredentials() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
-            clientData.userEmail = "a@a.a";
+            clientData.userEmail = "test1@mail.com";
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
             logIN.verifyEmailPhoneIncorrect();
         }
 
         [Test, Order(6)]
-        public void TC036_LOGIN_CorrectEmailPhoneCredentials() 
+         public void TC036_LOGIN_CorrectEmailPhoneCredentials() 
         {
             logIN.logINClienteAsesor(constants.CLIENTE);
 

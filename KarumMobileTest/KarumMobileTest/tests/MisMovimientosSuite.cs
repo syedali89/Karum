@@ -5,21 +5,23 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Mis Movimientos Suite")]
     public class MisMovimientosSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
-        public MisMovimientosPage movimientosPage; 
+        public MisMovimientosPage movimientosPage;
 
-        [SetUp] 
-        public void beforeMethod()
+        public MisMovimientosSuite(string testClass)
         {
-            logIN = new LogIN(_driver);
+            this.testClass = testClass;
+        }
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
+
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
             movimientosPage = home.tapMisMovimientosBtnBtn();
         }

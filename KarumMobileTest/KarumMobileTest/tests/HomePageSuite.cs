@@ -5,20 +5,22 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Home Page Suite")]
     public class HomePageSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
 
-        [SetUp] 
-        public void beforeMethod()
+        public HomePageSuite(string testClass)
         {
-            logIN = new LogIN(_driver);
+            this.testClass = testClass;
+        }
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
+
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
         }
 
@@ -59,7 +61,7 @@ namespace tests
         [Test, Order(6)]
         public void TC006_UserHomePage_SandwichMenuButton() 
         {
-            SanwichMenuPage sandwichPage = home.tapSandwichBtn();
+            SandwichMenuPage sandwichPage = home.tapSandwichBtn();
             sandwichPage.verifytextElements(clientData);
             sandwichPage.tapCloseBtn();
             home.verifyHomePageOnScreen(clientData);
@@ -68,7 +70,7 @@ namespace tests
         [Test, Order(7)]
         public void TC007_UserHomePage_SandwichMenuButton_CerrarSesion() 
         {
-            SanwichMenuPage sandwichPage = home.tapSandwichBtn();
+            SandwichMenuPage sandwichPage = home.tapSandwichBtn();
             sandwichPage.tapCerrarSesionBtn();
         }
 

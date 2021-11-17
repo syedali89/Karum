@@ -5,21 +5,23 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Puntos de Lealtad Suite")]
     public class PuntosLealtadSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
-        public PuntosLealtadPage lealtadPage; 
+        public PuntosLealtadPage lealtadPage;
 
-        [SetUp] 
-        public void beforeMethod()
+        public PuntosLealtadSuite(string testClass)
         {
-            logIN = new LogIN(_driver);
+            this.testClass = testClass;
+        }
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
+
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
             lealtadPage = home.tapPuntosLealtadBtn();
         }

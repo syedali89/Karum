@@ -1,0 +1,11 @@
+{
+	"TEST_DEVICE": "ANDROID",
+	"APP_VERSION": "Karum_Fase_2_v1.10.8.apk",
+	"DEVICE_NAME": "emulator-5554",
+	"IOS_UDID": "",
+	"PLATAFORM_VERSION": "[11].*",
+	"MODEL": "Pixel.*",
+	"REMOTE": false,
+	"CLOUDNAME": "",
+	"SECURITYTOKEN": ""
+}

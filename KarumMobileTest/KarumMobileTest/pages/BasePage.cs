@@ -1,15 +1,18 @@
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using utility;
-using static constants;
-
 namespace pages 
 {
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Appium;
+    using OpenQA.Selenium.Interactions;
+    using OpenQA.Selenium.Support.UI;
+    using System;
+    using System.Collections.Generic;
+    using utility;
+    using data;
+    using static constants;
+    using OpenQA.Selenium.Appium.Interfaces;
+    using OpenQA.Selenium.Appium.iOS;
+
     public class BasePage {
         public Driver _driver;
         public WebDriverWait wait;
@@ -32,10 +35,22 @@ namespace pages
             _driver = driver;
             wait = new WebDriverWait(driver.GetIntance(), TimeSpan.FromSeconds(30));
             act = new Actions(driver.GetIntance());
-            if (driver.GetDriverType().Equals(constants.IOS)) {
-                //TODO IOS PATH document
-                documentBody = By.XPath("TODO");
+            if (driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                SetIOSBy();                
             }
+        }
+
+        public virtual void SetIOSBy()
+        {
+            documentBody = By.XPath("//android.view.View/android.widget.TextView");
+            headerTitle = By.Id("com.karum.credits:id/tv_title_header");
+            backButton = By.Id("com.karum.credits:id/iv_home_back_header");
+            clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
+                        
+            downMenuHome = By.Id("com.karum.credits:id/mainFragment");
+            downMenuCredit = By.Id("com.karum.credits:id/creditsFragment");
+            downMenuProfile = By.Id("com.karum.credits:id/menu_3");    
         }
 
         public void tapGoBack()
@@ -57,7 +72,9 @@ namespace pages
         {
             if (_driver.GetRemoteState())
             {
-                if (_driver.GetDriverType().Equals(ANDROID))
+                wait.Timeout = TimeSpan.FromSeconds(5);
+
+                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
                 {
                     By allowButtonForeground = By.Id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
                     By allowButton = By.Id("com.android.permissioncontroller:id/permission_allow_button");
@@ -72,6 +89,23 @@ namespace pages
                         clickElement(allowButton);
                     }
                 }
+                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+                {
+                    By allowButton = By.XPath("//*[@label='Always Allow']");
+                    By OkButton = By.XPath("//*[@label='OK']");
+                    
+                    while (validateElementVisible(allowButton))
+                    {
+                        clickElement(allowButton);
+                    }                                                                                
+
+                    while (validateElementVisible(OkButton))
+                    {
+                        clickElement(OkButton);
+                    }
+                }
+
+                wait.Timeout = TimeSpan.FromSeconds(30);
             }
         }
 
@@ -98,7 +132,13 @@ namespace pages
         protected void sendTextElement(By locator, string text)
         {
             waitVisibility(locator);
+
             _driver.GetIntance().FindElement(locator).SendKeys(text);
+
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                _driver.GetIntance().FindElement(locator).SendKeys(Keys.Enter);
+            }
         }
 
         //Recover Text
@@ -129,7 +169,7 @@ namespace pages
         protected bool validateElementEnable(By locator)
         {
             if (SwipeAction.swipeDownUntilElementExist(_driver, locator))
-            {
+            {                
                 return _driver.GetIntance().FindElement(locator).Enabled;
             }
             else
@@ -184,6 +224,12 @@ namespace pages
         protected void assertElementWithTextExist(string text)
         {
             By locator = By.XPath("//*[@text='" + text + "']");
+
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                locator = By.XPath("//*[@label='" + text + "']");
+            }            
+            
             Assert.IsTrue(SwipeAction.swipeDownUntilElementText(_driver, text), "Error, there are not element with the text : '" + text + "'.");
             Assert.IsTrue(_driver.GetIntance().FindElement(locator).Displayed, "Error, element with the text : '" + text + "' is not visible on screem.");
         }

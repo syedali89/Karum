@@ -6,21 +6,23 @@ namespace tests
     using utility;
     using static constants;
 
+    [TestFixture("Estado de Cuenta Suite")]
     public class EstadoCuentaSuite  : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
         public EstadoCuentaPage estadoCuenta;
 
-        [SetUp] 
-        public void beforeMethod()
+        public EstadoCuentaSuite(string testClass)
         {
-            logIN = new LogIN(_driver);
+            this.testClass = testClass;
+        }
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
+
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
             estadoCuenta = home.tapEstadoCuentaBtn();
         }

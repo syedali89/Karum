@@ -3,21 +3,24 @@ using pages;
 using utility;
 
 namespace tests
-{    
+{
+    [TestFixture("OnBoarding Suite")]
     public class OnBoardingSuite : BaseTest
     {
-        public LogIN logIN;
         public RegisterPage reg;
 
-        [SetUp]
-        public void beforeMethod() 
+        public OnBoardingSuite(string testClass)
         {
-            _driver.GetIntance().LaunchApp();
-            logIN = new LogIN(_driver);
-            reg = new RegisterPage(_driver);
-            logIN.grantAllPermissions();
-            clientData = DataRecover.RecoverClientData();
+            this.testClass = testClass;
         }
+
+        [SetUp]
+        public override void beforeMethod() 
+        {
+            base.beforeMethod();
+            reg = new RegisterPage(_driver);
+            clientData = DataRecover.RecoverClientData();            
+        }        
 
         [Test, Order(1)]
         public void TC002_InitialScreen() 

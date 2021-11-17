@@ -26,44 +26,63 @@ namespace pages
 
         public Movimiento tapMovimiento()
         {
+            _driver.Report.StepDescription("Tap First Movimiento");
+
             Movimiento movimiento = new Movimiento(
                 _driver.GetIntance().FindElement(transactionNumber).Text, _driver.GetIntance().FindElement(transactionType).Text, _driver.GetIntance().FindElement(amountItem).Text);
             
             clickElement(amountItem);
+            _driver.Report.EndStep();
 
             return movimiento;
         }
 
         public void tapSolicitarAclaracion()
         {
+            _driver.Report.StepDescription("Tap Solicitar Aclaracion");
             clickElement(requestInfoLinktext);
+            _driver.Report.EndStep();
         }
 
         public void tapOutsideMovement()
         {
+            _driver.Report.StepDescription("Tap Outside Movimiento");
             clickElement(closeMovementDetail);
+            _driver.Report.EndStep();
         }
 
         public void verifySolicitarAclaracionText(Client client)
         {
+            _driver.Report.StepDescription("Verify Solicitar Aclaracion message is on screen");
+
             assertElementWithTextExist("Solicitud de aclaración enviada");
             assertElementWithTextExist("Te hemos enviado la información sobre la solicitud de aclaración de cargo no reconocido a tu correo " + client.userEmail);
+
+            _driver.Report.EndStep();
         }
 
         public void verifySelectedMovementText(Movimiento movimiento)
         {
+            _driver.Report.StepDescription("Verify text from movimiento selected");
+
             assertElementText(movementDetail, movimiento.transactionType);
             assertElementText(amountDetail, movimiento.moneyAmount);
             assertElementText(requestInfoLinktext, "Solicitar aclaración del cargo");
+
+            _driver.Report.EndStep();
         }
 
         public void verifyMisMovimientoPageOnScreen()
         {
+            _driver.Report.StepDescription("Verify if Mis movmientos Page is on screen");
             assertElementText(headerTitle, "Mis movimientos");
+            _driver.Report.EndStep();
         }
 
         public void verifyPageElements(Client clientData)
         {
+            _driver.Report.StepDescription("Verify if all elements from Mis movimientos are on screen");
+
             List<Movimiento> movimientosScreen = new List<Movimiento>();
 
             assertElementText(headerTitle, "Mis movimientos");
@@ -103,11 +122,13 @@ namespace pages
                 Assert.IsTrue(match,
                         "Error, Movimiento \n" +
                         "Transaction: " + movimientoScreen.transactionNumber +
-                        "Credit" + movimientoScreen.transactionType +
-                        "Amount: " + movimientoScreen.moneyAmount +
-                        "is not a 'Movimiento' expected for this client"
+                        "\nCredit" + movimientoScreen.transactionType +
+                        "\nAmount: " + movimientoScreen.moneyAmount +
+                        "\nIs not a 'Movimiento' expected for this client"
                         );                
             }
+
+            _driver.Report.EndStep();
         }
     }
 }

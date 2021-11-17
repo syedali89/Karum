@@ -4,23 +4,25 @@ namespace tests
     using pages;
     using utility;
 
+    [TestFixture("Credit Page Suite")]
     public class CreditPageSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
-        public CreditPage creditpage; 
+        public CreditPage creditpage;
 
-        [SetUp] 
-        public void beforeMethod()
+        public CreditPageSuite(string testClass)
         {
-            logIN = new LogIN(_driver);
-            creditpage = new CreditPage(_driver);
+            this.testClass = testClass;
+        }
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
+
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
+            creditpage = new CreditPage(_driver);
         }
 
         [Test, Order(1)]
@@ -62,7 +64,7 @@ namespace tests
         public void TC024_MisCreditosPage_MisMovimientosButton() 
         {
             creditpage.tapGoCreditDownMenu();
-            var movimientosPage = creditpage.tapMisMovimientosBtnBtn();
+            var movimientosPage = creditpage.tapMisMovimientosBtn();
             creditpage.verifyMisMovimientosPageOnScreen();
             movimientosPage.tapGoBack();
             creditpage.verifyCreditPageOnScreen();

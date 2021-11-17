@@ -12,7 +12,6 @@ namespace pages
         public By deadlinePayment = By.Id("com.karum.credits:id/tv_balance_deadline");
         public By currentPeriodMonth = By.Id("com.karum.credits:id/tv_balance_period");
         public By cutOffCreditDate = By.Id("com.karum.credits:id/tv_cutoff_date");
-
         public By newChargesAmount = By.Id("com.karum.credits:id/tv_new_charges");         
         public By paymentsCreditsAmount = By.Id("com.karum.credits:id/tv_payments_credits");         
         public By monthlyAmount = By.Id("com.karum.credits:id/tv_monthly");
@@ -35,6 +34,8 @@ namespace pages
 
         public void verifyPageElements(Client clientData)
         {
+            _driver.Report.StepDescription("Verify if all elements from Consulta Saldo Page are on screen");
+
             assertElementText(headerTitle, "Saldo");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
 
@@ -117,6 +118,8 @@ namespace pages
             assertTextContains(stepThreeDescriptionText, "Realiza tu pago en efectivo con tu número de referencia y mencionando el pago mediante Paynet");
 
             assertElementWithTextExist("Tu pago quedará registrado en línea automáticamente, guarda tu comprobante de pago para cualquier aclaración al número 800 286 2726");
+
+            _driver.Report.EndStep();
         }
     }
 }

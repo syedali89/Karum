@@ -5,21 +5,23 @@ using utility;
 
 namespace tests
 {
+    [TestFixture("Pagar en Tienda Suite")]
     public class PagarTiendaSuite : BaseTest 
     {
         public HomePage home;
-        public LogIN logIN; 
-        public PagarTiendaPage pagarTienda; 
+        public PagarTiendaPage pagarTienda;
 
-        [SetUp] 
-        public void beforeMethod()
+        public PagarTiendaSuite(string testClass)
         {
-            logIN = new LogIN(_driver);
+            this.testClass = testClass;
+        }
 
-            _driver.GetIntance().LaunchApp();
-            logIN.grantAllPermissions();
+        [SetUp]
+        public override void beforeMethod()
+        {
+            base.beforeMethod();
+
             clientData = DataRecover.RecoverClientData();
-
             home = logIN.allLoginProcess(clientData);
             pagarTienda = home.tapPagarTiendaBtn();
         }
