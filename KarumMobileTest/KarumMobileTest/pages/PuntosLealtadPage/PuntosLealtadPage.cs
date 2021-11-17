@@ -5,13 +5,8 @@ namespace pages
     using OpenQA.Selenium;
     using utility;
 
-    public class PuntosLealtadPage : BasePage
+    public partial class PuntosLealtadPage : BasePage
     {
-        //By
-        public By canjearBtn = By.Id("com.karum.credits:id/tv_item_1");
-        public By beneficiosBtn = By.Id("com.karum.credits:id/tv_item_2");
-        public By pointsValue = By.Id("com.karum.credits:id/tv_available_points");
-
         //Contructor
         public PuntosLealtadPage(Driver driver) : base(driver)
         {}

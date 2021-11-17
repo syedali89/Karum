@@ -135,25 +135,13 @@ namespace utility
                     var deleteCommand = new Dictionary<string, object>();
                     deleteCommand.Add("command", "rm");
                     deleteCommand.Add("args", delete);
-                    ExecuteCommand(deleteCommand);
+                    _driver.ExecuteScript("mobile: shell", deleteCommand);
                 }
                 else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
                 {
                     ///TODO
                     throw new NotImplementedException();
                 }
-            }
-        }
-
-        public void ExecuteCommand(Dictionary<string, object> args)
-        {
-            if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
-            {
-                _driver.ExecuteScript("mobile: shell", args);
-            }
-            else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
-            {
-                ///TODO
             }
         }
 

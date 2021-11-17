@@ -5,13 +5,8 @@ using utility;
 
 namespace pages
 {
-    public class SandwichMenuPage : BasePage
-    {
-        //By
-        public By closeBtn = By.Id("com.karum.credits:id/iv_close_menu");
-        public By userNameDisplay = By.Id("com.karum.credits:id/tv_name_menu");
-        public By cerrarSesionBtn = By.Id("com.karum.credits:id/menuLogout");
-
+    public partial class SandwichMenuPage : BasePage
+    {        
         //Contructor
         public SandwichMenuPage(Driver driver) : base(driver)
         {}

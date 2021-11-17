@@ -5,13 +5,8 @@ namespace pages
     using OpenQA.Selenium;
     using utility;
 
-    public class PagarTiendaPage : BasePage
-    {
-        //By 
-        public By codigoQRbutton = By.Id("com.karum.credits:id/tv_item_1");
-        public By codigoBarrasbutton = By.Id("com.karum.credits:id/tv_item_2");
-        public By QRcodeDisplay = By.Id("com.karum.credits:id/iv_qr_purchases");
-        public By bardcodeDisplay = By.Id("com.karum.credits:id/iv_barcode_purchases");        
+    public partial class PagarTiendaPage : BasePage
+    {       
         //Contructor
         public PagarTiendaPage(Driver driver) : base(driver)
         {}
@@ -33,14 +28,32 @@ namespace pages
         public void verifyQRcodeDisplayed()
         {
             _driver.Report.StepDescription("Verify if QR Code is on screen");
-            Assert.IsTrue(validateElementVisible(QRcodeDisplay), "Error, QR code is not visible");
+
+            if (_driver.GetRemoteState())
+            {
+                ///TODO implement Perfecto Image validation
+            }
+            else
+            {
+                Assert.IsTrue(validateElementVisible(QRcodeDisplay), "Error, QR code is not visible");
+            }
+
             _driver.Report.EndStep();
         }
 
         public void verifyBardcodeDisplayed()
         {
             _driver.Report.StepDescription("Verify if Barcode is on screen");
-            Assert.IsTrue(validateElementVisible(bardcodeDisplay), "Error, Bardcode is not visible");
+
+            if (_driver.GetRemoteState())
+            {
+                ///TODO implement Perfecto Image validation
+            }
+            else
+            {
+                Assert.IsTrue(validateElementVisible(bardcodeDisplay), "Error, Bardcode is not visible");
+            }            
+            
             _driver.Report.EndStep();
         }
 

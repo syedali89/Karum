@@ -6,19 +6,8 @@ namespace pages
     using data;
     using System.Collections.Generic;
 
-    public class MisMovimientosPage : BasePage
+    public partial class MisMovimientosPage : BasePage
     {
-        //By
-        public By allMovewmentsItems = By.XPath("//*[@resource-id='com.karum.credits:id/rv_movements']/*");
-        public By amountItem = By.XPath("//*[@resource-id='com.karum.credits:id/tv_amount_item']");
-        public By transactionNumber = By.XPath("//*[@resource-id='com.karum.credits:id/tv_transaction_item']");
-        public By transactionType = By.XPath("//*[@resource-id='com.karum.credits:id/tv_credit_item']");
-        //By Movement selected
-        public By movementDetail = By.Id("com.karum.credits:id/tv_movement_detail");
-        public By amountDetail = By.Id("com.karum.credits:id/tv_amount_detail");
-        public By requestInfoLinktext = By.Id("com.karum.credits:id/tv_request_info");
-        public By closeMovementDetail = By.Id("com.karum.credits:id/touch_outside");
-
         //Contructor
         public MisMovimientosPage(Driver driver) : base(driver) 
         {
@@ -93,14 +82,17 @@ namespace pages
             {
                 movimientosScreen.Add(
                     new Movimiento(element.FindElement(transactionNumber).Text, element.FindElement(transactionType).Text, element.FindElement(amountItem).Text));
-            }            
-            
-            SwipeAction.swipeDownUntilElementText(_driver, clientData.clientMovimientos[clientData.clientMovimientos.Count - 1].moneyAmount);
+            }
 
-            foreach (var element in _driver.GetIntance().FindElements(allMovewmentsItems))
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
             {
-                movimientosScreen.Add(
-                    new Movimiento(element.FindElement(transactionNumber).Text, element.FindElement(transactionType).Text, element.FindElement(amountItem).Text));
+                SwipeAction.swipeDownUntilElementText(_driver, clientData.clientMovimientos[clientData.clientMovimientos.Count - 1].moneyAmount);
+
+                foreach (var element in _driver.GetIntance().FindElements(allMovewmentsItems))
+                {
+                    movimientosScreen.Add(
+                        new Movimiento(element.FindElement(transactionNumber).Text, element.FindElement(transactionType).Text, element.FindElement(amountItem).Text));
+                }
             }
 
             Assert.IsTrue(movimientosScreen.Count > 0, "Error, there are no Movimientos on Screen");
