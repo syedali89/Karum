@@ -6,21 +6,8 @@ namespace pages
     using utility;
     using static constants;
 
-    public class HomePage : BasePage
+    public partial class HomePage : BasePage
     {
-        //By Home buttonS
-        public By pagarTiendaBtn = By.Id("com.karum.credits:id/tv_purchases_main");
-        public By misMovimientosBtn = By.Id("com.karum.credits:id/tv_movements_main");
-        public By estadoCuentaBtn = By.Id("com.karum.credits:id/tv_account_status_main");
-        public By puntosLealtadBtn = By.Id("com.karum.credits:id/tv_loyalty_main");
-        public By consultaSaldoBtn = By.Id("com.karum.credits:id/tv_balance_consult_main");
-        //By Sandwich Area
-        public By sandwichBtn = By.Id("com.karum.credits:id/iv_home_menu_header");
-        public By greetingsClient = By.Id("com.karum.credits:id/tv_title_header");
-        //By CreditoKarum
-        public By numberClient = By.Id("com.karum.credits:id/tv_credit_card_main");
-        public By totalamountClient = By.Id("com.karum.credits:id/tv_credit_balance_main");
-
         //Contructor
         public HomePage(Driver driver) : base(driver)
         {}

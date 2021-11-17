@@ -42,15 +42,16 @@ namespace pages
         }
 
         public virtual void SetIOSBy()
-        {
+        {            
+            headerTitle = By.XPath("//XCUIElementTypeStaticText[contains(@label, 'Hola, ')]");
+            downMenuHome = By.XPath("//XCUIElementTypeTabBar/XCUIElementTypeButton[1]");
+            downMenuCredit = By.XPath("//XCUIElementTypeTabBar/XCUIElementTypeButton[2]");
+            downMenuProfile = By.XPath("//XCUIElementTypeTabBar/XCUIElementTypeButton[3]");
+            clientNumber = By.XPath("//XCUIElementTypeStaticText[contains(@label, '**********')]");
+            backButton = By.XPath("//*[@label='ic back KARUM']");
+
+            //TODO
             documentBody = By.XPath("//android.view.View/android.widget.TextView");
-            headerTitle = By.Id("com.karum.credits:id/tv_title_header");
-            backButton = By.Id("com.karum.credits:id/iv_home_back_header");
-            clientNumber = By.Id("com.karum.credits:id/tv_credit_card_num_item");
-                        
-            downMenuHome = By.Id("com.karum.credits:id/mainFragment");
-            downMenuCredit = By.Id("com.karum.credits:id/creditsFragment");
-            downMenuProfile = By.Id("com.karum.credits:id/menu_3");    
         }
 
         public void tapGoBack()
