@@ -1,10 +1,6 @@
 namespace pages
 {
-    using NUnit.Framework;
     using OpenQA.Selenium;
-    using utility;
-    using data;
-    using System.Collections.Generic;
 
     public partial class MisMovimientosPage : BasePage
     {
@@ -13,6 +9,7 @@ namespace pages
         public By amountItem = By.XPath("//*[@resource-id='com.karum.credits:id/tv_amount_item']");
         public By transactionNumber = By.XPath("//*[@resource-id='com.karum.credits:id/tv_transaction_item']");
         public By transactionType = By.XPath("//*[@resource-id='com.karum.credits:id/tv_credit_item']");
+
         //By Movement selected
         public By movementDetail = By.Id("com.karum.credits:id/tv_movement_detail");
         public By amountDetail = By.Id("com.karum.credits:id/tv_amount_detail");

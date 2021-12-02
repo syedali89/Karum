@@ -17,12 +17,27 @@ namespace pages
 
         //Contructor
         public EstadoCuentaPage(Driver driver) : base(driver)
-        {}
+        {            
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                currentPageDescripcion = "Páginas 1/4";
+            }
+        }
 
         public void tapEstadoCuenta(string month)
         {
             _driver.Report.StepDescription("Tap Estado de cuenta with value: '"+ month + "' button");
-            By estadoCuenta = By.XPath("//*[contains(@text, '" + month + "')]");
+
+            By estadoCuenta = null;
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                estadoCuenta = By.XPath("//*[contains(@text, '" + month + "')]");
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                estadoCuenta = By.XPath("//*[contains(@label, '" + month + "')]");
+            }
+
             clickElement(estadoCuenta);
             _driver.Report.EndStep();
         }
@@ -31,6 +46,10 @@ namespace pages
         {
             _driver.Report.StepDescription("Tap CANCELAR button");
             clickElement(CANCELARpasswordbtn);
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                tapGoBack();
+            }
             _driver.Report.EndStep();
         }
 
@@ -61,21 +80,18 @@ namespace pages
         public void tapDESCARGAR()
         {
             _driver.Report.StepDescription("Tap Descargar button");
-
-            if (filesONDownload().Count > 0)
+            
+            if (!_driver.GetRemoteState())
             {
-                _driver.DeleteFilesDownload();
+                if (filesONDownload().Count > 0)
+                {
+                    _driver.DeleteFilesDownload();
+                }
             }
             
             clickElement(DESCARGARBtn);
-              
-            var lista = filesONDownload();
-            
-            while (lista.Count <= 0)
-            {
-                Thread.Sleep(500);
-                lista = filesONDownload();
-            }
+
+            Thread.Sleep(3000);
             _driver.Report.EndStep();
         }
 
@@ -102,7 +118,13 @@ namespace pages
         public void inputPASSWORD(string password)
         {
             _driver.Report.StepDescription("Inform the input Password field");
+            
             sendTextElement(passwordEstadoCuenta, password);
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                clickElement(ACEPTARpasswordbtn);
+            }
+
             _driver.Report.EndStep();
         }
 
@@ -112,9 +134,9 @@ namespace pages
 
             assertElementText(headerTitle, "Estado de cuenta");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
-            assertElementWithTextExist("Crédito Karum");
-            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
             
+            verifyCreditoKarumNumber(clientData);
+
             assertElementWithTextExist("Selecciona el estado de cuenta\nque deseas consultar");
 
             var listEstadoCuenta = _driver.GetIntance().FindElements(estadosCuenta);
@@ -142,7 +164,15 @@ namespace pages
             _driver.Report.StepDescription("Verify if all elements from Password Modal are on Screen");
 
             assertElementWithTextExist(@"Contraseña requerida");
-            assertElementWithTextExist(@"Por favor ingresa la contraseña del Estado de cuenta");
+
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                assertElementWithTextExist(@"Por favor ingresa la contraseña del Estado de cuenta");
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                assertElementText(By.XPath("//*[contains(@label, 'Por favor ingresa la')]"), @"Por favor ingresa la contraseña del  Estado de cuenta");
+            }
 
             Assert.IsTrue(validateElementVisible(passwordEstadoCuenta), "Error, password input field is not visible");
             Assert.IsTrue(validateElementVisible(ACEPTARpasswordbtn), "Error, ACEPTAR button is not visible");
@@ -178,8 +208,8 @@ namespace pages
 
             verifyCorrectPasswordMessage(mounth);
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
-            assertElementWithTextExist("Crédito Karum");
-            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
+
+            verifyCreditoKarumNumber(clientData);
 
             this.verifyCurrentPage();
             Assert.IsTrue(validateElementVisible(nextPageBtn), "Error, next page button is not visible");
@@ -195,25 +225,45 @@ namespace pages
             _driver.Report.StepDescription("Verify if the document was download");
 
             DateTime currentDate = DateTime.Now;
-            string pdfname = string.Format("Karum-{0}_{1}-{2}", Month, currentDate.Year, currentDate.ToString("yyyyMMdd"));
+            string pdfname = string.Empty;
 
-            bool fileWasDownload = false;
-
-            var lista = filesONDownload();
-
-            Assert.IsTrue(lista.Count > 0, "Error, no file was found in Download folder");
-            Assert.IsTrue(lista.Count == 1, "Error, if has to be only one file in Download folder");
-
-            foreach (string file in lista)
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
             {
-                if (file.Contains(pdfname) && file.Contains(".pdf"))
-                {
-                    fileWasDownload = true;
-                    break;
-                }
+                pdfname = string.Format("Karum-{0}_{1}-{2}", Month,
+                    currentDate.Year, currentDate.ToString("yyyyMMdd"));
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                pdfname = string.Format("KARUM-{0} {1}-{2}", Month,
+                        currentDate.Year, currentDate.ToString("yyyyMMdd"));
             }
 
-            Assert.IsTrue(fileWasDownload, "Error, expected file was not find in Download folder");
+            if (_driver.GetRemoteState())
+            {
+                var fileApp = new FileApp(_driver);
+                var documentElement = fileApp.CheckDownloadDocument(pdfname);
+                Assert.IsNotNull(documentElement, "Error, expected file was not find in Download folder");
+            }
+            else
+            {
+                bool fileWasDownload = false;
+
+                var lista = filesONDownload();
+
+                Assert.IsTrue(lista.Count > 0, "Error, no file was found in Download folder");
+                Assert.IsTrue(lista.Count == 1, "Error, if has to be only one file in Download folder");
+
+                foreach (string file in lista)
+                {
+                    if (file.Contains(pdfname) && file.Contains(".pdf"))
+                    {
+                        fileWasDownload = true;
+                        break;
+                    }
+                }
+
+                Assert.IsTrue(fileWasDownload, "Error, expected file was not find in Download folder");
+            }
 
             _driver.Report.EndStep();
         }
@@ -229,10 +279,17 @@ namespace pages
                 currentPage--;
             }
 
-            this.currentPageDescripcion = string.Format("Páginas {0} / 4", currentPage.ToString());
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                this.currentPageDescripcion = string.Format("Páginas {0} / 4", currentPage.ToString());
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                this.currentPageDescripcion = string.Format("Páginas {0}/4", currentPage.ToString());
+            }
         }
 
-        private List<string> filesONDownload()
+        public List<string> filesONDownload()
         {            
             string path = string.Empty;
             if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))

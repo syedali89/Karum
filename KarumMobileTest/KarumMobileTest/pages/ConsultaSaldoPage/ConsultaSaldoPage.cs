@@ -20,8 +20,7 @@ namespace pages
             assertElementText(headerTitle, "Saldo");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
 
-            assertElementWithTextExist("Crédito Karum");
-            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
+            verifyCreditoKarumNumber(clientData);
 
             assertElementWithTextExist("Fecha límite de pago");
             assertElementWithTextExist("Periodo");

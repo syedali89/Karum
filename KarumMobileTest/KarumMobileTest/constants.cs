@@ -12,6 +12,7 @@
     public const string SUBSTRACT = "Subtract";
     public const string MOVILE_DOWNLOAD_PATHFOLDER_ANDROID = "/storage/emulated/0/Download";
     public const string MOVILE_DOWNLOAD_PATHFOLDER_IOS = "TODO";
+    public const string ERROR_RECOVERING_SECURITY_CODE = "Error trying to recover security code";
 
     public enum Direction
     {

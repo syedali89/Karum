@@ -4,6 +4,7 @@ namespace tests
     using NUnit.Framework;
     using NUnit.Framework.Interfaces;
     using pages;
+    using System;
     using utility;
 
     [TestFixture]
@@ -13,13 +14,6 @@ namespace tests
         protected Driver _driver;
         protected Client clientData;
         public LogIN logIN;
-
-        //[OneTimeSetUp]
-        //public void beforeClass()
-        //{
-        //    _driver = new Driver();
-        //    CreateReportingClient();
-        //}
 
         [SetUp]
         public virtual void beforeMethod()
@@ -46,7 +40,7 @@ namespace tests
             }
             else
             {
-                _driver.Report.TestFails(_driver.GetIntance());
+                _driver.Report.TestFails(_driver.GetIntance(), _driver.exception);
             }
 
             //End report
@@ -58,17 +52,6 @@ namespace tests
                 _driver.GetIntance().Quit();
             }
         }
-
-        //[OneTimeTearDown]
-        //public void afterClass()
-        //{
-        //    _driver.Report.TestCaseEndReport();
-
-        //    if (_driver != null)
-        //    {
-        //        _driver.GetIntance().Quit();
-        //    }
-        //}
 
         private void CreateReportingClient()
         {

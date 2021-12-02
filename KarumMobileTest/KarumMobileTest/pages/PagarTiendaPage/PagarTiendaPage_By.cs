@@ -18,8 +18,8 @@ namespace pages
 
             codigoQRbutton = By.XPath("//*[@label='Código QR']");
             codigoBarrasbutton = By.XPath("//*[@label='Código de barras']");
-            QRcodeDisplay = By.XPath("//XCUIElementTypeOther[4]/XCUIElementTypeImage[1]");
-            bardcodeDisplay = By.XPath("//XCUIElementTypeOther[4]/XCUIElementTypeImage[1]");
+            QRcodeDisplay = By.XPath("//XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[last()]");
+            bardcodeDisplay = By.XPath("//XCUIElementTypeOther[4]/XCUIElementTypeImage[1]/..");
         }
     }
 }

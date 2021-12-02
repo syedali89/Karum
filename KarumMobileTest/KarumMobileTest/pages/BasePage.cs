@@ -12,8 +12,11 @@ namespace pages
     using static constants;
     using OpenQA.Selenium.Appium.Interfaces;
     using OpenQA.Selenium.Appium.iOS;
+    using OpenQA.Selenium.Appium.iOS.Enums;
+    using OpenQA.Selenium.Appium.MultiTouch;
 
-    public class BasePage {
+    public class BasePage 
+    {
         public Driver _driver;
         public WebDriverWait wait;
         public Actions act;
@@ -43,15 +46,13 @@ namespace pages
 
         public virtual void SetIOSBy()
         {            
-            headerTitle = By.XPath("//XCUIElementTypeStaticText[contains(@label, 'Hola, ')]");
+            headerTitle = By.XPath("//XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText");
             downMenuHome = By.XPath("//XCUIElementTypeTabBar/XCUIElementTypeButton[1]");
             downMenuCredit = By.XPath("//XCUIElementTypeTabBar/XCUIElementTypeButton[2]");
             downMenuProfile = By.XPath("//XCUIElementTypeTabBar/XCUIElementTypeButton[3]");
             clientNumber = By.XPath("//XCUIElementTypeStaticText[contains(@label, '**********')]");
             backButton = By.XPath("//*[@label='ic back KARUM']");
-
-            //TODO
-            documentBody = By.XPath("//android.view.View/android.widget.TextView");
+            documentBody = By.XPath("//XCUIElementTypeTextView");
         }
 
         public void tapGoBack()
@@ -134,18 +135,32 @@ namespace pages
         {
             waitVisibility(locator);
 
-            _driver.GetIntance().FindElement(locator).SendKeys(text);
+            var sendkeyElement = _driver.GetIntance().FindElement(locator);
+            sendkeyElement.SendKeys(text);
 
             if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
             {
-                _driver.GetIntance().FindElement(locator).SendKeys(Keys.Enter);
+                _driver.GetIOSDriver().HideKeyboard(HideKeyboardStrategy.Tap_outside);
+                
+                if (_driver.GetIOSDriver().IsKeyboardShown())
+                {
+                    _driver.GetIOSDriver().HideKeyboard(HideKeyboardStrategy.Press_key, "Done");
+                }
+                if (_driver.GetIOSDriver().IsKeyboardShown())
+                {
+                    sendkeyElement.SendKeys(Keys.Enter);
+                }
+                if (_driver.GetIOSDriver().IsKeyboardShown())
+                {
+                    clickElement(By.XPath("//XCUIElementTypeStaticText[@hittable='true']"));
+                }
             }
         }
 
         //Recover Text
         protected string getTextElement(By locator)
         {
-            waitVisibility(locator);
+            Assert.IsTrue(SwipeAction.swipeDownUntilElementExist(_driver, locator), "Error, trying to recover element text.");
             return _driver.GetIntance().FindElement(locator).Text;
         }
 
@@ -158,9 +173,8 @@ namespace pages
             {
                 waitVisibility(locator);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.Message);
                 elementVisible = false;
             }
 
@@ -198,6 +212,12 @@ namespace pages
 
             Assert.IsTrue(_driver.GetIntance().FindElement(elementSelected).Selected, "Error, The expected down menu element '" + menuSelected.ToString() + "' is not Selected");
         }        
+        
+        protected void verifyCreditoKarumNumber(Client clientData)
+        {
+            assertElementWithTextExist("Crédito Karum");            
+             assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
+        }        
 
         protected void assertElementText(By locator, string text)
         {
@@ -224,9 +244,13 @@ namespace pages
 
         protected void assertElementWithTextExist(string text)
         {
-            By locator = By.XPath("//*[@text='" + text + "']");
+            By locator = null;
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                locator = By.XPath("//*[@text='" + text + "']");
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
             {
                 locator = By.XPath("//*[@label='" + text + "']");
             }            
@@ -242,39 +266,53 @@ namespace pages
             bool notEndDocument = true;
             string lastText = "";
 
-            while (notEndDocument) 
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
             {
-                waitVisibility(documentBody);
-                string lastTextDisplayed;
-                var bodyDocumentElements = _driver.GetIntance().FindElements(documentBody);
-
-                if (bodyDocumentElements[bodyDocumentElements.Count - 1].Text.Equals(String.Empty)) 
+                while (notEndDocument)
                 {
-                    lastTextDisplayed = bodyDocumentElements[bodyDocumentElements.Count - 2].Text;
-                }
-                else 
-                {
-                    lastTextDisplayed = bodyDocumentElements[bodyDocumentElements.Count - 1].Text;
-                }
+                    waitVisibility(documentBody);
+                    string lastTextDisplayed;
+                    var bodyDocumentElements = _driver.GetIntance().FindElements(documentBody);
 
-                if (lastTextDisplayed.Equals(lastText)) 
-                {
-                    notEndDocument = false;
-                    continue;
+                    if (bodyDocumentElements[bodyDocumentElements.Count - 1].Text.Equals(String.Empty))
+                    {
+                        lastTextDisplayed = bodyDocumentElements[bodyDocumentElements.Count - 2].Text;
+                    }
+                    else
+                    {
+                        lastTextDisplayed = bodyDocumentElements[bodyDocumentElements.Count - 1].Text;
+                    }
+
+                    if (lastTextDisplayed.Equals(lastText))
+                    {
+                        notEndDocument = false;
+                        continue;
+                    }
+
+                    foreach (AppiumWebElement docElement in bodyDocumentElements)
+                    {
+                        recoverFullText = recoverFullText + docElement.Text + "\n";
+
+                        Assert.IsTrue(
+                                documentFullText.Contains(docElement.Text),
+                                "Error, in validation of document " + documentName +
+                                        ", official document : \nSTART DOCUMENT '" + documentFullText + "'\nEND OFFICIAL DOCUMENT " +
+                                        "\nAnd recover from app document: START DOCUMENT '" + recoverFullText + "'\nEND RECOVER DOCUMENT" +
+                                        "\nDONT MATCH. \n*Document recover could be incomplete because stop when some line is different from official.");
+                    }
+
+                    lastText = lastTextDisplayed;
                 }
+            }
+            else
+            {
+                var bodyDocumentText = _driver.GetIntance().FindElement(documentBody).Text;
 
-                foreach(AppiumWebElement docElement in bodyDocumentElements) {
-                    recoverFullText = recoverFullText + docElement.Text + "\n";
-
-                    Assert.IsTrue(
-                            documentFullText.Contains(docElement.Text),
-                            "Error, in validation of document " + documentName +
-                                    ", official document : \nSTART DOCUMENT '" + documentFullText + "'\nEND OFFICIAL DOCUMENT " +
-                                    "\nAnd recover from app document: START DOCUMENT '" + recoverFullText + "'\nEND RECOVER DOCUMENT" +
-                                    "\nDONT MATCH. \n*Document recover could be incomplete because stop when some line is different from official.");
-                }
-
-                lastText = lastTextDisplayed;
+                Assert.IsTrue(documentFullText.Equals(bodyDocumentText),
+                    "Error, in validation of document " + documentName +
+                    ", official document : \nSTART DOCUMENT '" + documentFullText + "'\nEND OFFICIAL DOCUMENT " +
+                    "\nAnd recover from app document: START DOCUMENT '" + bodyDocumentText + "'\nEND RECOVER DOCUMENT" +
+                    "\nDONT MATCH.");
             }
         }
     }

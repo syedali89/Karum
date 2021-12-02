@@ -55,7 +55,7 @@ namespace pages
             logINPassword = By.XPath("//XCUIElementTypeSecureTextField");
             userEmailOnScreen = By.XPath("//*[contains(@label, '@')]");
             changeUserBtn = By.XPath("//XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]");
-            iniciaSesionBtn = By.XPath("//*[@label='INICIAR SESIÓN']");
+            iniciaSesionBtn = By.XPath("//XCUIElementTypeButton[3]");
         }
     }
 }

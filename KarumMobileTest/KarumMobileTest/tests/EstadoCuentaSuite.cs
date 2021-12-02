@@ -47,7 +47,6 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD("XXXX");
-            estadoCuenta.tapACEPTAR();
             estadoCuenta.verifyWrongPasswordMessage();
             estadoCuenta.tapACEPTAR();
             home.verifyEstadoCuentaPageOnScreen();
@@ -58,7 +57,6 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD(clientData.estadoCuentaPass);
-            estadoCuenta.tapACEPTAR();
             estadoCuenta.verifyCorrectPasswordMessage(AGOSTO);
         }
 
@@ -67,7 +65,6 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD(clientData.estadoCuentaPass);
-            estadoCuenta.tapACEPTAR();
             estadoCuenta.verifypdfDocumentElements(clientData, AGOSTO);
         }
 
@@ -76,7 +73,6 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD(clientData.estadoCuentaPass);
-            estadoCuenta.tapACEPTAR();
             estadoCuenta.tapNextPage();
             estadoCuenta.verifyCurrentPage();
             estadoCuenta.tapPreviousPage();
@@ -88,8 +84,7 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD(clientData.estadoCuentaPass);
-            estadoCuenta.tapACEPTAR();
-            estadoCuenta.SwipeDownPdfDocument();
+            estadoCuenta.SwipeDownPdfDocument(); 
             estadoCuenta.verifyCurrentPage();
             estadoCuenta.SwipeUpPdfDocument();
             estadoCuenta.verifyCurrentPage();
@@ -100,7 +95,6 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD(clientData.estadoCuentaPass);
-            estadoCuenta.tapACEPTAR();
             estadoCuenta.tapNextPage();
             estadoCuenta.tapNextPage();
             estadoCuenta.tapNextPage();
@@ -112,7 +106,6 @@ namespace tests
         {
             estadoCuenta.tapEstadoCuenta(AGOSTO);
             estadoCuenta.inputPASSWORD(clientData.estadoCuentaPass);
-            estadoCuenta.tapACEPTAR();
             estadoCuenta.tapDESCARGAR();
             estadoCuenta.verifypdfDocumentDownload(AGOSTO);
         }

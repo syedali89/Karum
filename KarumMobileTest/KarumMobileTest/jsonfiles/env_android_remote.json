@@ -4,7 +4,7 @@
 	"DEVICE_NAME": "",
 	"IOS_UDID": "",
 	"PLATAFORM_VERSION": "[11].*",
-	"MODEL": "Pixel.*",
+	"MODEL": "Pixel 5",
 	"MANUFACTURER": "Google",
 	"REMOTE": true,
 	"CLOUDNAME": "karum",

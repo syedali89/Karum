@@ -31,9 +31,9 @@ namespace pages
 
             assertElementText(headerTitle, "Puntos de lealtad");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
-            assertElementWithTextExist("Crédito Karum");
-            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
             
+            verifyCreditoKarumNumber(clientData);
+
             assertElementWithTextExist("Puntos disponibles");
             assertElementText(pointsValue, clientData.totalLoyalPoints);
             assertElementWithTextExist("Dinero disponible");
@@ -52,7 +52,14 @@ namespace pages
             _driver.Report.StepDescription("Verify Canjear message is on screen");
 
             assertElementWithTextExist("Lugares de canje");
-            assertElementWithTextExist("Puedes canjear en la misma tienda donde realizas tus compras o en cualquier tienda de la cadena.");
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                assertElementWithTextExist("Puedes canjear en la misma tienda donde realizas tus compras o en cualquier tienda de la cadena.");
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                assertElementText(By.XPath("//*[contains(@label, 'Puedes canjear en la misma')]"), "Puedes canjear en la misma tienda donde realizas tus compras  o en cualquier tienda de la cadena.");
+            }
 
             _driver.Report.EndStep();
         }

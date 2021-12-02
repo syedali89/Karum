@@ -32,6 +32,7 @@ namespace pages
             if (_driver.GetRemoteState())
             {
                 ///TODO implement Perfecto Image validation
+                Assert.IsTrue(validateElementVisible(QRcodeDisplay), "Error, QR code is not visible");
             }
             else
             {
@@ -48,6 +49,7 @@ namespace pages
             if (_driver.GetRemoteState())
             {
                 ///TODO implement Perfecto Image validation
+                Assert.IsTrue(validateElementVisible(bardcodeDisplay), "Error, Bardcode is not visible");
             }
             else
             {
@@ -64,9 +66,8 @@ namespace pages
             assertElementText(headerTitle, "Pagar en tienda");
             Assert.IsTrue(validateElementVisible(backButton), "Error, goBack button is not visible");
 
-            assertElementWithTextExist("Crédito Karum");
-            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
-            
+            verifyCreditoKarumNumber(clientData);
+
             assertElementText(codigoQRbutton, "Código QR");
             assertElementText(codigoBarrasbutton, "Código de barras");
 

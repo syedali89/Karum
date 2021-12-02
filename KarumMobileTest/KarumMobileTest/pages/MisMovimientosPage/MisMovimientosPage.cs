@@ -17,10 +17,13 @@ namespace pages
         {
             _driver.Report.StepDescription("Tap First Movimiento");
 
+            assertElementWithTextExist("Mis movimientos");
+            var firstMovbimiento = _driver.GetIntance().FindElements(allMovewmentsItems)[0];
+
             Movimiento movimiento = new Movimiento(
-                _driver.GetIntance().FindElement(transactionNumber).Text, _driver.GetIntance().FindElement(transactionType).Text, _driver.GetIntance().FindElement(amountItem).Text);
-            
-            clickElement(amountItem);
+               firstMovbimiento.FindElement(transactionNumber).Text, firstMovbimiento.FindElement(transactionType).Text, firstMovbimiento.FindElement(amountItem).Text);
+
+            firstMovbimiento.Click();
             _driver.Report.EndStep();
 
             return movimiento;
@@ -44,8 +47,20 @@ namespace pages
         {
             _driver.Report.StepDescription("Verify Solicitar Aclaracion message is on screen");
 
-            assertElementWithTextExist("Solicitud de aclaración enviada");
-            assertElementWithTextExist("Te hemos enviado la información sobre la solicitud de aclaración de cargo no reconocido a tu correo " + client.userEmail);
+            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            {
+                assertElementWithTextExist("Solicitud de aclaración enviada");
+                assertElementWithTextExist("Te hemos enviado la información sobre la solicitud de aclaración de cargo no reconocido a tu correo " + client.userEmail);
+            }
+            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            {
+                assertTextContains(By.XPath("//*[contains(@label, 'Solicitud de')]") ,"Solicitud de");                
+                assertTextContains(By.XPath("//*[contains(@label, 'Solicitud de')]") ,"aclaración enviada");
+
+                assertTextContains(By.XPath("//*[contains(@label, 'Te hemos enviado la')]"),  "Te hemos enviado la información sobre la");
+                assertTextContains(By.XPath("//*[contains(@label, 'Te hemos enviado la')]"),  "solicitud de aclaración de cargo no reconocido a");
+                assertTextContains(By.XPath("//*[contains(@label, 'Te hemos enviado la')]"),  "tu correo " + client.userEmail);
+            }
 
             _driver.Report.EndStep();
         }
