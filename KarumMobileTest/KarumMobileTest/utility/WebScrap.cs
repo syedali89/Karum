@@ -17,13 +17,11 @@ namespace utility
         /// </summary>
         public WebScrap() 
         {
-            //Path file = Path("chromedriver.exe");
-            //System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("--headless");
             options.AddArguments("--window-size=1920,1080");
             webdriver = new ChromeDriver(options);
-            webdriverwait = new WebDriverWait(webdriver, TimeSpan.FromSeconds(240));
+            webdriverwait = new WebDriverWait(webdriver, TimeSpan.FromMinutes(5));
         }
 
         public string RecoverDataElementPage(

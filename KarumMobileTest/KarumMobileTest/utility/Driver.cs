@@ -35,7 +35,7 @@ namespace utility
             _appiumOptions.AddAdditionalCapability("waitForAvailableLicense", true);
             _appiumOptions.AddAdditionalCapability("sensorInstrument", true);
             _appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
-            
+
             if (!string.IsNullOrEmpty(_env.envData.DEVICE_NAME))
             {
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, _env.envData.DEVICE_NAME);
@@ -77,7 +77,7 @@ namespace utility
                     _appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, _env.envData.IOS_UDID);
                 }
 
-                 _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromMinutes(5));
+                 _driverios = new IOSDriver<AppiumWebElement>(url, _appiumOptions, TimeSpan.FromMinutes(7));
                 _driver = _driverios;
             }
 
@@ -96,6 +96,7 @@ namespace utility
         private int _height;
         private int _width;
         public ReportTool Report;
+        public Exception exception = new Exception("N");
 
         private class ConfigurationsEnv 
         {
@@ -119,8 +120,8 @@ namespace utility
         {
             if (_env.envData.REMOTE)
             {
-                ///TODO
-                throw new NotImplementedException();
+                exception = new NotImplementedException();
+                throw exception;
             }
             else
             {
@@ -135,25 +136,13 @@ namespace utility
                     var deleteCommand = new Dictionary<string, object>();
                     deleteCommand.Add("command", "rm");
                     deleteCommand.Add("args", delete);
-                    ExecuteCommand(deleteCommand);
+                    _driver.ExecuteScript("mobile: shell", deleteCommand);
                 }
                 else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
                 {
-                    ///TODO
-                    throw new NotImplementedException();
+                    exception = new NotImplementedException();
+                    throw exception;
                 }
-            }
-        }
-
-        public void ExecuteCommand(Dictionary<string, object> args)
-        {
-            if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
-            {
-                _driver.ExecuteScript("mobile: shell", args);
-            }
-            else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
-            {
-                ///TODO
             }
         }
 
@@ -200,7 +189,7 @@ namespace utility
 
                 if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.ANDROID))
                 {
-                    _appiumOptions.AddAdditionalCapability("resolution", "1080x2280");
+                    //_appiumOptions.AddAdditionalCapability("resolution", "1080x2280");
                 }
                 else if (_env.envData.TEST_DEVICE.Equals(EnvironmentData.DEVICE.IOS))
                 {
@@ -223,7 +212,7 @@ namespace utility
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
                 _appiumOptions.AddAdditionalCapability("securityToken", _env.envData.SECURITYTOKEN);     
 
-                url = new Uri(string.Format("https://{0}.perfectomobile.com/nexperience/perfectomobile/wd/hub", _env.envData.CLOUDNAME));                                
+                url = new Uri(string.Format("https://{0}.perfectomobile.com/nexperience/perfectomobile/wd/hub", _env.envData.CLOUDNAME));
             }
             else
             {
@@ -265,7 +254,9 @@ namespace utility
 
             if (_env.remote != "T" && _env.remote != "F" || _env.device != ANDROID && _env.device != IOS)
             {
-                throw new InvalidDataException("Environment variables have a invalid value");
+
+                exception = new InvalidDataException("Environment variables have a invalid value");
+                throw exception;
             }
 
             if (_env.remote.Equals("T"))
@@ -308,7 +299,19 @@ namespace utility
             else
             {
                 Report = new ReportTool(GetRemoteState(), GetDevice().ToString());
-            }
+            }                        
+        }
+
+        public void LaunchNewApp(string bundleId)
+        {            
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args.Add("bundleId", bundleId);
+            _driverios.ExecuteScript("mobile: launchApp", args);
+        }
+
+        public void LaunchNewApp(string package, string activity)
+        {
+            _driverandroid.StartActivity(package, activity);
         }
     }
 }

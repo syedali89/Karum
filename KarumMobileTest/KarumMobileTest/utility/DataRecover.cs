@@ -170,7 +170,19 @@ namespace utility
         public static List<string> RecoverFolderFilesNames(Driver driver, string folderpath) 
         {
             var Listfilesnames = new List<string>();
-            byte[] downloadFolder = driver.GetIntance().PullFolder(folderpath);
+            byte[] downloadFolder = null;
+
+            if (driver.GetRemoteState())
+            {
+                Dictionary<String, Object> pars = new Dictionary<String, Object>();
+                pars.Add("handsetFile", folderpath + "/*");
+                var something = driver.GetIntance().ExecuteScript("mobile:media:delete", pars);
+            }
+            else
+            {
+                downloadFolder = driver.GetIntance().PullFolder(folderpath);
+            }
+            
             File.WriteAllBytes("zipfile", downloadFolder);
 
             using (ZipArchive zip = ZipFile.Open("zipfile", ZipArchiveMode.Read))

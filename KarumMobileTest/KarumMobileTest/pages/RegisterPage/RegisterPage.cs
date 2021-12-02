@@ -4,16 +4,8 @@ namespace pages
     using OpenQA.Selenium;
     using utility;
 
-    public class RegisterPage : BasePage
+    public partial class RegisterPage : BasePage
     {
-        //By elements
-        public By registrateGobtn = By.Id("com.karum.credits:id/btn_on_boarding");
-        public By registrateMessage = By.Id("com.karum.credits:id/tv_title_privacy_notice");
-        public By registratemebtn = By.Id("com.karum.credits:id/btn_register_privacy_notice");
-        public By avisoPrivacidadCheckbox = By.Id("com.karum.credits:id/cb_privacy_notice");
-        public By avisoPrivacidadLink = By.Id("com.karum.credits:id/tv_privacy_notice");
-        public By avisoPrivacidadClose = By.Id("com.karum.credits:id/iv_close_privacy_notice");
-
         //Contructor
         public RegisterPage(Driver driver) : base(driver)
         {}

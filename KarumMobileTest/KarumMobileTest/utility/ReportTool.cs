@@ -6,6 +6,7 @@ namespace utility
     using Reportium.Model;
     using Reportium.Test.Result;
     using System;
+    using static constants;
 
     public class ReportTool
     {
@@ -59,7 +60,7 @@ namespace utility
         }
 
         public void TestCaseEndReport()
-        {
+         {
             if (remote && reportiumClient != null)
             {
                 try
@@ -86,7 +87,7 @@ namespace utility
             }
         }
 
-        public void TestFails(AppiumDriver<AppiumWebElement> driver)
+        public void TestFails(AppiumDriver<AppiumWebElement> driver, Exception ex)
         {
             string path = string.Empty;
             if (remote)
@@ -95,7 +96,14 @@ namespace utility
                 
                 string message = TestContext.CurrentContext.Result.Message + ". Stack Trace:" + TestContext.CurrentContext.Result.StackTrace;
 
-                reportiumClient.TestStop(TestResultFactory.CreateFailure(message));
+                if (ex.Message.Equals(ERROR_RECOVERING_SECURITY_CODE))
+                {
+                    reportiumClient.TestStop(TestResultFactory.CreateFailure(message, ex, "98WKBTwi70"));
+                }
+                else
+                {
+                    reportiumClient.TestStop(TestResultFactory.CreateFailure(message));
+                }
             }
             else
             {

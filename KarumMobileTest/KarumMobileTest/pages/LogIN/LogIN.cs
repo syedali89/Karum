@@ -1,11 +1,12 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System.Threading;
-using utility;
-
 namespace pages
 {
+    using data;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using System.Threading;
+    using utility;
+    using static constants;
+
     public partial class LogIN : BasePage
     {        
         /// <summary>
@@ -39,7 +40,8 @@ namespace pages
 
                 if(code.Equals(string.Empty))
                 {
-                    throw new NotFoundException("Error trying to recover security code");
+                    _driver.exception = new NotFoundException(ERROR_RECOVERING_SECURITY_CODE);
+                    throw _driver.exception;
                 }
             }
             else 
@@ -55,24 +57,7 @@ namespace pages
             {
                 _driver.GetIntance().FindElement(inputSecurityCode).SendKeys(code);
             }
-            //    int i = 0;
-            //    var listSecurityInputs = _driver.GetIntance().FindElements(inputSecurityCode);
 
-            //    foreach (var element in listSecurityInputs)
-            //    {
-            //        if (listSecurityInputs.Count > i)
-            //        {
-            //            element.Clear();
-            //            sendTextElement(element, code.Substring(i, i + 1));                        
-            //        }
-            //        else
-            //        {
-            //            sendTextElement(element, code.Substring(i));
-            //        }
-
-            //        i++;
-            //    }
-            //}
             _driver.Report.EndStep();
         }
 
@@ -121,7 +106,7 @@ namespace pages
 
         public HomePage allLoginProcess(Client clientData) 
         {            
-            this.logINClienteAsesor(constants.CLIENTE);
+            this.logINClienteAsesor(CLIENTE);
 
             this.inputMandatoryFieldThenContinuar(clientData);
             this.insertSecurityCode(true);
@@ -196,15 +181,15 @@ namespace pages
             assertTextContains(title, "Comienza a comprar");
             assertTextContains(title, "desde tu celular");
 
-            assertElementWithTextExist("Ingresa tu número celular (10 dígitos) *");
+            assertElementWithTextExist(@"Ingresa tu número celular (10 dígitos) *");
 
             Assert.IsTrue(validateElementVisible(inputPhoneNumber), "Error, input phone number field is not visible.");
             Assert.IsTrue(validateElementVisible(inputPhoneNumberArea), "Error, input phone area field is not visible.");
 
-            assertElementWithTextExist("Correo electrónico *");
+            assertElementWithTextExist(@"Correo electrónico *");
             Assert.IsTrue(validateElementVisible(inputemail), "Error, input phone number field is not Visible.");
 
-            assertElementWithTextExist("* Campos obligatorios");
+            assertElementWithTextExist(@"* Campos obligatorios");
 
             if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
             {

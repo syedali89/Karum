@@ -7,26 +7,8 @@ namespace pages
     using utility;
     using static constants;
 
-    public class CreditPage : BasePage
-    {
-        //By button
-        public By comprarTiendaBtn = By.Id("com.karum.credits:id/tv_store_purchases");
-        public By misMovimientosBtn = By.Id("com.karum.credits:id/tv_movements");
-        public By estadoCuentaBtn = By.Id("com.karum.credits:id/tv_account_status");
-        public By misPuntosBtn = By.Id("com.karum.credits:id/tv_my_points");
-        //By Sandwich Area
-        public By sandwichBtn = By.Id("com.karum.credits:id/iv_home_menu_header");
-        public By greetingsClient = By.Id("com.karum.credits:id/tv_title_header");
-        //By CreditoKarum
-        public By numberClient = By.Id("com.karum.credits:id/tv_credit_card_main");
-        public By totalamountClient = By.Id("com.karum.credits:id/tv_credit_balance_main");
-        //By Other
-        public By creditLimitAmount = By.Id("com.karum.credits:id/tv_credit_limit");
-        public By paymentAmount = By.Id("com.karum.credits:id/tv_payment_amount");
-        public By nextPaymentDate = By.Id("com.karum.credits:id/tv_next_payment_date");
-        //By cartField
-        public By RequestCardBtn = By.Id("com.karum.credits:id/btn_request");
-
+    public partial class CreditPage : BasePage
+    {        
         //Contructor
         public CreditPage(Driver driver) : base(driver)
         {}
