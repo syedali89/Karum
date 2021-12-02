@@ -4,6 +4,7 @@ namespace pages
     using NUnit.Framework;
     using OpenQA.Selenium;
     using utility;
+    using static constants;
 
     public partial class PuntosLealtadPage : BasePage
     {
@@ -52,11 +53,11 @@ namespace pages
             _driver.Report.StepDescription("Verify Canjear message is on screen");
 
             assertElementWithTextExist("Lugares de canje");
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 assertElementWithTextExist("Puedes canjear en la misma tienda donde realizas tus compras o en cualquier tienda de la cadena.");
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 assertElementText(By.XPath("//*[contains(@label, 'Puedes canjear en la misma')]"), "Puedes canjear en la misma tienda donde realizas tus compras  o en cualquier tienda de la cadena.");
             }

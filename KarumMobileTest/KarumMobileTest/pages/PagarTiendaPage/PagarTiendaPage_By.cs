@@ -1,9 +1,6 @@
-namespace pages 
+namespace pages
 {
-    using data;
-    using NUnit.Framework;
     using OpenQA.Selenium;
-    using utility;
 
     public partial class PagarTiendaPage : BasePage
     {

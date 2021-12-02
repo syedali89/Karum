@@ -1,15 +1,10 @@
 namespace pages
 {
-    using System;
-    using data;
-    using NUnit.Framework;
-    using OpenQA.Selenium;    
-    using utility;
-    using static constants;
+    using OpenQA.Selenium;
 
     public partial class CreditPage : BasePage
     {
-        //By button
+        //By button 
         public By comprarTiendaBtn = By.Id("com.karum.credits:id/tv_store_purchases");
         public By misMovimientosBtn = By.Id("com.karum.credits:id/tv_movements");
         public By estadoCuentaBtn = By.Id("com.karum.credits:id/tv_account_status");

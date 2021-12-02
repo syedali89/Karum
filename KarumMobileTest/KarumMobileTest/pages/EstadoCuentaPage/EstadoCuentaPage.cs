@@ -18,7 +18,7 @@ namespace pages
         //Contructor
         public EstadoCuentaPage(Driver driver) : base(driver)
         {            
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            if (_driver.GetDevice().Equals(OS.IOS))
             {
                 currentPageDescripcion = "Páginas 1/4";
             }
@@ -29,11 +29,11 @@ namespace pages
             _driver.Report.StepDescription("Tap Estado de cuenta with value: '"+ month + "' button");
 
             By estadoCuenta = null;
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 estadoCuenta = By.XPath("//*[contains(@text, '" + month + "')]");
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 estadoCuenta = By.XPath("//*[contains(@label, '" + month + "')]");
             }
@@ -46,7 +46,7 @@ namespace pages
         {
             _driver.Report.StepDescription("Tap CANCELAR button");
             clickElement(CANCELARpasswordbtn);
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            if (_driver.GetDevice().Equals(OS.IOS))
             {
                 tapGoBack();
             }
@@ -120,7 +120,7 @@ namespace pages
             _driver.Report.StepDescription("Inform the input Password field");
             
             sendTextElement(passwordEstadoCuenta, password);
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 clickElement(ACEPTARpasswordbtn);
             }
@@ -165,11 +165,11 @@ namespace pages
 
             assertElementWithTextExist(@"Contraseña requerida");
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 assertElementWithTextExist(@"Por favor ingresa la contraseña del Estado de cuenta");
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 assertElementText(By.XPath("//*[contains(@label, 'Por favor ingresa la')]"), @"Por favor ingresa la contraseña del  Estado de cuenta");
             }
@@ -227,12 +227,12 @@ namespace pages
             DateTime currentDate = DateTime.Now;
             string pdfname = string.Empty;
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 pdfname = string.Format("Karum-{0}_{1}-{2}", Month,
                     currentDate.Year, currentDate.ToString("yyyyMMdd"));
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 pdfname = string.Format("KARUM-{0} {1}-{2}", Month,
                         currentDate.Year, currentDate.ToString("yyyyMMdd"));
@@ -279,11 +279,11 @@ namespace pages
                 currentPage--;
             }
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 this.currentPageDescripcion = string.Format("Páginas {0} / 4", currentPage.ToString());
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 this.currentPageDescripcion = string.Format("Páginas {0}/4", currentPage.ToString());
             }
@@ -292,11 +292,11 @@ namespace pages
         public List<string> filesONDownload()
         {            
             string path = string.Empty;
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 path = MOVILE_DOWNLOAD_PATHFOLDER_ANDROID;
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 path = MOVILE_DOWNLOAD_PATHFOLDER_IOS;
             }

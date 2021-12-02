@@ -1,19 +1,18 @@
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.IO;
-using System.Threading;
-
 namespace utility
 {
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Support.UI;
+    using System;
+    using System.Threading;
+
     public class WebScrap 
     {
         private IWebDriver webdriver;
         private WebDriverWait webdriverwait;
 
         /// <summary>
-        /// Contructor
+        /// Contructor Create a Instance of Chrome Driver for WebScraping
         /// </summary>
         public WebScrap() 
         {
@@ -24,6 +23,14 @@ namespace utility
             webdriverwait = new WebDriverWait(webdriver, TimeSpan.FromMinutes(5));
         }
 
+        /// <summary>
+        /// Recover the text/Attribute value from a Element
+        /// </summary>
+        /// <param name="url">URL webpage</param>
+        /// <param name="pathElementData">Element By object</param>
+        /// <param name="attributeToRecover">the name of the element Attribute what value is going to be recover. If is Empty the element text is going to be recover</param>
+        /// <param name="Iframe">In case is necesary to change Iframe. OPTIONAL</param>
+        /// <returns>Element attribute value</returns>
         public string RecoverDataElementPage(
                 string url, By pathElementData, string attributeToRecover, string Iframe = "") 
         {
@@ -57,6 +64,11 @@ namespace utility
             return returnData;
         }
 
+        /// <summary>
+        /// Wait until a element is visible on Screen
+        /// </summary>
+        /// <param name="url">URL webpage</param>
+        /// <param name="locator">By to find the element</param>
         public void waitElementExist(string url, By locator) 
         {
             webdriver.Navigate().GoToUrl(url);

@@ -1,11 +1,7 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System.Threading;
-using utility;
-
 namespace pages
 {
+    using OpenQA.Selenium;
+
     public partial class LogIN : BasePage
     {
         //LogIN

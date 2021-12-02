@@ -1,9 +1,8 @@
-using NUnit.Framework;
-using OpenQA.Selenium;
-using utility;
-
 namespace pages
 {
+    using NUnit.Framework;
+    using utility;
+
     public partial class INEPhotoPage : BasePage
     {
         //Contructor

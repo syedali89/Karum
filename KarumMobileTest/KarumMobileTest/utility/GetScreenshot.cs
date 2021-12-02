@@ -1,12 +1,18 @@
 namespace utility
 {
-    using System;
-    using System.IO;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
+    using System;
+    using System.IO;
 
     public class GetScreenshot
     {
+        /// <summary>
+        /// Capture a Screenshot from the device
+        /// </summary>
+        /// <param name="driver">AppiumDriver</param>
+        /// <param name="screenshotName">Save File name</param>
+        /// <returns>Saved full path File</returns>
         public static string capture(AppiumDriver<AppiumWebElement> driver, string screenshotName)
         {
             string filename = Path.Combine(

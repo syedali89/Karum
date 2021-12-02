@@ -1,9 +1,8 @@
 namespace pages
 {
     using data;
-    using NUnit.Framework;
     using OpenQA.Selenium;
-    using utility;
+    using static constants;
 
     public partial class FileApp : BasePage
     {
@@ -25,11 +24,11 @@ namespace pages
         {
             By fileBy = null;
             
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 fileBy = By.XPath(string.Format("//*[contains(@text, '{0}')]", partialFileName));    
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 fileBy = By.XPath(string.Format("//*[contains(@label, '{0}')]", partialFileName));
             }

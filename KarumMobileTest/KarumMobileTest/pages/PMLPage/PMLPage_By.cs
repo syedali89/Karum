@@ -1,11 +1,9 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System.Collections.Generic;
-using utility;
-
 namespace pages
 {
+    using data;
+    using OpenQA.Selenium;
+    using static constants;
+
     //PreventMoneyLaunderingPageObject
     public partial class PMLPage : BasePage 
     {
@@ -25,7 +23,7 @@ namespace pages
 
             if (aceptoFieldradiobutton == aceptoField.SIACEPTO)
             {
-                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+                if (_driver.GetDevice().Equals(OS.ANDROID))
                 {
                     returnBy = By.Id("com.karum.credits:id/rb_yes_" + radPosition);
                 }
@@ -36,7 +34,7 @@ namespace pages
             }
             else if (aceptoFieldradiobutton == aceptoField.NOACEPTO)
             {
-                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+                if (_driver.GetDevice().Equals(OS.ANDROID))
                 {
                     returnBy = By.Id("com.karum.credits:id/rb_no_" + radPosition);
                 }

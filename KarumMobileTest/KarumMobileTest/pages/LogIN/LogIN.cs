@@ -3,16 +3,11 @@ namespace pages
     using data;
     using NUnit.Framework;
     using OpenQA.Selenium;
-    using System.Threading;
     using utility;
     using static constants;
 
     public partial class LogIN : BasePage
     {        
-        /// <summary>
-        /// Contructor
-        /// </summary>
-        /// <param name="driver"></param>
         public LogIN(Driver driver) : base(driver) 
         {
         }
@@ -21,7 +16,7 @@ namespace pages
         {
             _driver.Report.StepDescription("Tap button:" + type);
 
-            if (type.Equals(constants.CLIENTE))
+            if (type.Equals(CLIENTE))
             {
                 clickElement(soyClienteBtn);
             }
@@ -49,7 +44,7 @@ namespace pages
                 code = "123456";
             }
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 sendTextElement(inputSecurityCode, code);
             }
@@ -138,7 +133,7 @@ namespace pages
 
             assertElementText(greatingsActivationDevice, "Hola, "+ client.firstNameOne);
             assertElementText(messageActivationDevice, "Activa tu dispositivo, ingresando el código de activación que te enviamos por SMS al ******" + lastPhone);
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 assertElementText(resendcodeLinktext, "Enviar de nuevo");
                 assertElementWithTextExist("¿No recibiste el código?");
@@ -191,7 +186,7 @@ namespace pages
 
             assertElementWithTextExist(@"* Campos obligatorios");
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 assertElementWithTextExist("No tienes cuenta,");
             }

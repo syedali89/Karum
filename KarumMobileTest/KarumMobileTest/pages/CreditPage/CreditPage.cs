@@ -1,9 +1,8 @@
 namespace pages
 {
-    using System;
     using data;
     using NUnit.Framework;
-    using OpenQA.Selenium;    
+    using System;
     using utility;
     using static constants;
 

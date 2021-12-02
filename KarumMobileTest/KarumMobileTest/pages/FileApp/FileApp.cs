@@ -1,12 +1,11 @@
 namespace pages
 {
     using data;
-    using NUnit.Framework;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
     using System;
-    using System.Threading;
     using utility;
+    using static constants;
 
     /// <summary>
     /// This Page Object exist for the sole porpuse of verify if documents download
@@ -20,11 +19,11 @@ namespace pages
         //Contructor
         public FileApp(Driver driver) : base(driver)
         {
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            if (_driver.GetDevice().Equals(OS.IOS))
             {
                 _driver.LaunchNewApp(IOSAppBundleID);
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            else if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 _driver.LaunchNewApp(AndroidAppPackage, AndroidAppActivity);
             }
@@ -32,12 +31,12 @@ namespace pages
 
         public AppiumWebElement CheckDownloadDocument(string partialname)
         {
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 clickElement(BrowseButton);
                 clickElement(DownloadFolder);
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 if (_driver.GetIntance().FindElements(By.XPath("//*[@name='FullDocumentManagerViewControllerNavigationBar']//*[@label='Downloads']))")).Count <= 0)
                 {

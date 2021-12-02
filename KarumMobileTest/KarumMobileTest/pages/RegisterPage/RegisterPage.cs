@@ -1,7 +1,6 @@
 namespace pages
 {
     using NUnit.Framework;
-    using OpenQA.Selenium;
     using utility;
 
     public partial class RegisterPage : BasePage

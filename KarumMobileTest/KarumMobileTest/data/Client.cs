@@ -4,7 +4,7 @@ namespace data
 
     public class Client 
     {
-        //Personal Info
+        #region Personal Info
         public string firstNameOne { get; set; }
         public string firstNameTwo { get; set; }
         public string lastNameOne { get; set; }
@@ -12,44 +12,51 @@ namespace data
         public string birthDate { get; set; }
         public string gender { get; set; }
         public string CURP { get; set; }
+        #endregion
 
-        //Address Info
+        #region Address Info
         public string AddressStreet { get; set; }
         public string AddressExtNum { get; set; }
         public string AddressIntNum { get; set; }
         public string AddressZipCode { get; set; }
         public string AddressCity { get; set; }
         public string AddressSubUrb { get; set; }
+        #endregion
 
-        //Contact Info
+        #region Contact Info
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        #endregion
 
-        //Job Info
+        #region Job Info
         public string jobCompany { get; set; }
         public string income { get; set; }
         public string CompanyPhoneNumber { get; set; }
+        #endregion
 
-        //Credentials
+        #region User Credentials
         public string userEmail { get; set; }
         public string userPass { get; set; }
         public string userPhone { get; set; }
         public string estadoCuentaPass { get; set; }
+        #endregion
 
-        //Saldo CLient
+        #region Saldo CLient
         public string newChargesAmount { get; set; }
         public string paymentCreditAmount { get; set; }
         public string monthlyAmount { get; set; }
         public string availableCreditAmount { get; set; }
         public string overdueAmount { get; set; }
         public string totalAmount { get; set; }
+        #endregion
 
-        //Client account information
+        #region Client account information
         public string accountAmount { get; set; }
         public string creditNumber { get; set; }
         public string creditLimitAmount { get; set; }
         public string paymentAmount { get; set; }
         public string totalLoyalPoints { get; set; }
+        #endregion
 
         public List<Movimiento> clientMovimientos = new List<Movimiento>();
 

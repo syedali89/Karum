@@ -1,4 +1,4 @@
 {
 	"REMOTE": "T", //T = perfecto ; F = Local
-	"DEVICE": "I"  //A = Android; I = Iphone
+	"DEVICE": "A"  //A = Android; I = Iphone
 }

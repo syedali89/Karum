@@ -1,10 +1,7 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using utility;
-
 namespace pages
 {
+    using OpenQA.Selenium;
+
     public partial class SandwichMenuPage : BasePage
     {
         //By
