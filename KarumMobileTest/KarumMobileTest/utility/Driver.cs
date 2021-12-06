@@ -98,22 +98,27 @@ namespace utility
             SetCiudadMexicoLocation();
         }
 
+        #region Private Attributes
         private AppiumDriver<AppiumWebElement> _driver;            
         private AndroidDriver<AppiumWebElement> _driverandroid;
         private IOSDriver<AppiumWebElement> _driverios;
         private AppiumOptions _appiumOptions;
         private int _height;
         private int _width;
-        public ReportTool Report;
-        public Exception exception = new Exception("N");
 
-        private class ConfigurationsEnv 
+        private class ConfigurationsEnv
         {
             public string remote { get; set; }
             public string device { get; set; }
             public EnvData envData;
         }
+
         private ConfigurationsEnv _env;
+        #endregion
+        #region Public Attributes
+        public ReportTool Report;
+        public Exception exception = new Exception("N");
+        #endregion
 
         /// <summary>
         /// Set Device Location to Ciudad de Mexico
@@ -163,6 +168,7 @@ namespace utility
             }
         }
 
+        #region Generic public Gets Methods
         public int GetWindownSizeHeight()
         {
             return _height;
@@ -196,6 +202,63 @@ namespace utility
         public OS GetDevice() 
         {
             return  _env.envData.TEST_DEVICE;
+        }
+        
+        public string GetUserName() 
+        {
+            return  _env.envData.USEREMAIL;
+        }
+
+        public string GetUserPass() 
+        {
+            return  _env.envData.USERPASS;
+        }
+        #endregion
+
+        #region Launch Apps on Device Methods
+        /// <summary>
+        /// Launch a IOS App
+        /// </summary>
+        /// <param name="bundleId"></param>
+        public void LaunchNewApp(string bundleId)
+        {
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args.Add("bundleId", bundleId);
+            _driverios.ExecuteScript("mobile: launchApp", args);
+        }
+
+        /// <summary>
+        /// Launch a Android App
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="activity"></param>
+        public void LaunchNewApp(string package, string activity)
+        {
+            _driverandroid.StartActivity(package, activity);
+        }
+        #endregion
+
+        /// <summary>
+        /// Created a Report Client
+        /// </summary>
+        /// <param name="testClass"></param>
+        public void CreateReportingClient(string testClass)
+        {
+            if (GetRemoteState())
+            {
+                PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+                   .WithProject(new Project("KarumAutomationMobile", "v1.0"))
+                   .WithContextTags(new[] { testClass, GetDevice().ToString() })
+                   .WithJob(new Job("Karum Mobile Automation", 1))
+                   .WithWebDriver(GetIntance())
+                   .Build();
+
+                Report = new ReportTool(GetRemoteState(), GetDevice().ToString(), PerfectoClientFactory.CreatePerfectoReportiumClient(perfectoExecutionContext));
+            }
+            else
+            {
+                Report = new ReportTool(GetRemoteState(), GetDevice().ToString());
+            }
         }
 
         /// <summary>
@@ -312,54 +375,10 @@ namespace utility
                 }
                 else
                 {
-                    _env.envData = DataRecover.RecoverEnviromentData("env_ios_local.json");
+                    _env.envData = DataRecover.RecoverEnviromentData("env_ios_local.json");     
                 }
             }
             #endregion
-        }
-
-        /// <summary>
-        /// Created a Report Client
-        /// </summary>
-        /// <param name="testClass"></param>
-        public void CreateReportingClient(string testClass)
-        {
-            if (GetRemoteState())
-            {
-                PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
-                   .WithProject(new Project("KarumAutomationMobile", "v1.0"))
-                   .WithContextTags(new[] { testClass, GetDevice().ToString() })
-                   .WithJob(new Job("Karum Mobile Automation", 1))
-                   .WithWebDriver(GetIntance())
-                   .Build();
-
-                Report = new ReportTool(GetRemoteState(), GetDevice().ToString(), PerfectoClientFactory.CreatePerfectoReportiumClient(perfectoExecutionContext));
-            }
-            else
-            {
-                Report = new ReportTool(GetRemoteState(), GetDevice().ToString());
-            }                        
-        }
-
-        /// <summary>
-        /// Launch a IOS App
-        /// </summary>
-        /// <param name="bundleId"></param>
-        public void LaunchNewApp(string bundleId)
-        {            
-            Dictionary<string, string> args = new Dictionary<string, string>();
-            args.Add("bundleId", bundleId);
-            _driverios.ExecuteScript("mobile: launchApp", args);
-        }
-
-        /// <summary>
-        /// Launch a Android App
-        /// </summary>
-        /// <param name="package"></param>
-        /// <param name="activity"></param>
-        public void LaunchNewApp(string package, string activity)
-        {
-            _driverandroid.StartActivity(package, activity);
-        }
+        }        
     }
 }

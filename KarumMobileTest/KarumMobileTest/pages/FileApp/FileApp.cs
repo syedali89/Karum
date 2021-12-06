@@ -8,7 +8,7 @@ namespace pages
     using static constants;
 
     /// <summary>
-    /// This Page Object exist for the sole porpuse of verify if documents download
+    /// This Page Object exist for the sole porpuse of verify if documents if files App
     /// </summary>
     public partial class FileApp : BasePage
     {

@@ -24,14 +24,14 @@ namespace pages
             _driver.Report.EndStep();
         }
 
-        public void insertSecurityCode(bool correct) 
+        public void insertSecurityCode(bool correct, Client client) 
         {
             _driver.Report.StepDescription("Insert the Security Code");
 
             string code;
             if(correct) 
             {
-                code = DataRecover.RecoverSecurityCode();
+                code = DataRecover.RecoverSecurityCode(_driver, client);
 
                 if(code.Equals(string.Empty))
                 {
@@ -104,7 +104,7 @@ namespace pages
             this.logINClienteAsesor(CLIENTE);
 
             this.inputMandatoryFieldThenContinuar(clientData);
-            this.insertSecurityCode(true);
+            this.insertSecurityCode(true, clientData);
             this.tapContinuar();
 
             this.iniciaSessionPassword(clientData);
@@ -236,11 +236,11 @@ namespace pages
             _driver.Report.EndStep();
         }
 
-        public void verifyCorrectPassword() 
+        public void verifyCorrectPassword(Client clientData) 
         {
             _driver.Report.StepDescription("Verify correct Login when is introduce a correct password");
 
-            assertElementWithTextExist("Crédito Karum");
+            assertElementText(headerTitle, "Hola, " + clientData.firstNameOne + " " + clientData.lastNameOne);
 
             _driver.Report.EndStep();
         }

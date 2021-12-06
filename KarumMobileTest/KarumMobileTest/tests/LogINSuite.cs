@@ -93,7 +93,7 @@ namespace tests
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
-            logIN.insertSecurityCode(false);
+            logIN.insertSecurityCode(false, clientData);
             logIN.verifyCONTINUARbtnState(true);
         }
 
@@ -103,7 +103,7 @@ namespace tests
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
-            logIN.insertSecurityCode(false);
+            logIN.insertSecurityCode(false, clientData);
             logIN.tapContinuar();
             logIN.verifyBadCode();
         }
@@ -114,7 +114,7 @@ namespace tests
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
-            logIN.insertSecurityCode(true);
+            logIN.insertSecurityCode(true, clientData);
             logIN.tapContinuar();
             logIN.verifyPasswordPage(clientData);
         }
@@ -125,7 +125,7 @@ namespace tests
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
-            logIN.insertSecurityCode(true);
+            logIN.insertSecurityCode(true, clientData);
             logIN.tapContinuar();
 
             clientData.userPass = "WRONG";
@@ -139,11 +139,11 @@ namespace tests
             logIN.logINClienteAsesor(constants.CLIENTE);
 
             logIN.inputMandatoryFieldThenContinuar(clientData);
-            logIN.insertSecurityCode(true);
+            logIN.insertSecurityCode(true, clientData);
             logIN.tapContinuar();
 
             logIN.iniciaSessionPassword(clientData);
-            logIN.verifyCorrectPassword();
+            logIN.verifyCorrectPassword(clientData);
         }
     }
 }

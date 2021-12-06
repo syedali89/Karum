@@ -20,5 +20,10 @@ namespace data
         public string CLOUDNAME { get; set; }
         public string SECURITYTOKEN { get; set; }
         #endregion
+
+        #region GMAIL CREDENTIALS ATRIBUTES
+        public string USEREMAIL { get; set; }
+        public string USERPASS { get; set; }
+        #endregion
     }
 }

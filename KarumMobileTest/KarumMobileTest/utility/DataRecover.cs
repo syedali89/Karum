@@ -5,6 +5,7 @@ namespace utility
     using OpenQA.Selenium;
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.IO;
     using System.IO.Compression;
     using System.Text;
@@ -59,13 +60,14 @@ namespace utility
                 localpath, JSON_FOLDER, file));
         }
 
+        [Obsolete]
         public static string RecoverSecurityCode() 
         {
             string securityCode = string.Empty;
             string dateReturn = string.Empty;
 
-            #region Use the WebScrap Object for recover the Code from the email inbox 
-            WebScrap webScrap = new WebScrap();
+            #region Use the WebScrap Object for recover the Code from the email inbox OBSOLETE         
+            DriverChrome webScrap = new DriverChrome();
             try 
             {
                 webScrap.waitElementExist(EMAILINBOX, WAITJUSTNOWEMAIL);
@@ -84,6 +86,43 @@ namespace utility
                 Console.WriteLine(ex.Message);
                 webScrap.KillSession();
             }
+            #endregion
+
+            #region Use Regex to extract the 6 digit number code from all the text recover
+            Regex rx = new Regex("(\\d{6})");
+
+            MatchCollection matcher = rx.Matches(dateReturn);
+            
+            if (matcher.Count > 0) 
+            {
+                securityCode = matcher[0].Value;
+            }
+            return securityCode;
+            #endregion
+        }
+        
+        public static string RecoverSecurityCode(Driver data, Client client) 
+        {
+            string securityCode = string.Empty;
+            string dateReturn = string.Empty;
+
+            #region Use ChromeDriver to enter Gmail and Recover Security Code
+            GmailWebPage gmailPage = null;
+            try
+            {
+                gmailPage = new GmailWebPage(new DriverChrome(), client);
+                gmailPage.LogINGmail(data.GetUserName(), data.GetUserPass());
+                dateReturn = gmailPage.GetMailMessage();
+                gmailPage.driver.KillSession();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (gmailPage.driver != null)
+                {
+                    gmailPage.driver.KillSession();
+                }
+            }            
             #endregion
 
             #region Use Regex to extract the 6 digit number code from all the text recover
@@ -129,6 +168,13 @@ namespace utility
             }
 
             return Listfilesnames;
+        }
+
+        public static void RecoverTableExcelData(string pathExcel)
+        {
+
+            
+
         }
     }
 }
