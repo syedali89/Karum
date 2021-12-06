@@ -1,10 +1,11 @@
 namespace pages
 {
+    using data;
     using NUnit.Framework;
     using OpenQA.Selenium;
-    using utility;
-    using data;
     using System.Collections.Generic;
+    using utility;
+    using static constants;
 
     public partial class MisMovimientosPage : BasePage
     {
@@ -47,12 +48,12 @@ namespace pages
         {
             _driver.Report.StepDescription("Verify Solicitar Aclaracion message is on screen");
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 assertElementWithTextExist("Solicitud de aclaración enviada");
                 assertElementWithTextExist("Te hemos enviado la información sobre la solicitud de aclaración de cargo no reconocido a tu correo " + client.userEmail);
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 assertTextContains(By.XPath("//*[contains(@label, 'Solicitud de')]") ,"Solicitud de");                
                 assertTextContains(By.XPath("//*[contains(@label, 'Solicitud de')]") ,"aclaración enviada");
@@ -99,7 +100,7 @@ namespace pages
                     new Movimiento(element.FindElement(transactionNumber).Text, element.FindElement(transactionType).Text, element.FindElement(amountItem).Text));
             }
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 SwipeAction.swipeDownUntilElementText(_driver, clientData.clientMovimientos[clientData.clientMovimientos.Count - 1].moneyAmount);
 

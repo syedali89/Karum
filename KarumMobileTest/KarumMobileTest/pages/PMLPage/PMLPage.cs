@@ -1,11 +1,11 @@
-using data;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System.Collections.Generic;
-using utility;
-
 namespace pages
 {
+    using static constants;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using System.Collections.Generic;
+    using utility;
+
     //PreventMoneyLaunderingPageObject
     public partial class PMLPage : BasePage 
     {
@@ -100,7 +100,7 @@ namespace pages
         {
             _driver.Report.StepDescription("Verify if all elements from Prevent Laundering are on screen");
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 assertElementWithTextExist(
                         @"Te queremos conocer mejor, por favor responde las preguntas para poder hacerlo:");
@@ -117,7 +117,7 @@ namespace pages
                 assertElementWithTextExist(
                         @"Declaro que los recursos que utilizaré para el pago de este producto provienen de una fuente licita.");
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 assertElementText(By.XPath("//*[contains(@label, 'Te queremos conocer mejor')]"), "Te queremos conocer mejor, por favor responde las preguntas para poder hacerlo:");
                 

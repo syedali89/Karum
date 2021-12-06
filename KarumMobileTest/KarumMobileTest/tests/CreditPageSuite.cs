@@ -51,9 +51,7 @@ namespace tests
         }
 
         [Test, Order(4)]
-
         public void TC023_MisCreditosPage_MisPuntosButton() 
-
         {
             creditpage.tapGoCreditDownMenu();
             var lealtadPage = creditpage.tapMisPuntosBtn();

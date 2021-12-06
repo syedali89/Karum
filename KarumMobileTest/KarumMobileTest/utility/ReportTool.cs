@@ -3,17 +3,19 @@ namespace utility
     using NUnit.Framework;
     using OpenQA.Selenium.Appium;
     using Reportium.Client;
-    using Reportium.Model;
     using Reportium.Test.Result;
     using System;
     using static constants;
 
+    /// <summary>
+    /// Tool use for Reporting on Perfecto or Console writing on local 
+    /// </summary>
     public class ReportTool
     {
         public ReportiumClient reportiumClient;
         private bool remote;
         private string device;
-
+        
         public ReportTool(bool remote, string device, ReportiumClient reportiumClient)
         {
             this.remote = remote;
@@ -39,6 +41,10 @@ namespace utility
             }
         }
 
+        /// <summary>
+        /// Description of the Specific Step executed
+        /// </summary>
+        /// <param name="step"></param>
         public void StepDescription(string step)
         {
             if (remote)
@@ -51,6 +57,9 @@ namespace utility
             }
         }
 
+        /// <summary>
+        /// End of the current Step
+        /// </summary>
         public void EndStep()
         {
             if (remote)
@@ -67,10 +76,6 @@ namespace utility
                 {
                     var url = reportiumClient.GetReportUrl();
                     Console.WriteLine(url);
-
-                    //Optional open browser after test finished: 
-                    System.Diagnostics.Process.Start(url.ToString());
-
                 }
                 catch (Exception ex)
                 {
@@ -79,6 +84,9 @@ namespace utility
             }
         }
         
+        /// <summary>
+        /// Test Success Actions
+        /// </summary>
         public void TestSuccess()
         {
             if (remote)
@@ -87,11 +95,17 @@ namespace utility
             }
         }
 
+        /// <summary>
+        /// Fail test Actions
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <param name="ex"></param>
         public void TestFails(AppiumDriver<AppiumWebElement> driver, Exception ex)
         {
             string path = string.Empty;
             if (remote)
             {
+                #region Mark the test as failed on Perfecto Report
                 reportiumClient.StepEnd("Step end because test fail");
                 
                 string message = TestContext.CurrentContext.Result.Message + ". Stack Trace:" + TestContext.CurrentContext.Result.StackTrace;
@@ -104,9 +118,11 @@ namespace utility
                 {
                     reportiumClient.TestStop(TestResultFactory.CreateFailure(message));
                 }
+                #endregion
             }
             else
             {
+                #region Take a Screenshot of the error in Local
                 try
                 {
                     path = GetScreenshot.capture(driver, TestContext.CurrentContext.Test.Name);
@@ -116,7 +132,8 @@ namespace utility
                 {
                     Console.WriteLine(e.Message);
                 }
-            }            
+                #endregion
+            }
         }
     }
 }

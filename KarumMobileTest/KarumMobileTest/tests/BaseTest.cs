@@ -4,7 +4,6 @@ namespace tests
     using NUnit.Framework;
     using NUnit.Framework.Interfaces;
     using pages;
-    using System;
     using utility;
 
     [TestFixture]

@@ -1,10 +1,9 @@
-
-using NUnit.Framework;
-using pages;
-using utility;
-
 namespace tests
 {
+    using NUnit.Framework;
+    using pages;
+    using utility;
+
     [TestFixture("Home Page Suite")]
     public class HomePageSuite : BaseTest 
     {

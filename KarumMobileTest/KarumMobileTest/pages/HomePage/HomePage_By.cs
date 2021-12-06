@@ -1,10 +1,6 @@
 namespace pages
 {
-    using data;
-    using NUnit.Framework;
     using OpenQA.Selenium;
-    using utility;
-    using static constants;
 
     public partial class HomePage : BasePage
     {

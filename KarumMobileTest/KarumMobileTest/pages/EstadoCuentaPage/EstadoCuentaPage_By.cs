@@ -1,14 +1,6 @@
 namespace pages
 {
-    using data;
-    using NUnit.Framework;
     using OpenQA.Selenium;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Threading;
-    using utility;
-    using static constants;
 
     public partial class EstadoCuentaPage : BasePage
     {

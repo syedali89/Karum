@@ -1,11 +1,6 @@
 namespace pages
 {
-    using data;
-    using NUnit.Framework;
     using OpenQA.Selenium;
-    using System;
-    using System.Globalization;
-    using utility;
 
     public partial class ConsultaSaldoPage : BasePage
     {

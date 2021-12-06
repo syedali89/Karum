@@ -1,4 +1,3 @@
-
 namespace tests
 {
     using NUnit.Framework;

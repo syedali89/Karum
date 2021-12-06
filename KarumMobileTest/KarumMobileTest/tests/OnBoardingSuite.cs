@@ -1,9 +1,9 @@
-using NUnit.Framework;
-using pages;
-using utility;
-
 namespace tests
 {
+    using NUnit.Framework;
+    using pages;
+    using utility;
+
     [TestFixture("OnBoarding Suite")]
     public class OnBoardingSuite : BaseTest
     {

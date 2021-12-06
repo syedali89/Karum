@@ -1,19 +1,15 @@
-namespace pages 
+namespace pages
 {
+    using data;
     using NUnit.Framework;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
+    using OpenQA.Selenium.Appium.iOS.Enums;
     using OpenQA.Selenium.Interactions;
     using OpenQA.Selenium.Support.UI;
     using System;
-    using System.Collections.Generic;
     using utility;
-    using data;
     using static constants;
-    using OpenQA.Selenium.Appium.Interfaces;
-    using OpenQA.Selenium.Appium.iOS;
-    using OpenQA.Selenium.Appium.iOS.Enums;
-    using OpenQA.Selenium.Appium.MultiTouch;
 
     public class BasePage 
     {
@@ -38,7 +34,7 @@ namespace pages
             _driver = driver;
             wait = new WebDriverWait(driver.GetIntance(), TimeSpan.FromSeconds(30));
             act = new Actions(driver.GetIntance());
-            if (driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            if (driver.GetDevice().Equals(OS.IOS))
             {
                 SetIOSBy();                
             }
@@ -76,7 +72,7 @@ namespace pages
             {
                 wait.Timeout = TimeSpan.FromSeconds(5);
 
-                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+                if (_driver.GetDevice().Equals(OS.ANDROID))
                 {
                     By allowButtonForeground = By.Id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
                     By allowButton = By.Id("com.android.permissioncontroller:id/permission_allow_button");
@@ -91,7 +87,7 @@ namespace pages
                         clickElement(allowButton);
                     }
                 }
-                if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+                if (_driver.GetDevice().Equals(OS.IOS))
                 {
                     By allowButton = By.XPath("//*[@label='Always Allow']");
                     By OkButton = By.XPath("//*[@label='OK']");
@@ -138,7 +134,7 @@ namespace pages
             var sendkeyElement = _driver.GetIntance().FindElement(locator);
             sendkeyElement.SendKeys(text);
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            if (_driver.GetDevice().Equals(OS.IOS))
             {
                 _driver.GetIOSDriver().HideKeyboard(HideKeyboardStrategy.Tap_outside);
                 
@@ -246,11 +242,11 @@ namespace pages
         {
             By locator = null;
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 locator = By.XPath("//*[@text='" + text + "']");
             }
-            else if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.IOS))
+            else if (_driver.GetDevice().Equals(OS.IOS))
             {
                 locator = By.XPath("//*[@label='" + text + "']");
             }            
@@ -266,7 +262,7 @@ namespace pages
             bool notEndDocument = true;
             string lastText = "";
 
-            if (_driver.GetDevice().Equals(EnvironmentData.DEVICE.ANDROID))
+            if (_driver.GetDevice().Equals(OS.ANDROID))
             {
                 while (notEndDocument)
                 {

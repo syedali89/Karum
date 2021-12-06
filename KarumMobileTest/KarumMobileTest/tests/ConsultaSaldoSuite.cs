@@ -1,10 +1,9 @@
-
-using NUnit.Framework;
-using pages;
-using utility;
-
 namespace tests
 {
+    using NUnit.Framework;
+    using pages;
+    using utility;
+
     [TestFixture("Consulta de Saldo Suite")]
     public class ConsultaSaldoSuite : BaseTest 
     {
