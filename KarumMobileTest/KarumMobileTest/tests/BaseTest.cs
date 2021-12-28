@@ -23,14 +23,14 @@ namespace tests
 
             //Create LogIN and grand all permissions
             logIN = new LogIN(_driver);
-            logIN.grantAllPermissions();            
+            logIN.grantAllPermissions();
 
             //Start Reporting
             _driver.Report.TestCaseStartReport();
         }
 
         [TearDown]
-        public void afterTest() 
+        public void afterTest()
         {
             //Reporting for success or fail
             if (TestContext.CurrentContext.Result.Outcome == ResultState.Success)

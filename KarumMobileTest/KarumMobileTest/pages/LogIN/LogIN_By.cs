@@ -40,7 +40,7 @@ namespace pages
             CONTINUARbtn = By.XPath("//*[@label='CONTINUAR']");
             titleScreenCLIENTE = By.XPath("//*[contains(@label,'Comienza a comprar')]");
 
-            alertMessageBadCode = By.XPath("//*[@label='Código incorrecto, intentalo nuevamente']");
+            alertMessageBadCode = By.XPath("//*[contains(@label, 'Código incorrecto')]");
             greatingsActivationDevice = By.XPath("//*[contains(@label, 'Hola, ')]");
             wrongPasswordMessage = By.XPath("//*[contains(@label, 'Contraseña incorrecta')]");
             messageActivationDevice = By.XPath("//*[contains(@label,'Activa tu dispositivo')]");

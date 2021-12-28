@@ -6,7 +6,7 @@ namespace tests
     using static constants;
 
     [TestFixture("Estado de Cuenta Suite")]
-    public class EstadoCuentaSuite  : BaseTest 
+    public class EstadoCuentaSuite : BaseTest 
     {
         public HomePage home;
         public EstadoCuentaPage estadoCuenta;

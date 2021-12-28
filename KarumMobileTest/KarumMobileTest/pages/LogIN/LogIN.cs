@@ -204,7 +204,14 @@ namespace pages
             _driver.Report.StepDescription("Verify error login message when you introduce a email and phone that doesn't match");
             
             assertElementWithTextExist("Los datos proporcionados no coinciden con ningun registro");
-            assertElementWithTextExist("ACEPTAR");
+            if (_driver.GetDevice().Equals(OS.ANDROID))
+            {
+                assertElementWithTextExist("ACEPTAR");
+            }
+            else if(_driver.GetDevice().Equals(OS.IOS))
+            {
+                assertElementWithTextExist("Aceptar");
+            }
 
             _driver.Report.EndStep();
         }

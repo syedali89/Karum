@@ -122,9 +122,8 @@ namespace utility
                 {
                     gmailPage.driver.KillSession();
                 }
-            }            
+            }   
             #endregion
-
             #region Use Regex to extract the 6 digit number code from all the text recover
             Regex rx = new Regex("(\\d{6})");
 
