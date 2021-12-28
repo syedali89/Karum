@@ -32,7 +32,6 @@ C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\itext.styledxmlparser.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\itext.svg.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll
-C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\Microsoft.DotNet.InternalAbstractions.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CoreUtilities.dll
@@ -49,7 +48,6 @@ C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\WebDriver.Support.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\WebDriver.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
-C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
@@ -122,3 +120,9 @@ C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\obj\
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\obj\Debug\netcoreapp3.1\KarumMobileTest.dll
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\obj\Debug\netcoreapp3.1\KarumMobileTest.pdb
 C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\obj\Debug\netcoreapp3.1\KarumMobileTest.genruntimeconfig.cache
+C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\testcentric.engine.metadata.dll
+C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\KarumMobileTest.dll.config
+C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\System.Net.Http.Extensions.dll
+C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\System.Net.Http.Primitives.dll
+C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\bin\Debug\netcoreapp3.1\ReportiumLib.dll
+C:\Trabajo_Agos\Karum_Automation_Repository\KarumMobileTest\KarumMobileTest\obj\Debug\netcoreapp3.1\KarumMobileTest.csproj.App.config

@@ -50,15 +50,23 @@
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[16.9.4, )"
+              "version": "[17.0.0, )"
             },
             "NUnit": {
               "target": "Package",
-              "version": "[3.13.1, )"
+              "version": "[3.13.2, )"
             },
             "NUnit3TestAdapter": {
               "target": "Package",
-              "version": "[3.17.0, )"
+              "version": "[4.1.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Perfecto-Reporting": {
+              "target": "Package",
+              "version": "[3.0.2, )"
             },
             "Selenium.WebDriver": {
               "target": "Package",
@@ -66,7 +74,7 @@
             },
             "Selenium.WebDriver.ChromeDriver": {
               "target": "Package",
-              "version": "[94.0.4606.6100, )"
+              "version": "[96.0.4664.4500, )"
             },
             "coverlet.collector": {
               "target": "Package",

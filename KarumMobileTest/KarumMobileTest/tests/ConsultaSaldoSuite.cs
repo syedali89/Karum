@@ -31,7 +31,7 @@ namespace tests
         }
 
         [Test, Order(2)]
-        public void TC009_ConsultaSaldoPage_BackHOME() 
+        public void TC009_ConsultaSaldoPage_BackHOME()
         {
             consultaSaldo.tapGoBack();
             home.verifyHomePageOnScreen(clientData);

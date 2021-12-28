@@ -96,7 +96,6 @@ namespace pages
                     {
                         clickElement(allowButton);
                     }                                                                                
-
                     while (validateElementVisible(OkButton))
                     {
                         clickElement(OkButton);
@@ -211,8 +210,8 @@ namespace pages
         
         protected void verifyCreditoKarumNumber(Client clientData)
         {
-            assertElementWithTextExist("Crédito Karum");            
-             assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
+            assertElementWithTextExist("Crédito Karum");
+            assertElementText(clientNumber, "************" + clientData.getLastCreditNumber());
         }        
 
         protected void assertElementText(By locator, string text)

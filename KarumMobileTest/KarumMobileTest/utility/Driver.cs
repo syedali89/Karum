@@ -75,7 +75,6 @@ namespace utility
             else if(_env.envData.TEST_DEVICE.Equals(OS.IOS))
             {
                 #region Set IOS Specific Capabilitys
-                _appiumOptions.AddAdditionalCapability("resolution", "1125x2436");
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "ios");     
                 _appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");
                 _appiumOptions.AddAdditionalCapability("sendKeyStrategy", "setValue");
